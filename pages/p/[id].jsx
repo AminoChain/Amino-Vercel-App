@@ -1,10 +1,8 @@
 import React from "react"
-import { GetServerSideProps } from "next"
 import ReactMarkdown from "react-markdown"
 import Layout from "../../components/Layout"
-import { PostProps } from "../../components/Post"
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params }) => {
   const post = {
     id: "1",
     title: "Prisma is the perfect ORM for Next.js",
@@ -20,7 +18,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   }
 }
 
-const Post: React.FC<PostProps> = (props) => {
+const Post = (props) => {
   let title = props.title
   if (!props.published) {
     title = `${title} (Draft)`

@@ -1,9 +1,8 @@
 import React from "react"
-import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
-import Post, { PostProps } from "../components/Post"
+import Post from "../components/Post"
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = async () => {
   const feed = [
     {
       id: "1",
@@ -22,11 +21,9 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-type Props = {
-  feed: PostProps[]
-}
 
-const Blog: React.FC<Props> = (props) => {
+
+const Blog = (props) => {
   return (
     <Layout>
       <div className="page">

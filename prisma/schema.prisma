@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Nft {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  halotypeHash    String?
+  contractAddress String
+  shippingInfo    ShippingInfo? @relation(fields: [shippingId], references: [id])
+  donor           Donor?        @relation(fields: [donorId], references: [id])
+  donorId         String        @unique @db.ObjectId
+  shippingId      String?       @unique @db.ObjectId
+}
+
+model Donor {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  email         String?
+  walletAddress String?
+  username      String?
+  nft           Nft?
+}
+
+model ShippingInfo {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  deliveryAddress String
+  arrived         Boolean @default(false)
+  nft             Nft?
+}
