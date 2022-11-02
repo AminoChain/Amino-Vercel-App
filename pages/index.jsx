@@ -1,43 +1,28 @@
-import React from "react"
-import Layout from "../components/Layout"
-import Post from "../components/Post"
+import React from 'react'
+import LandingPage from '../components/LandingPage/LandingPage'
 
 export const getStaticProps = async () => {
   const feed = [
     {
-      id: "1",
-      title: "Prisma is the perfect ORM for Next.js",
-      content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
+      id: '1',
+      title: 'Prisma is the perfect ORM for Next.js',
+      content:
+        '[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!',
       published: false,
       author: {
-        name: "Nikolas Burk",
-        email: "burk@prisma.io",
+        name: 'Nikolas Burk',
+        email: 'burk@prisma.io',
       },
     },
   ]
-  return { 
-    props: { feed }, 
-    revalidate: 10 
+  return {
+    props: { feed },
+    revalidate: 10,
   }
 }
 
-
-
-const Blog = (props) => {
-  return (
-    <Layout>
-      <div className="">
-        <h1>Public Feed</h1>
-        <main>
-          {props.feed.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
-          ))}
-        </main>
-      </div>
-    </Layout>
-  )
+const Home = (props) => {
+  return <LandingPage />
 }
 
-export default Blog
+export default Home
