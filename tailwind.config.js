@@ -12,7 +12,7 @@ module.exports = {
         experiment: '#40EDED',
         main: '#8F95B2',
         pinkHLAA: '#FEC7FF',
-        orangeHLAB: '#FFDEB7',
+        orangeHLAB: '#FFC077',
         blueHLAC: '#82FFFF',
         greenHLADRB: '#7FFFCF',
         yellowHLADPB: '#FFE8A3',
@@ -23,14 +23,10 @@ module.exports = {
         marketplaceButton: '#ECF1F4',
       },
       dropShadow: {
-        donatebuttonIntroShadow: [
-          '9px 9px 16px rgba(52, 221, 152, 0.24)',
-          '-9px -9px 16px rgba(250, 251, 255, 1)',
-        ],
-        marketplaceButtonShadow: [
-          '9px 9px 16px rgba(64, 237, 237, 0.4)',
-          '-9px -9px 16px rgba(250, 251, 255, 1)',
-        ],
+        donatebuttonIntroShadow: '9px 9px 16px rgba(52, 221, 152, 0.24)',
+        marketplaceButtonShadow: '9px 9px 16px rgba(64, 237, 237, 0.4)',
+        searchButtonShadow: '9px 9px 16px rgba(64, 237, 237, 0.4)',
+        nftCard: '4px 5px 10px rgba(180, 180, 180, 1)',
       },
     },
   },

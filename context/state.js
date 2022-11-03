@@ -4,10 +4,11 @@ const AppContext = createContext();
 
 export function AppWrapper({ children }) {
   let sharedState = { search: "temporary"}
+  let 
   // add anything you want to be able to retrieve
 
   return(
-    <AppContext.Provider value={sharedState}>
+    <AppContext.Provider value={[sharedState]}>
       {children}
     </AppContext.Provider>
   )

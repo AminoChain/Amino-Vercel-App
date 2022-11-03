@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import aminoLogo from '../../assets/aminoLogo.png'
+import aminoLogo from '../../assets/aminoLogo2.png'
 
 const Nav = () => {
   return (
@@ -8,14 +8,8 @@ const Nav = () => {
         <Image
           src={aminoLogo}
           alt="Image of AminoChain Logo"
-          height={50}
-          width={50}
-        />
-        <Image
-          src={aminoLogo}
-          alt="Image of AminoChain Logo"
-          height={50}
-          width={50}
+          height={40}
+          width={71}
         />
       </div>
       <div className='w-1/5 flex flex-row justify-evenly text-main'>
