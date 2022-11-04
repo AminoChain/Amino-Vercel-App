@@ -29,7 +29,7 @@ const Marketplace = () => {
   //   title = `${title} (Draft)`
   // }
 
-  const isEmpty = Object.keys(matches).length === 0
+  const isEmpty = Object.keys(search).length === 0
 
   if (isEmpty) {
     return (

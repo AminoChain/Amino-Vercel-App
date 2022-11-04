@@ -3,6 +3,7 @@
 
 const DonateSearchSteps = ({progress, barPercent, setBarPercent}) => {
   const bar = (progress/10) * 100
+  
   return (
     <div className="w-full flex flex-col">
       <div className="w-full flex flex-row px-20">

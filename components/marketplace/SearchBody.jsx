@@ -1,4 +1,4 @@
-const SearchBody = () => {
+const SearchBody = ({setSearch}) => {
   const searchInput = (e) => {
     e.preventDefault()
 
