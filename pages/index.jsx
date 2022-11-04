@@ -1,5 +1,5 @@
 import React from 'react'
-import Landing from '../components/Landing'
+import LandingPage from '../components/landingpage/LandingPage'
 
 export const getStaticProps = async () => {
   const feed = [
@@ -22,7 +22,7 @@ export const getStaticProps = async () => {
 }
 
 const Home = () => {
-  return <Landing />
+  return <LandingPage />
 }
 
 export default Home

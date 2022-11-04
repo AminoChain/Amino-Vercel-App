@@ -1,6 +1,6 @@
-import Header from './landingpage/Header'
+import Header from './Header'
 
-const Landing = () => {
+const LandingPage = () => {
   return (
     <div className="w-screen flex flex-col bg-white">
       <Header />
@@ -9,4 +9,4 @@ const Landing = () => {
   )
 }
 
-export default Landing
+export default LandingPage
