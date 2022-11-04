@@ -1,4 +1,4 @@
-const SearchInput = () => {
+const SearchBody = () => {
   const searchInput = (e) => {
     e.preventDefault()
 
@@ -137,4 +137,4 @@ const SearchInput = () => {
   )
 }
 
-export default SearchInput
+export default SearchBody

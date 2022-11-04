@@ -1,12 +1,12 @@
 
 import SearchBanner from './SearchBanner'
-import SearchInput from './SearchInput'
+import SearchBody from './SearchBody'
 
 const SearchPage = ({ matches, setMatches, search, setSearch }) => {
   return (
     <div className='w-full'>
       <SearchBanner/>
-      <SearchInput search={search} setSearch={setSearch}/>
+      <SearchBody search={search} setSearch={setSearch}/>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import cellImage from '../../assets/cell.png'
 import donateImage from '../../assets/donateSymbol.png'
 import marketplaceImage from '../../assets/marketplaceSymbol.png'
 
-const Intro = () => {
+const IntroBody = () => {
   return (
     <div className="w-full flex flex-row p-20">
       <article className="w-1/2 flex flex-col">
@@ -39,4 +39,4 @@ const Intro = () => {
   )
 }
 
-export default Intro
+export default IntroBody
