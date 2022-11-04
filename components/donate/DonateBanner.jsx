@@ -9,7 +9,7 @@ const DonateBanner = () => {
           <div className=" text-black">gm,&nbsp;</div>
           <div className="text-main">insert wallet address</div>
         </div>
-        <Image src={aminoLogo} />
+        <Image src={aminoLogo} alt="amino logo image" />
       </div>
     </div>
   )

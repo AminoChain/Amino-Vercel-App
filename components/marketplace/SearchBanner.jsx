@@ -5,7 +5,7 @@ const SearchBanner = () => {
   return (
     <div className="w-full h-[30vh] flex items-end bg-gradient-to-br from-greenHLADRB to-yellowHLADPB">
       <div className="w-full flex justify-between items-center px-36 py-5">
-        <Image src={aminoLogo} />
+        <Image src={aminoLogo} alt="amino logo image" />
       </div>
     </div>
   )
