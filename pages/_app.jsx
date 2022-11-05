@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
-import { AppWrapper } from '../context/state'
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -9,11 +8,9 @@ const client = new ApolloClient({
 
 const App = ({ Component, pageProps }) => {
   return (
-    <AppWrapper>
-      <ApolloProvider client={client}>
-        <Component {...pageProps} />
-      </ApolloProvider>
-    </AppWrapper>
+    <ApolloProvider client={client}>
+      <Component {...pageProps} />
+    </ApolloProvider>
   )
 }
 

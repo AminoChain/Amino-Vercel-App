@@ -28,6 +28,9 @@ module.exports = {
         searchButtonShadow: '9px 9px 16px rgba(64, 237, 237, 0.4)',
         nftCard: '4px 5px 10px rgba(180, 180, 180, 1)',
       },
+      fontFamily: {
+        satoshi: ["satoshi"],
+      },
     },
   },
   plugins: [],
