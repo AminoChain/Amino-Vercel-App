@@ -1,5 +1,5 @@
 import React from 'react'
-import LandingPage from '../components/landingPage/LandingPage'
+import LandingPage from '../components/landingPage'
 
 export const getStaticProps = async () => {
   const feed = [
