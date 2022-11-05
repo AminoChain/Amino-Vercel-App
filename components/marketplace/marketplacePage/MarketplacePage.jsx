@@ -1,5 +1,6 @@
 import NftCard from './NftCard'
 import { gql, useQuery } from '@apollo/client'
+import Link from 'next/link'
 
 const MarketplacePage = ({ search }) => {
   const GET_MINTED_NFTS = gql`
@@ -68,17 +69,16 @@ const MarketplacePage = ({ search }) => {
 
   const nftMatches = bestMatchNftArray.map((item, index) => {
     return (
-      <Link href={`marketplace/item/${item.nftId}`}>
+      <div >
         <a>
           <NftCard key={index} item={item} />
         </a>
-      </Link>
+      </div>
     )
   })
   return (
-    <div className="w-full">
+    <div className="w-full flex">
       {nftMatches}
-      <NftCard />
     </div>
   )
 }
