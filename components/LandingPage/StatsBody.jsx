@@ -1,4 +1,4 @@
-const LandingPage = () => {
+const StatsBody = () => {
   return (
     <div className="flex w-screen bg-center px-[10%] mt-6">
       <div className="flex w-full p-16 justify-evenly align-middle text-center border-solid border-x-2 rounded-3xl border-main">
@@ -25,4 +25,4 @@ const LandingPage = () => {
   )
 }
 
-export default LandingPage
+export default StatsBody
