@@ -3,7 +3,7 @@ import aminoLogo from '../../assets/aminoLogo2.png'
 
 const Nav = () => {
   return (
-    <div className="w-screen flex flex-row justify-between px-[10%]">
+    <div className="w-full flex flex-row justify-between px-[10%]">
       <a href="./">
         <div>
           <Image
@@ -15,7 +15,7 @@ const Nav = () => {
         </div>
       </a>
       <div className=" flex flex-row justify-evenly ">
-        <div className="text-base font-medium text-black">Docs</div>
+        <div className="text-base font-satoshiMedium text-black">Docs</div>
       </div>
     </div>
   )
