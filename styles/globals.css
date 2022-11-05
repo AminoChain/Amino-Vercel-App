@@ -1,8 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('satoshi.css');
 
+/* 
 @font-face {
-  font-family: "satoshi";
-  src: url("./satoshiFontOTF/Satoshi-Regular.otf");
+  font-family: 'Satoshi-Variable';
+  src: url('../fonts/Satoshi-Variable.ttf');
 }
+@font-face {
+  font-family: 'Satoshi-MediumItalic';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-MediumItalic.otf');
+}
+@font-face {
+  font-family: 'Satoshi-Medium';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-Medium.otf');
+}
+@font-face{
+  font-family: 'Satoshi-Italic';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-Italic.otf');
+}
+@font-face{
+  font-family: 'Satoshi-BlackItalic';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-BlackItalic.otf');
+}
+@font-face {
+  font-family: 'Satoshi-Black';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-Black.otf');
+}
+@font-face {
+  font-family: 'Satoshi-BoldItalic';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-BoldItalic.otf');
+}
+@font-face {
+  font-family: 'Satoshi-Bold';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-Bold.otf');
+}
+@font-face {
+  font-family: 'Satoshi-Regular';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-Regular.otf');
+}
+@font-face{
+  font-family: 'Satoshi-VariableItalic';
+  src: url('../fonts/Satoshi_Complete/Fonts/Variable/Satoshi-VariableItalic.ttf');
+}
+@font-face{
+  font-family: 'Satoshi-Light';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-Light.otf');
+}
+@font-face {
+  font-family: 'Satoshi-LightItalic';
+  src: url('../fonts/Satoshi_Complete/Fonts/OTF/Satoshi-LightItalic.otf');
+} */

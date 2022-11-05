@@ -9,8 +9,8 @@ const IntroBody = () => {
     <div className="w-full flex flex-row p-20">
       <article className="w-1/2 flex flex-col">
         <div className="text-8xl my-10">
-          <span className=" text-black">Amino</span>
-          <span className=" text-primary">Chain</span>
+          <span className=" text-black font-satoshiRegular">Amino</span>
+          <span className=" text-primary ">Chain</span>
         </div>
         <div className="text-main text-6xl font-light">
           Tokenizing stem cells and incentivising donors
