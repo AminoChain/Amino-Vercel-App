@@ -11,7 +11,6 @@ const Header = () => {
     <header className="w-full flex flex-col mt-20">
       <title>AminoChain</title>
       <Nav />
-      <IntroBody />
     </header>
   )
 }
