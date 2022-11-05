@@ -1,29 +1,34 @@
-import Link from "next/link"
+import Link from 'next/link'
 
 const NftCard = ({ item }) => {
   const percentage = (item.matchRating / 6) * 100
+  const biobank = item.bioBank.slice(0, 6) + "..."
+  const price = item.price
+
   return (
-    <Link href={`/marketplace/item/${item.nftId}`}>
-      <div className="w-fit bg-white flex flex-col p-5 drop-shadow-nftCard rounded-lg">
-        <div className="my-3">
-          <div className="flex flex-row items-center">
-            Type<div className="w-3 h-3 mx-2 bg-pinkHLAA"></div>
+    <Link href={`/marketplace/nft?tokenId=${item.tokenId}`}>
+      <div className="w-fit min-w-[223px] bg-white flex flex-col p-5 drop-shadow-nftCard rounded-lg">
+        <div className="py-3">
+          <div className="py-2 font-satoshiLight text-sm text-main">
+            Biobank
           </div>
-          <div>HLA A*01:01:03</div>
+          <div className=" font-satoshiRegular text-xl text-black">
+            {biobank}
+          </div>
         </div>
-        <div className="my-3">
-          <div>Match Rate</div>
-          <div>{percentage}%</div>
-          <div className="h-2 w-full bg-slate-300 rounded">
+        <div className="py-3">
+          <div className=" font-satoshiLight text-main">Match Rate</div>
+          <div className=" font-satoshiBold text-black">{percentage}%</div>
+          <div className="h-2 w-full bg-slate-200 rounded">
             <div
               style={{ width: `${percentage}%` }}
-              className={`h-2 bg-slate-800 rounded`}
+              className={`h-2 bg-primary rounded`}
             ></div>
           </div>
         </div>
-        <div className="my-3">
-          <div>Price</div>
-          <div>$8,500</div>
+        <div className="py-3">
+          <div className=" font-satoshiLight text-main">Price</div>
+          <div className="font-satoshiBold text-black">${price}</div>
         </div>
       </div>
     </Link>

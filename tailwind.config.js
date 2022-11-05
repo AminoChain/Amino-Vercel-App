@@ -26,7 +26,10 @@ module.exports = {
         donatebuttonIntroShadow: '12px 10px 16px rgba(52, 221, 152, 0.4)',
         marketplaceButtonShadow1: '12px 10px 16px rgba(64, 237, 237, 0.4)',
         searchButtonShadow: '9px 9px 16px rgba(64, 237, 237, 0.4)',
-        nftCard: '4px 5px 10px rgba(180, 180, 180, 1)',
+        nftCard: '4px 4px 10px rgba(127, 255, 207, 0.4)',
+      },
+      boxShadow: {
+        'nft': '9px 9px 16px rgba(254, 199, 255, 1)',
       },
       fontFamily: {
         satoshiRegular: ['Satoshi-Regular'],
