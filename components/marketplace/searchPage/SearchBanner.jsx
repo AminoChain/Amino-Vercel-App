@@ -1,4 +1,4 @@
-import aminoLogo from '../../assets/aminoLogo2.png'
+import aminoLogo from '../../../assets/aminoLogo2.png'
 import Image from 'next/image'
 
 const SearchBanner = () => {

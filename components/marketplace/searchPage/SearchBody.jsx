@@ -1,3 +1,5 @@
+
+
 const SearchBody = ({setSearch}) => {
   const searchInput = (e) => {
     e.preventDefault()
@@ -47,8 +49,8 @@ const SearchBody = ({setSearch}) => {
 
   return (
     <div className="w-full flex flex-col px-36 py-10">
-      <div className="text-5xl text-black py-3">Search Genome Sequences</div>
-      <div className="text-2xl text-black pb-10">
+      <div className="text-5xl text-black py-3 font-satoshi">Search Genome Sequences</div>
+      <div className="text-2xl text-black pb-10 font-satoshi">
         Enter sequence details to find the nearest match
       </div>
       <form className="flex-col w-8/12" onSubmit={searchInput}>
