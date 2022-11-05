@@ -2,8 +2,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Nav from './Nav'
 import IntroBody from './IntroBody'
-import StatsBody from './StatsBody'
-import InfoBody from './InfoBoxesBody'
 
 const Header = () => {
   const router = useRouter()
@@ -14,8 +12,6 @@ const Header = () => {
       <title>AminoChain</title>
       <Nav />
       <IntroBody />
-      <StatsBody />
-      <InfoBody />
     </header>
   )
 }
