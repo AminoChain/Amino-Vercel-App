@@ -1,6 +1,8 @@
 import NftCard from './NftCard'
 import { gql, useQuery } from '@apollo/client'
 import Link from 'next/link'
+import MarketplaceBanner from './MarketplaceBanner'
+import MarketplaceNav from './MarketplaceNav'
 
 const MarketplacePage = ({ search }) => {
   const GET_MINTED_NFTS = gql`
@@ -12,6 +14,8 @@ const MarketplacePage = ({ search }) => {
         buyer
         tokenId
         price
+        donor
+        bioBank
         halotypes_A
         halotypes_B
         halotypes_C
@@ -29,6 +33,8 @@ const MarketplacePage = ({ search }) => {
       </div>
     )
   }
+
+  if (error) return `Error! ${error}`;
 
   let matchRating = 0
   let bestMatchNftArray = []
@@ -52,8 +58,9 @@ const MarketplacePage = ({ search }) => {
         matchRating++
       }
       bestMatchNftArray.push({
-        nftId: nft.tokenId,
+        tokenId: nft.tokenId,
         matchRating: matchRating,
+        bioBank: nft.bioBank,
         price: nft.price,
       })
       matchRating = 0
@@ -67,18 +74,17 @@ const MarketplacePage = ({ search }) => {
   matchingAlgo()
   organizeBestMatches()
 
-  const nftMatches = bestMatchNftArray.map((item, index) => {
-    return (
-      <div key={index}>
-        <a key={index}>
-          <NftCard key={index} item={item} />
-        </a>
-      </div>
-    )
-  })
+  const nftMatches = bestMatchNftArray.map((item, index) => (
+    <NftCard key={index} item={item} />
+  ))
+
   return (
-    <div className="w-full flex">
-      {nftMatches}
+    <div className="w-full flex flex-col">
+      <MarketplaceBanner />
+      <MarketplaceNav />
+      <div className="w-full flex flex-wrap justify-around py-20 px-20">
+        {nftMatches}
+      </div>
     </div>
   )
 }

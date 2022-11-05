@@ -1,7 +1,7 @@
-import aminoLogo from '../../assets/aminoLogo2.png'
+import aminoLogo from '../../../assets/aminoLogo2.png'
 import Image from 'next/image'
 
-const DonateBanner = () => {
+const MarketplaceBanner = () => {
   return (
     <div className="w-full h-[30vh] flex items-end bg-gradient-to-br from-greenHLADRB to-yellowHLADPB">
       <div className="w-full flex justify-between items-center px-20 py-5">
@@ -15,4 +15,4 @@ const DonateBanner = () => {
   )
 }
 
-export default DonateBanner
+export default MarketplaceBanner
