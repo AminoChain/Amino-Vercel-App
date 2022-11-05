@@ -36,6 +36,16 @@ const IntroBody = () => {
               />
             </div>
           </Link>
+          {/*<Link href="/biobank">
+            <div className="h-14 w-full mt-10 flex justify-between items-center rounded-full px-10 py-8 drop-shadow-marketplaceButtonShadow cursor-pointer bg-marketplaceButton">
+              <div className="font-bold text-black text-2xl">Biobank</div>
+              <Image
+                src={marketplaceImage}
+                alt="donate button image"
+                height={27}
+              />
+            </div>
+          </Link>*/}
         </div>
       </article>
       <Image src={cellImage} width={690} height={690} alt="Image of a Cell" />
