@@ -69,8 +69,8 @@ const MarketplacePage = ({ search }) => {
 
   const nftMatches = bestMatchNftArray.map((item, index) => {
     return (
-      <div >
-        <a>
+      <div key={index}>
+        <a key={index}>
           <NftCard key={index} item={item} />
         </a>
       </div>
