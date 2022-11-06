@@ -1,9 +1,20 @@
+import { ethers } from 'ethers'
 import Image from 'next/image'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 
 const NftDetailsAndBuy = ({ nftData }) => {
-  const biobank = nftData.bioBank.slice(0, 6) + '...'
-  const donor = nftData.donor.slice(0, 6) + '...'
+  const biobank = nftData.bioBank
+  const donor =
+    nftData.donor.slice(0, 4) +
+    '...' +
+    nftData.donor.slice(nftData.donor.length - 4, nftData.donor.length)
+  const price = ethers.utils.formatUnits(nftData.price, 6).toString()
+
+  const BioBankNames = {
+    '0x53c847035e9c2ea3aead920d395bccd7768ee63f': 'Coriell',
+    '': 'Greenville',
+    '': 'National',
+  }
 
   return (
     <div className="w-2/3 flex flex-col px-5">
@@ -66,7 +77,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
           <div className="flex flex-col w-full">
             <div className=" flex flex-col">
               <div className="py-4 font-satoshiLight text-main">BioBank</div>
-              <div className="font-satoshiRegular">{biobank}</div>
+              <div className="font-satoshiRegular">{BioBankNames[biobank]}</div>
             </div>
             <div className=" flex flex-col">
               <div className="py-4 font-satoshiLight text-main">Amount</div>
@@ -83,13 +94,13 @@ const NftDetailsAndBuy = ({ nftData }) => {
               <Image src={usdcLogo} alt="usdcLogo" />
             </div>
             <div className="p-2 font-satoshiRegular text-xl">
-              ${nftData.price} USDC
+              ${parseFloat(price).toLocaleString()} USDC
             </div>
           </div>
         </div>
-        <div className=" py-5 px-14 rounded-full text-xl font-satoshiBold text-black bg-gradient-to-r from-gradientDonateStart to-gradientDonateEnd">
+        <button className=" py-5 px-14 rounded-full text-xl font-satoshiBold text-black bg-gradient-to-r from-gradientDonateStart to-gradientDonateEnd">
           Buy Now
-        </div>
+        </button>
       </div>
     </div>
   )
