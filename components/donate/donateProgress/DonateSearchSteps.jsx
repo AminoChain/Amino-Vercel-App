@@ -1,4 +1,4 @@
-const DonateSearchSteps = ({ progress, barPercent, setBarPercent }) => {
+const DonateSearchSteps = ({ progress }) => {
   const bar = (progress / 10) * 100
 
   return (

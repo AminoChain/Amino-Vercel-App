@@ -6,16 +6,20 @@ import { useState } from 'react'
 
 const DonatePage = () => {
   const [progress, setProgress] = useState(0)
-  const [barPercent, setBarPercent] = useState('10')
+  const [bioBanks, setBioBanks] = useState([])
+  const [location, setLocation] = useState('')
+
 
   return (
-    <div className="w-[100vw] flex flex-col">
+    <div className="w-screen flex flex-col">
       <DonateNav />
       <DonateBody
         progress={progress}
         setProgress={setProgress}
-        barPercent={barPercent}
-        setBarPercent={setBarPercent}
+        bioBanks={bioBanks}
+        setBioBanks={setBioBanks}
+        location={location}
+        setLocation={setLocation}
       />
       <DonorFooter />
     </div>

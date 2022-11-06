@@ -1,6 +1,6 @@
 const DonateStart = ({ progress, setProgress }) => {
   const increaseProgress = () => {
-    setProgress(progress + 1)
+    setProgress(1)
   }
 
   return (
