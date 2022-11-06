@@ -1,8 +1,11 @@
 import NftCard from './NftCard'
 import { gql, useQuery } from '@apollo/client'
 import Link from 'next/link'
+import Image from 'next/image'
+import filter from '../../../assets/filterIcon.png'
 import MarketplaceBanner from './MarketplaceBanner'
 import MarketplaceNav from './MarketplaceNav'
+import SearchFooter from '../searchPage/SearchFooter'
 
 const MarketplacePage = ({ search }) => {
   const GET_MINTED_NFTS = gql`
@@ -34,7 +37,7 @@ const MarketplacePage = ({ search }) => {
     )
   }
 
-  if (error) return `Error! ${error}`;
+  if (error) return `Error! ${error}`
 
   let matchRating = 0
   let bestMatchNftArray = []
@@ -82,9 +85,15 @@ const MarketplacePage = ({ search }) => {
     <div className="w-full flex flex-col">
       <MarketplaceBanner />
       <MarketplaceNav />
-      <div className="w-full flex flex-wrap justify-around py-20 px-20">
+      <div className="w-full px-[5%]">
+        <div className="flex justify-center ml-auto items-center cursor-pointer bg-white text-black text-base border border-main font-satoshiMedium h-10 w-10 rounded-full">
+          <Image src={filter} alt="filter" draggable="false" />
+        </div>
+      </div>
+      <div className="w-full flex flex-wrap justify-between py-8 px-[5%]">
         {nftMatches}
       </div>
+      <SearchFooter />
     </div>
   )
 }
