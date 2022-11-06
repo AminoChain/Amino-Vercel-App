@@ -147,9 +147,9 @@ const MarketplaceBanner = () => {
               <div className="text-main">{wallet}</div>
             )}
           </div>
-          <a href="/">
+          <Link href="/">
             <Image src={aminoLogo} alt="amino logo image" draggable="false" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
