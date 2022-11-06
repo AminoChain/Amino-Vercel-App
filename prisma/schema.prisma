@@ -10,14 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model BioBank {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  location String
+  nft      Nft?
+}
+
 model Nft {
   id              String        @id @default(auto()) @map("_id") @db.ObjectId
   halotypeHash    String?
   contractAddress String
+  biobank         BioBank?      @relation(fields: [biobankId], references: [id])
   shippingInfo    ShippingInfo? @relation(fields: [shippingId], references: [id])
   donor           Donor?        @relation(fields: [donorId], references: [id])
-  donorId         String        @unique @db.ObjectId
+  donorId         String?       @unique @db.ObjectId
   shippingId      String?       @unique @db.ObjectId
+  biobankId       String?       @unique @db.ObjectId
 }
 
 model Donor {
