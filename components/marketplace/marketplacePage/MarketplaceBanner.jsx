@@ -1,4 +1,5 @@
 import aminoLogo from '../../../assets/aminoLogo2.png'
+import Link from 'next/link'
 import Image from 'next/image'
 import arrow from '../../../assets/arrowRight.png'
 import metamask from '../../../assets/metamaskLogo.png'
@@ -148,7 +149,12 @@ const MarketplaceBanner = () => {
             )}
           </div>
           <Link href="/">
-            <Image src={aminoLogo} alt="amino logo image" draggable="false" />
+            <Image
+              src={aminoLogo}
+              alt="amino logo image"
+              draggable="false"
+              className="cursor-pointer"
+            />
           </Link>
         </div>
       </div>
