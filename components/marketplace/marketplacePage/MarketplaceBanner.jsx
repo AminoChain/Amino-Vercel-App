@@ -14,8 +14,13 @@ const MarketplaceBanner = () => {
 
   useEffect(() => {
     const checkConnection = async () => {
-      let provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = await provider.getSigner(0)
+      let provider, signer
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum)
+        signer = await provider.getSigner(0)
+      } catch (e) {
+        console.log(e)
+      }
 
       if (signer === undefined) {
         setWallet('')
