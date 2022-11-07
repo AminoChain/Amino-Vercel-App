@@ -10,7 +10,7 @@ const DonateBioBankList = ({ bioBanks, setProgress, location }) => {
     <div className="w-full">
       <div>{location}</div>
       <div className="w-full flex justify-around">
-        <div>{bioBankMatches}</div>
+        {bioBankMatches}
       </div>
     </div>
   )
