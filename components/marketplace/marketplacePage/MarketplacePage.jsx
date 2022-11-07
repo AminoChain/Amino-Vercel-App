@@ -1,4 +1,5 @@
 import NftCard from './NftCard'
+import { ethers } from 'ethers'
 import { gql, useQuery } from '@apollo/client'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -46,19 +47,45 @@ const MarketplacePage = ({ search }) => {
     listing.existingTokenIds.forEach((nft, index) => {
       const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
-      if (equals(nft.hlaHashes.hlaHashed_A, search.HLAA)) {
+      //hashes input and compares to hashed hla
+      if (
+        equals(
+          nft.hlaHashes.hlaHashed_A,
+          ethers.utils.id(search.HLAA.toString())
+        )
+      ) {
         matchRating++
       }
-      if (equals(nft.hlaHashes.hlaHashed_B, search.HLAB)) {
+      if (
+        equals(
+          nft.hlaHashes.hlaHashed_B,
+          ethers.utils.id(search.HLAB.toString())
+        )
+      ) {
         matchRating++
       }
-      if (equals(nft.hlaHashes.hlaHashed_C, search.HLAC)) {
+      if (
+        equals(
+          nft.hlaHashes.hlaHashed_C,
+          ethers.utils.id(search.HLAC.toString())
+        )
+      ) {
         matchRating++
       }
-      if (equals(nft.hlaHashes.hlaHashed_DPB, search.HLADPB)) {
+      if (
+        equals(
+          nft.hlaHashes.hlaHashed_DPB,
+          ethers.utils.id(search.HLADPB.toString())
+        )
+      ) {
         matchRating++
       }
-      if (equals(nft.hlaHashes.hlaHashed_DRB, search.HLADRB)) {
+      if (
+        equals(
+          nft.hlaHashes.hlaHashed_DRB,
+          ethers.utils.id(search.HLADRB.toString())
+        )
+      ) {
         matchRating++
       }
       bestMatchNftArray.push({
@@ -84,7 +111,7 @@ const MarketplacePage = ({ search }) => {
   ))
 
   return (
-    <div className="w-full flex flex-col min-h-[100vh]">
+    <div className="w-[100vw] flex flex-col min-h-[100vh]">
       <MarketplaceBanner />
       <MarketplaceNav />
       <div className="w-full px-[5%]">
@@ -92,7 +119,7 @@ const MarketplacePage = ({ search }) => {
           <Image src={filter} alt="filter" draggable="false" />
         </div>
       </div>
-      <div className="w-full flex flex-wrap justify-between py-8 px-[5%]">
+      <div className="w-full flex flex-wrap space-x-[2rem] py-8 px-[5%]">
         {nftMatches}
       </div>
       <SearchFooter />

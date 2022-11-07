@@ -5,7 +5,7 @@ import SearchFooter from '../../searchPage/SearchFooter'
 
 const NftListingPage = ({ nftData }) => {
   return (
-    <div className="w-full">
+    <div className="w-[100vw]">
       <MarketplaceBanner />
       <div className="w-full px-52 pt-[2rem]">
         <div className="w-full flex">
@@ -13,6 +13,7 @@ const NftListingPage = ({ nftData }) => {
           <NftDetailsAndBuy nftData={nftData} />
         </div>
       </div>
+      <SearchFooter />
     </div>
   )
 }

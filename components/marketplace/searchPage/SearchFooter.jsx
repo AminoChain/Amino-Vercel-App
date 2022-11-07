@@ -6,7 +6,7 @@ import github from '../../../assets/githubLogo.png'
 
 const SearchFooter = () => {
   return (
-    <div className="w-[100vw] bottom-0 flex px-[12%] mt-[4rem] mb-[3rem]">
+    <div className="w-[100vw] bottom-0 flex px-[12%] mt-[6rem] mb-[2rem]">
       <div className="flex flex-row w-full justify-between content-center border-solid border-b-[1px] py-[1rem] px-[5%] rounded-[200px] border-main min-w-[42%]">
         <div className="flex flex-row justify-between content-center self-center h-min min-w-[160px] ">
           <a href="https://discord.com" className="flex h-min align-middle">
