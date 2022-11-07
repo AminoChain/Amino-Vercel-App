@@ -10,20 +10,21 @@ import SearchFooter from '../searchPage/SearchFooter'
 const MarketplacePage = ({ search }) => {
   const GET_MINTED_NFTS = gql`
     {
-      activeListings(
+      existingTokenIds(
         where: { buyer: "0x0000000000000000000000000000000000000000" }
       ) {
-        id
-        buyer
         tokenId
         price
         donor
         bioBank
-        halotypes_A
-        halotypes_B
-        halotypes_C
-        halotypes_DPB
-        halotypes_DRB
+        sizeInCC
+        hlaHashes {
+          hlaHashed_A
+          hlaHashed_B
+          hlaHashed_C
+          hlaHashed_DPB
+          hlaHashed_DRB
+        }
       }
     }
   `
@@ -42,22 +43,22 @@ const MarketplacePage = ({ search }) => {
   let matchRating = 0
   let bestMatchNftArray = []
   const matchingAlgo = () => {
-    listing.activeListings.forEach((nft, index) => {
+    listing.existingTokenIds.forEach((nft, index) => {
       const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
-      if (equals(nft.halotypes_A, search.HLAA)) {
+      if (equals(nft.hlaHashes.hlaHashed_A, search.HLAA)) {
         matchRating++
       }
-      if (equals(nft.halotypes_B, search.HLAB)) {
+      if (equals(nft.hlaHashes.hlaHashed_B, search.HLAB)) {
         matchRating++
       }
-      if (equals(nft.halotypes_C, search.HLAC)) {
+      if (equals(nft.hlaHashes.hlaHashed_C, search.HLAC)) {
         matchRating++
       }
-      if (equals(nft.halotypes_DPB, search.HLADPB)) {
+      if (equals(nft.hlaHashes.hlaHashed_DPB, search.HLADPB)) {
         matchRating++
       }
-      if (equals(nft.halotypes_DRB, search.HLADRB)) {
+      if (equals(nft.hlaHashes.hlaHashed_DRB, search.HLADRB)) {
         matchRating++
       }
       bestMatchNftArray.push({
@@ -65,6 +66,7 @@ const MarketplacePage = ({ search }) => {
         matchRating: matchRating,
         bioBank: nft.bioBank,
         price: nft.price,
+        size: nft.sizeInCC,
       })
       matchRating = 0
     })

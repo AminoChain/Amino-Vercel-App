@@ -47,11 +47,7 @@ const MarketplaceBanner = () => {
 
   async function metamaskWalletHandeler() {
     if (window.ethereum !== 'undefined') {
-      window.ethereum
-        .request({ method: 'eth_requestAccounts' })
-        .then((result) => {
-          accountChangedHandler(result[0])
-        })
+      window.ethereum.request({ method: 'eth_requestAccounts' })
     } else {
       console.log('Install metamask')
     }
@@ -81,7 +77,7 @@ const MarketplaceBanner = () => {
           <div>
             <div className="flex flex-row w-[62vw] justify-between">
               <button
-                className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-marketplaceButtonShadow1 rounded-full py-[1rem]"
+                className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-metamaskShadow rounded-full py-[1rem]"
                 onClick={metamaskWalletHandeler}
               >
                 <div className="object-contain self-center pr-[1rem]">
@@ -97,7 +93,7 @@ const MarketplaceBanner = () => {
                   Metamask
                 </p>
               </button>
-              <button className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-marketplaceButtonShadow1 rounded-full py-[1rem]">
+              <button className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-coinbaseShadow rounded-full py-[1rem]">
                 <div className="self-center pr-[1rem]">
                   <Image
                     src={coinbase}
@@ -111,7 +107,7 @@ const MarketplaceBanner = () => {
                   Coinbase
                 </p>
               </button>
-              <button className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-marketplaceButtonShadow1 rounded-full py-[1rem]">
+              <button className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-walletconnectShadow rounded-full py-[1rem]">
                 <div className="self-center pr-[1rem] ">
                   <Image
                     src={walletConnect}
