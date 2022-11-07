@@ -44,7 +44,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
             setConnectingWallet(false)
 
             const authenticator = new Contract(
-            '0xfB45e078E326A9f838E27B750cA7e84b554F97b4',
+            '0xe678C9BA5a9aE61fAc009a602b29ed869eD8156c',
             AuthenticatorAbi,
             new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com')
             )
