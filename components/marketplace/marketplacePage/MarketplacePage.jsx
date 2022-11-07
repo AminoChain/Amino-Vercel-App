@@ -84,7 +84,7 @@ const MarketplacePage = ({ search }) => {
   ))
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col min-h-[100vh]">
       <MarketplaceBanner />
       <MarketplaceNav />
       <div className="w-full px-[5%]">
