@@ -21,7 +21,12 @@ const IntroBody = () => {
               <div className="font-satoshiBold text-black text-2xl">
                 Donate Stem Cells
               </div>
-              <Image src={donateImage} alt="donate button image" height={32} />
+              <Image
+                src={donateImage}
+                alt="donate button image"
+                height={32}
+                draggable="false"
+              />
             </div>
           </Link>
           <Link href="/marketplace">
@@ -33,22 +38,19 @@ const IntroBody = () => {
                 src={marketplaceImage}
                 alt="donate button image"
                 height={27}
+                draggable="false"
               />
             </div>
           </Link>
-          {/*<Link href="/biobank">
-            <div className="h-14 w-full mt-10 flex justify-between items-center rounded-full px-10 py-8 drop-shadow-marketplaceButtonShadow cursor-pointer bg-marketplaceButton">
-              <div className="font-bold text-black text-2xl">Biobank</div>
-              <Image
-                src={marketplaceImage}
-                alt="donate button image"
-                height={27}
-              />
-            </div>
-          </Link>*/}
         </div>
       </article>
-      <Image src={cellImage} width={690} height={690} alt="Image of a Cell" />
+      <Image
+        src={cellImage}
+        width={690}
+        height={690}
+        alt="Image of a Cell"
+        draggable="false"
+      />
     </div>
   )
 }
