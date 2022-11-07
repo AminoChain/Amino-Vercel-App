@@ -23,16 +23,13 @@
  *
 */
 
-
 /**
 * This is a variable font
 * You can controll variable axes as shown below:
 * font-variation-settings: 'wght' 900.0;
 *
 * available axes:
-
 * 'wght' (range from 300.0 to 900.0)
-
 */
 
 @font-face {
@@ -45,16 +42,13 @@
        font-style: normal;
 }
 
-
 /**
 * This is a variable font
 * You can controll variable axes as shown below:
 * font-variation-settings: 'wght' 900.0;
 *
 * available axes:
-
 * 'wght' (range from 300.0 to 900.0)
-
 */
 
 @font-face {
@@ -66,7 +60,6 @@
        font-display: swap;
        font-style: italic;
 }
-
 
 @font-face {
   font-family: 'Satoshi-Light';
