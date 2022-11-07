@@ -1,12 +1,13 @@
 import {useEffect, useState} from "react";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
+import {Contract, ethers} from "ethers";
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
 export const currentChainId = mumbaiChainId
-const platformBackend = "http://localhost:3003/"
-// const platformBackend = "https://amino-chain-backend.herokuapp.com/"
+// const platformBackend = "http://localhost:3003/"
+const platformBackend = "https://amino-chain-backend.herokuapp.com/"
 
 const DonorApprovePage = ({ hla, biobankAddress }) => {
     const [error, setError] = useState('')
@@ -38,15 +39,29 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
         })
 
         connector.connect().then( async ({ accounts, chainId }) => {
+            const [account] = accounts
+
             setConnectingWallet(false)
 
-            const [account] = accounts
-            // console.log(accounts, chainId)
-            connector.signPersonalMessage([
-                'Message',
+            const authenticator = new Contract(
+            '0xfB45e078E326A9f838E27B750cA7e84b554F97b4',
+            AuthenticatorAbi,
+            new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com')
+            )
+
+            let hlaHash = ethers.utils.id(JSON.stringify(hla));
+            const registrationParametersHash = await authenticator.getRegistrationHash(
                 account,
+                hlaHash
+            )
+
+            // console.log(accounts, chainId)
+            connector.signMessage([
+                account,
+                registrationParametersHash,
             ]).then( async (signature) => {
                 console.log(signature)
+
                 setWaitingForApprove(false)
                 setRegistering(true)
 
@@ -56,6 +71,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
                     body: JSON.stringify({
                         hla,
                         biobankAddress,
+                        donorAddress: account,
                         amounts: [20, 10],
                         signature,
                         genome: 'genome'
@@ -90,3 +106,275 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
 }
 
 export default DonorApprovePage
+
+const AuthenticatorAbi = [
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "nftAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "marketplaceAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "usdcAddress",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "donor",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "biobank",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256[]",
+                "name": "tokenIds",
+                "type": "uint256[]"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256[]",
+                "name": "amounts",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "UserRegistered",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "donor",
+                "type": "address"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "biodataHash",
+                "type": "bytes32"
+            }
+        ],
+        "name": "getRegistrationHash",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "str",
+                "type": "string"
+            }
+        ],
+        "name": "hash",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "donor",
+                "type": "address"
+            }
+        ],
+        "name": "isRegistered",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "marketplace",
+        "outputs": [
+            {
+                "internalType": "contract IAminoChainMarketplace",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "nft",
+        "outputs": [
+            {
+                "internalType": "contract IAminoChainDonation",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bytes",
+                "name": "",
+                "type": "bytes"
+            }
+        ],
+        "name": "onERC721Received",
+        "outputs": [
+            {
+                "internalType": "bytes4",
+                "name": "",
+                "type": "bytes4"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "components": [
+                    {
+                        "components": [
+                            {
+                                "internalType": "bytes32",
+                                "name": "A",
+                                "type": "bytes32"
+                            },
+                            {
+                                "internalType": "bytes32",
+                                "name": "B",
+                                "type": "bytes32"
+                            },
+                            {
+                                "internalType": "bytes32",
+                                "name": "C",
+                                "type": "bytes32"
+                            },
+                            {
+                                "internalType": "bytes32",
+                                "name": "DPB",
+                                "type": "bytes32"
+                            },
+                            {
+                                "internalType": "bytes32",
+                                "name": "DRB",
+                                "type": "bytes32"
+                            }
+                        ],
+                        "internalType": "struct AminoChainLibrary.HlaHashed",
+                        "name": "hlaHashed",
+                        "type": "tuple"
+                    },
+                    {
+                        "internalType": "bytes32",
+                        "name": "hlaHash",
+                        "type": "bytes32"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "hlaEncoded",
+                        "type": "bytes"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "genomeEncodedUrl",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "amounts",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "donor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "bytes",
+                        "name": "signature",
+                        "type": "bytes"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "biobank",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct AminoChainLibrary.RegistrationData",
+                "name": "data",
+                "type": "tuple"
+            }
+        ],
+        "name": "register",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "usdc",
+        "outputs": [
+            {
+                "internalType": "contract IERC20",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]
