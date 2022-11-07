@@ -10,19 +10,21 @@ export async function getServerSideProps(context) {
 }
 
 const Nft = ({ tokenId }) => {
-  const GET_NFT = gql`
+  const GET_TOKEN_DATA = gql`
     query Nft($tokenId: Int!) {
-      activeListings(where: { tokenId: $tokenId }) {
-        id
+      existingTokenIds(where: { tokenId: $tokenId }) {
         tokenId
         price
+        sizeInCC
         donor
         bioBank
-        halotypes_A
-        halotypes_B
-        halotypes_C
-        halotypes_DPB
-        halotypes_DRB
+        hlaHashes {
+          hlaHashed_A
+          hlaHashed_B
+          hlaHashed_C
+          hlaHashed_DPB
+          hlaHashed_DRB
+        }
       }
     }
   `
@@ -32,7 +34,7 @@ const Nft = ({ tokenId }) => {
     loading,
     error,
     data: listing,
-  } = useQuery(GET_NFT, {
+  } = useQuery(GET_TOKEN_DATA, {
     variables: { tokenId: id },
   })
 
@@ -47,8 +49,8 @@ const Nft = ({ tokenId }) => {
   if (error) return `Error! ${error}`
 
   return (
-    <div className='w-screen'>
-      <NftListingPage nftData={listing.activeListings[0]}/>
+    <div className="w-screen">
+      <NftListingPage nftData={listing.existingTokenIds[0]} />
     </div>
   )
 }

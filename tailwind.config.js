@@ -22,6 +22,7 @@ module.exports = {
         gradientDonateStart: '#A9FFDC',
         gradientDonateEnd: '#16FFA1',
         marketplaceButton: '#ECF1F4',
+        hiddenHla: `#F6F6F6`,
       },
       dropShadow: {
         donatebuttonIntroShadow: '12px 10px 8px rgba(52, 221, 152, 0.4)',
@@ -33,9 +34,8 @@ module.exports = {
         nftCard: '4px 4px 10px rgba(127, 255, 207, 0.4)',
       },
       boxShadow: {
-        nft: '9px 9px 16px rgba(254, 199, 255, 1)',
+        nft: '12px 10px 8px rgba(254, 199, 255, 1)',
         bioBankCard: '8px 8px 20px rgba(143, 149, 178, 0.24)',
-
       },
       fontFamily: {
         satoshiRegular: ['Satoshi-Regular'],
