@@ -34,6 +34,8 @@ module.exports = {
       },
       boxShadow: {
         nft: '9px 9px 16px rgba(254, 199, 255, 1)',
+        bioBankCard: '8px 8px 20px rgba(143, 149, 178, 0.24)',
+
       },
       fontFamily: {
         satoshiRegular: ['Satoshi-Regular'],

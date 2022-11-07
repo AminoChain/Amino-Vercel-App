@@ -1,5 +1,8 @@
 import aminoLogo from '../../assets/aminoLogo2.png'
 import Image from 'next/image'
+
+import { useState } from 'react'
+import WalletMenu from './WalletMenu'
 import Link from 'next/link'
 import arrow from '../../assets/arrowRight.png'
 import metamask from '../../assets/metamaskLogo.png'
@@ -52,6 +55,7 @@ const DonateBanner = () => {
       console.log('Install metamask')
     }
   }
+
 
   const WalletMenu = () => {
     return (
@@ -106,7 +110,7 @@ const DonateBanner = () => {
 
   return (
     <div className="w-full">
-      {openStatus ? WalletMenu() : <></>}
+      {openStatus ? <WalletMenu openStatus={openStatus} setOpen={setOpen}/> : <></>}
       <div className="w-full h-[30vh] flex items-end bg-gradient-to-br from-greenHLADRB to-yellowHLADPB">
         <div className="w-full flex justify-between items-center px-20 py-5">
           <div
