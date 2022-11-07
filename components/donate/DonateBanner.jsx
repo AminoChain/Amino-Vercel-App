@@ -1,9 +1,6 @@
 import aminoLogo from '../../assets/aminoLogo2.png'
-import Image from 'next/image'
-
-import { useState } from 'react'
-import WalletMenu from './WalletMenu'
 import Link from 'next/link'
+import Image from 'next/image'
 import arrow from '../../assets/arrowRight.png'
 import metamask from '../../assets/metamaskLogo.png'
 import coinbase from '../../assets/coinbaseLogo.png'
@@ -17,8 +14,13 @@ const DonateBanner = () => {
 
   useEffect(() => {
     const checkConnection = async () => {
-      let provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = await provider.getSigner(0)
+      let provider, signer
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum)
+        signer = await provider.getSigner(0)
+      } catch (e) {
+        console.log(e)
+      }
 
       if (signer === undefined) {
         setWallet('')
@@ -56,7 +58,6 @@ const DonateBanner = () => {
     }
   }
 
-
   const WalletMenu = () => {
     return (
       <div
@@ -68,8 +69,14 @@ const DonateBanner = () => {
             <p className="font-satoshiMedium text-main text-2xl self-center">
               Connect Wallet
             </p>
-            <div className="self-center pl-[3rem] pr-[4rem] object-contain h-fit">
-              <Image src={arrow} alt=">" />
+            <div className="self-center pl-[3rem] pr-[4rem] object-contain">
+              <Image
+                src={arrow}
+                alt=">"
+                height={24}
+                width={24}
+                draggable="false"
+              />
             </div>
           </div>
           <div>
@@ -79,7 +86,13 @@ const DonateBanner = () => {
                 onClick={metamaskWalletHandeler}
               >
                 <div className="object-contain self-center pr-[1rem]">
-                  <Image src={metamask} alt="" height={40} width={40} />
+                  <Image
+                    src={metamask}
+                    alt=""
+                    height={40}
+                    width={40}
+                    draggable="false"
+                  />
                 </div>
                 <p className="self-center font-satoshiBold text-2xl text-black">
                   Metamask
@@ -87,7 +100,13 @@ const DonateBanner = () => {
               </button>
               <button className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-coinbaseShadow rounded-full py-[1rem]">
                 <div className="self-center pr-[1rem]">
-                  <Image src={coinbase} alt="" height={40} width={40} />
+                  <Image
+                    src={coinbase}
+                    alt=""
+                    height={40}
+                    width={40}
+                    draggable="false"
+                  />
                 </div>
                 <p className="self-center font-satoshiBold text-2xl text-black">
                   Coinbase
@@ -95,7 +114,13 @@ const DonateBanner = () => {
               </button>
               <button className="align-middle flex flex-row max-w-[365px] w-full justify-center bg-marketplaceButton drop-shadow-walletconnectShadow rounded-full py-[1rem]">
                 <div className="self-center pr-[1rem] ">
-                  <Image src={walletConnect} alt="" height={40} width={40} />
+                  <Image
+                    src={walletConnect}
+                    alt=""
+                    height={40}
+                    width={40}
+                    draggable="false"
+                  />
                 </div>
                 <p className="self-center font-satoshiBold text-2xl text-black">
                   Wallet Connect
@@ -110,7 +135,11 @@ const DonateBanner = () => {
 
   return (
     <div className="w-full">
-      {openStatus ? <WalletMenu openStatus={openStatus} setOpen={setOpen}/> : <></>}
+      {openStatus ? (
+        <WalletMenu openStatus={openStatus} setOpen={setOpen} />
+      ) : (
+        <></>
+      )}
       <div className="w-full h-[30vh] flex items-end bg-gradient-to-br from-greenHLADRB to-yellowHLADPB">
         <div className="w-full flex justify-between items-center px-20 py-5">
           <div
