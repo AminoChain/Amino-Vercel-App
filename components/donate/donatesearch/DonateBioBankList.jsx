@@ -8,8 +8,8 @@ const DonateBioBankList = ({ bioBanks, setProgress, location }) => {
 
   return (
     <div className="w-full">
-      <div>{location}</div>
-      <div className="w-full flex justify-around">
+      <div className='px-20 font-satoshiBold text-black text-xl'>{location}</div>
+      <div className="w-full px-20 py-5 flex justify-around">
         {bioBankMatches}
       </div>
     </div>

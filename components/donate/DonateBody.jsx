@@ -1,7 +1,7 @@
-import DonateSearchSteps from './donateProgress/DonateSearchSteps'
-import DonateStart from './donateProgress/DonateStart'
-import DonateSearch from './donateProgress/DonateSearch'
-import DonateBioBankList from './donateProgress/DonateBioBankList'
+import DonateSearchSteps from './donatesearch/DonateSearchSteps'
+import DonateStart from './donatesearch/DonateStart'
+import DonateSearch from './donatesearch/DonateSearch'
+import DonateBioBankList from './donatesearch/DonateBioBankList'
 
 const DonateBody = ({
   progress,
