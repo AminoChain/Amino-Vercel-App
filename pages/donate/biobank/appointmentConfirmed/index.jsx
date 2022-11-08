@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import DonateBanner from '../../../../components/donate/DonateBanner'
-import AppointmentConfirmedPage from '../../../../components/AppointmentConfirmedPage'
+import AppointmentConfirmedPage from '../../../../components/donate/donatesearch/donateSchedule/appointmentConfirmed/AppointmentConfirmedPage'
 import prisma from '../../../../lib/prisma'
 
 export async function getServerSideProps(context) {
