@@ -22,11 +22,19 @@ const DonateSearchSteps = ({ progress }) => {
           </div>
         </div>
         <div className="w-full flex flex-row items-start">
-          <div className="flex justify-center items-center bg-white text-black text-base border border-main font-satoshiMedium h-10 w-10 rounded-full">
+          <div
+            className={`flex justify-center items-center ${
+              progress > 3 ? `bg-main text-white` : `bg-white text-black`
+            } text-base border border-main font-satoshiMedium h-10 w-10 rounded-full`}
+          >
             2
           </div>
           <div className="flex flex-col justify-end text-black py-2 px-4">
-            <div className="text-base text-main font-satoshiMedium">
+            <div
+              className={`text-base ${
+                progress > 3 ? `text-black` : `text-main`
+              } font-satoshiMedium`}
+            >
               Visit center and verify donation
             </div>
             <div className="text-sm font-satoshiMedium text-black">

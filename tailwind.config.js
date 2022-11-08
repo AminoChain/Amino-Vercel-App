@@ -24,6 +24,8 @@ module.exports = {
         gradientDonateEnd: '#16FFA1',
         marketplaceButton: '#ECF1F4',
         hiddenHla: `#F6F6F6`,
+        ccBackground: `#D9FFF1`,
+        priceSlider: `#D7D7D7`,
       },
       dropShadow: {
         donatebuttonIntroShadow: '12px 10px 8px rgba(52, 221, 152, 0.4)',
@@ -32,7 +34,7 @@ module.exports = {
         metamaskShadow: `12px 10px 8px rgba(245, 132, 31, 0.24)`,
         coinbaseShadow: `12px 10px 8px rgba(40, 96, 242, 0.24)`,
         walletconnectShadow: `12px 10px 8px rgba(64, 143, 249, 0.24)`,
-        nftCard: '4px 4px 10px rgba(127, 255, 207, 0.4)',
+        nftCard: '8px 8px 6px rgba(127, 255, 207, 0.4)',
       },
       boxShadow: {
         nft: '12px 10px 8px rgba(254, 199, 255, 1)',

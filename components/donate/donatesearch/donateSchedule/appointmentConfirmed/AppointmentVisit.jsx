@@ -5,9 +5,9 @@ import dottedLine from '../../../../../assets/dottedLine.png'
 import QRcode from '../../../../../assets/QRcode.png'
 import metamaskLogo from '../../../../../assets/metamaskLogo.png'
 
-const AppointmentVisit = ({bioBank}) => {
+const AppointmentVisit = ({ bioBank }) => {
   return (
-    <div className='w-fit'>
+    <div className="w-fit">
       <div className="border-b-2 py-3">
         <div className="font-satoshiBold text-black text-[24px] py-2">
           Visit the donation center and verify donation
@@ -20,16 +20,16 @@ const AppointmentVisit = ({bioBank}) => {
       <div className="flex flex-col pt-4">
         <div className="flex">
           <div className="flex items-center pr-2">
-            <Image src={checkGreen} width={20} />
+            <Image src={checkGreen} width={20} draggable="false" />
           </div>
           <div className=" font-satoshiMedium text-black">Book Appointment</div>
         </div>
         <div className="p-2">
-          <Image src={dottedLine} />
+          <Image src={dottedLine} draggable="false" />
         </div>
         <div className="flex items-center">
           <div className="flex items-center pr-2">
-            <Image src={checkGrey} width={20} />
+            <Image src={checkGrey} width={20} draggable="false" />
           </div>
           <div className=" font-satoshiMedium text-black">
             Scan QR code at the donation center after donating Stem Cells
@@ -39,13 +39,13 @@ const AppointmentVisit = ({bioBank}) => {
       <div className="flex justify-center p-10">
         <div className="flex justify-center qrCodeShadow p-8 rounded-[20px]">
           <div>
-            <Image src={QRcode} />
+            <Image src={QRcode} draggable="false" />
           </div>
         </div>
       </div>
       <div className="flex items-center">
         <div className="flex items-center ">
-          <Image src={metamaskLogo} />
+          <Image src={metamaskLogo} draggable="false" />
         </div>
         <div className="flex flex-col px-2">
           <div className=" font-satoshiRegular text-black">
