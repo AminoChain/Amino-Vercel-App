@@ -18,12 +18,13 @@ export async function getServerSideProps(context) {
 }
 
 const DonateBioBank = ({bioBank}) => {
-  
+  const [progress, setProgress] = useState(3)
+
   
   return(
-    <div>
+    <div className="w-screen">
       <DonateBanner/>
-      <DonateBioBankPage bioBank={bioBank} />
+      <DonateBioBankPage bioBank={bioBank} progress={progress} setProgress={setProgress}/>
     </div>
   )
 }

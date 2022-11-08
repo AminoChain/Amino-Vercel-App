@@ -2,19 +2,24 @@ import DonateFooter from '../../DonateFooter'
 import DonateNav from '../../DonateNav'
 import DonateBookBioBankAppointment from './DonateBookBioBankAppointment'
 import { useState, useEffect } from 'react'
+import DonateSearchSteps from '../DonateSearchSteps'
 
-const DonateBioBankPage = ({ bioBank }) => {
+const DonateBioBankPage = ({ bioBank, progress, setProgress }) => {
   // const [bioBank, setBioBank] = useState({})
   // useEffect(async () => {
   //   const getBioBank = async () => {
-      
+
   //   await getBioBank()
   // }, [])
 
   return (
-    <div>
+    <div className=''>
       <DonateNav />
-      <DonateBookBioBankAppointment bioBank={bioBank} />
+      <DonateSearchSteps progress={progress} />
+      <DonateBookBioBankAppointment
+        bioBank={bioBank}
+        setProgress={setProgress}
+      />
       <DonateFooter />
     </div>
   )
