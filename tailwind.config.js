@@ -18,6 +18,7 @@ module.exports = {
         greenHLADRB: '#7FFFCF',
         yellowHLADPB: '#FFE8A3',
         white: '#FAFAFA',
+        biobankCards: '#ABAFC5',
         purpleHLADQA: '#897FFF',
         gradientDonateStart: '#A9FFDC',
         gradientDonateEnd: '#16FFA1',
@@ -35,7 +36,7 @@ module.exports = {
       },
       boxShadow: {
         nft: '12px 10px 8px rgba(254, 199, 255, 1)',
-        bioBankCard: '8px 8px 20px rgba(143, 149, 178, 0.24)',
+        bioBankCard: '12px 10px 8px rgba(143, 149, 178, 0.24)',
       },
       fontFamily: {
         satoshiRegular: ['Satoshi-Regular'],

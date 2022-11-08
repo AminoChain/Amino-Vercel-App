@@ -43,7 +43,7 @@ const DonateSearch = ({ setProgress, setBioBanks, location, setLocation }) => {
           <input
             type="submit"
             value="Locate Me"
-            className="font-satoshiRegular text-black text-base ml-[4rem]"
+            className="font-satoshiRegular text-black text-base ml-[4rem] cursor-pointer"
           />
         </div>
       </form>
