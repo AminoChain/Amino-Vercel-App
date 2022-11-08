@@ -4,7 +4,7 @@ import bioBankSymbolBig from '../../../../assets/bioBankSymbolBig.png'
 
 const DonateBioBankInfo = ({ bioBank }) => {
   return (
-    <div className="w-1/4 flex flex-col items-start p-20">
+    <div className="w-[30%] flex flex-col items-start pl-20 py-20">
       <div>
         <Image src={bioBankSymbolBig} width={200} height={178} />
       </div>
@@ -16,20 +16,22 @@ const DonateBioBankInfo = ({ bioBank }) => {
       </div>
       <div className="flex flex-col py-4">
         <div className="font-satoshiMedium text-main text-[16px]">
-          opening hours
+          Opening hours
         </div>
-        <div className="font-satoshiRegular text-black text-[20px]">
+        <div className="font-satoshiRegular pt-1 text-black text-[20px]">
           Mon to Fri 10 am to 6pm
         </div>
       </div>
 
       <div className="flex flex-col items-start">
-        <div className="font-satoshiMedium text-main text-[16px]">Address</div>
+        <div className="font-satoshiMedium text-main text-[16px] pb-2">
+          Address
+        </div>
         <div className="flex items-center">
-          <div className="w-1/4">
-            <Image src={googleMaps} width={20} alt="google logo" />
+          <div className="mr-[2px]">
+            <Image src={googleMaps} width={30} height={46} alt="google logo" />
           </div>
-          <div className="px-2 underline-offset-1 underline">
+          <div className="underline-offset-1 underline font-satoshiRegular text-xl ml-2 text-black">
             {bioBank.location}
           </div>
         </div>

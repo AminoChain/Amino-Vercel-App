@@ -50,19 +50,16 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
     '30',
   ]
   let times = [
-    "9:00",
-  "10:00",
-  "11:00",
-  "12:00",
-  "1:00",
-  "2:00",
-  "3:00",
-  "4:00",
+    '9:00',
+    '10:00',
+    '11:00',
+    '12:00',
+    '1:00',
+    '2:00',
+    '3:00',
+    '4:00',
   ]
-  let ampm = [
-    "AM",
-    "PM"
-  ]
+  let ampm = ['AM', 'PM']
   const appointmentInput = (e) => {
     e.preventDefault()
 
@@ -93,7 +90,7 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
     //     HLADRB = [0]
     // }
 
-    let month = "jan"
+    let month = 'jan'
     let day = 1
     let time = new Date()
     const appointment = {
@@ -118,16 +115,16 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
             </div>
           </div>
           <div className="flex w-full">
-            <div className="w-full flex justify-start p-5">
-              <div className="flex flex-col px-20 ">
-                <div className=" font-satoshiMedium text-black text-[16px]">
+            <div className="w-full flex justify-start py-5">
+              <div className="flex flex-col pl-2 ">
+                <div className=" font-satoshiMedium text-black pb-2 text-[16px]">
                   Date
                 </div>
                 <div>
                   <select
                     id="months"
                     name="months"
-                    className="border p-2 rounded font-satoshiRegular text-black"
+                    className="border p-2 px-10 rounded font-satoshiRegular border-main text-black"
                   >
                     {months.map((element) => {
                       return (
@@ -140,7 +137,7 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
                   <select
                     id="day"
                     name="day"
-                    className="border p-2 mx-2 rounded font-satoshiRegular text-black"
+                    className="border p-2 mx-2 px-10 rounded font-satoshiRegular border-main text-black"
                   >
                     {days.map((element) => {
                       return (
@@ -152,15 +149,15 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
                   </select>
                 </div>
               </div>
-              <div className="flex flex-col px-20 ">
-                <div className=" font-satoshiMedium text-black text-[16px]">
+              <div className="flex flex-col pl-10">
+                <div className=" font-satoshiMedium text-black pb-2 text-[16px]">
                   Time
                 </div>
                 <div>
                   <select
                     id="months"
                     name="months"
-                    className="border p-2 rounded font-satoshiRegular text-black"
+                    className="border p-2 px-10 rounded font-satoshiRegular border-main text-black"
                   >
                     {times.map((element) => {
                       return (
@@ -173,7 +170,7 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
                   <select
                     id="day"
                     name="day"
-                    className="border p-2 mx-2 rounded font-satoshiRegular text-black"
+                    className="border p-2 mx-2 px-10 rounded font-satoshiRegular border-main text-black"
                   >
                     {ampm.map((element) => {
                       return (
