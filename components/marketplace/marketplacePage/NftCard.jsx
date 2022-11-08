@@ -13,22 +13,21 @@ const NftCard = ({ item }) => {
   }
 
   return (
-    <Link href={`/marketplace/nft?tokenId=${item.tokenId}&matchRating=${percentage}`}>
-      <div className="w-fit min-w-[223px] max-w-[223px] bg-white flex flex-col px-5 py-2 drop-shadow-nftCard cursor-pointer rounded-2xl">
+    <Link
+      href={`/marketplace/nft?tokenId=${item.tokenId}&matchRating=${percentage}`}
+    >
+      <div className="w-fit min-w-[256px] max-w-[256px] bg-white flex flex-col px-5 pt-2 pb-4 mb-[2rem] mr-[2rem] drop-shadow-nftCard cursor-pointer rounded-2xl">
         <div className="py-3">
-          <div className="py-1 font-satoshiRegular text-base text-main">
-            Biobank
+          <div className="flex flex-row justify-between mb-2">
+            <div className="font-satoshiRegular text-base text-main h-min self-end">
+              Biobank
+            </div>
+            <div className=" font-satoshiMedium text-xl rounded-[20px] py-1 px-4 text-main bg-ccBackground self-top">
+              {item.size} CC
+            </div>
           </div>
           <div className=" font-satoshiBold text-xl text-black">
             {BioBankNames[biobank]}
-          </div>
-        </div>
-        <div className="py-3">
-          <div className="py-1 font-satoshiRegular text-base text-main">
-            Sample Size
-          </div>
-          <div className=" font-satoshiBold text-xl text-black">
-            {item.size} CC
           </div>
         </div>
         <div className="py-3">
