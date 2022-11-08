@@ -30,9 +30,9 @@ const NftDetailsAndBuy = ({ nftData }) => {
 
   async function checkIfCanUnhide() {
     try {
-      let provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = await provider.getSigner()
-      const signerAddr = await signer.getAddress()
+      // let provider = new ethers.providers.Web3Provider(window.ethereum)
+      // const signer = await provider.getSigner()
+      // const signerAddr = await signer.getAddress()
 
       // const marketplace = new ethers.Contract(
       //   contractAddresses.marketplace,
@@ -40,10 +40,9 @@ const NftDetailsAndBuy = ({ nftData }) => {
       //   signer
       // )
       // const approved = await marketplace.ApprovedToBuy(signerAddr)
+      const d = true
 
-      let data = true
-
-      if (data === true) {
+      if (d === true) {
         setHlaHidden(!hlaHidden)
       } else {
         console.warn('Address not approved as doctor or reseacher')
@@ -132,16 +131,16 @@ const NftDetailsAndBuy = ({ nftData }) => {
           ) : (
             <div className="flex flex-row space-x-[2rem] font-satoshiBold text-black text-base">
               <div className="flex flex-col">
-                <p className="pb-2">HLA A*</p>
-                <p>HLA DRB*</p>
+                <p className="pb-2">HLA A* 2 : 123</p>
+                <p>HLA DRB* 4 : 165</p>
               </div>
               <div className="flex flex-col">
-                <p className="pb-2">HLA B*</p>
-                <p>HLA DPB*</p>
+                <p className="pb-2">HLA B* 51 : 123</p>
+                <p>HLA DPB* 35 : 1 : 1</p>
               </div>
               <div className="flex flex-col">
-                <p className="pb-2">HLA C*</p>
-                <p>HLA DQA*</p>
+                <p className="pb-2">HLA C* 4 : 213</p>
+                <p>HLA DQA* 6 : 1</p>
               </div>
             </div>
           )}
