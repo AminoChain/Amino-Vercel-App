@@ -2,14 +2,14 @@ import NftListingPage from '../../../components/marketplace/marketplacePage/nftP
 import { gql, useQuery } from '@apollo/client'
 
 export async function getServerSideProps(context) {
-  const { tokenId } = context.query
+  const { tokenId, matchRating } = context.query
 
   return {
-    props: { tokenId: tokenId }, // will be passed to the page component as props
+    props: { tokenId: tokenId, matchRating: matchRating }, // will be passed to the page component as props
   }
 }
 
-const Nft = ({ tokenId }) => {
+const Nft = ({ tokenId, matchRating }) => {
   const GET_TOKEN_DATA = gql`
     query Nft($tokenId: Int!) {
       existingTokenIds(where: { tokenId: $tokenId }) {
@@ -50,7 +50,7 @@ const Nft = ({ tokenId }) => {
 
   return (
     <div className="w-screen">
-      <NftListingPage nftData={listing.existingTokenIds[0]} />
+      <NftListingPage nftData={listing.existingTokenIds[0]} matchRating={matchRating}/>
     </div>
   )
 }

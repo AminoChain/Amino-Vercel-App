@@ -2,8 +2,7 @@ import Image from 'next/image'
 import nftCellsArt from '../../../../assets/nftCellsArt.png'
 import aminoLogo2 from '../../../../assets/aminoLogo2.png'
 
-const NftArtCard = ({ nftData }) => {
-  const percentage = 75
+const NftArtCard = ({ nftData, matchRating }) => {
   const biobank = nftData.bioBank
   const donor =
     nftData.donor.slice(0, 4) +
@@ -58,11 +57,11 @@ const NftArtCard = ({ nftData }) => {
         </div>
         <div className="flex w-2/3 items-center">
           <div className="px-2 font-satoshiRegular text-base text-black">
-            75%
+            {matchRating}%
           </div>
           <div className=" w-full h-2 bg-slate-200 rounded-full">
             <div
-              style={{ width: `${percentage}%` }}
+              style={{ width: `${matchRating}%` }}
               className="h-2 bg-primary rounded-full"
             ></div>
           </div>
