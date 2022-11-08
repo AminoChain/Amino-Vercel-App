@@ -49,6 +49,20 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
     '29',
     '30',
   ]
+  let times = [
+    "9:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "1:00",
+  "2:00",
+  "3:00",
+  "4:00",
+  ]
+  let ampm = [
+    "AM",
+    "PM"
+  ]
   const appointmentInput = (e) => {
     e.preventDefault()
 
@@ -148,7 +162,7 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
                     name="months"
                     className="border p-2 rounded font-satoshiRegular text-black"
                   >
-                    {months.map((element) => {
+                    {times.map((element) => {
                       return (
                         <option key={element} value={element}>
                           {element}
@@ -161,7 +175,7 @@ const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
                     name="day"
                     className="border p-2 mx-2 rounded font-satoshiRegular text-black"
                   >
-                    {days.map((element) => {
+                    {ampm.map((element) => {
                       return (
                         <option key={element} value={element}>
                           {element}
