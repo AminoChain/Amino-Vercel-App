@@ -2,11 +2,29 @@ import { ethers } from 'ethers'
 import Image from 'next/image'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 import hidden from '../../../../assets/hlaHidden.png'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import { contractAddresses, abis } from '../../../../constants/index'
 
 const NftDetailsAndBuy = ({ nftData }) => {
   const [hlaHidden, setHlaHidden] = useState(true)
+  const [marketplace, setMarketplace] = useState()
+  const [userAddress, setUserAddress] = useState()
+
+  useEffect(() => {
+    (async () => {
+      let provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = await provider.getSigner()
+      const signerAddr = await signer.getAddress()
+      setUserAddress(signerAddr)
+
+      const marketplaceContract = new ethers.Contract(
+          contractAddresses.marketplace,
+          abis.marketplace,
+          signer
+      )
+      setMarketplace(marketplaceContract)
+    })()
+  }, [])
 
   const biobank = nftData.bioBank
   const donor =
@@ -28,21 +46,12 @@ const NftDetailsAndBuy = ({ nftData }) => {
     '': 'National',
   }
 
-  async function checkIfCanUnhide() {
+  const checkIfCanUnhide = async () => {
     try {
-      // let provider = new ethers.providers.Web3Provider(window.ethereum)
-      // const signer = await provider.getSigner()
-      // const signerAddr = await signer.getAddress()
+      // const approved = await marketplace.ApprovedToBuy(userAddress) // ApprovedToBuy not public
+      const approved = true
 
-      // const marketplace = new ethers.Contract(
-      //   contractAddresses.marketplace,
-      //   abis.marketplace,
-      //   signer
-      // )
-      // const approved = await marketplace.ApprovedToBuy(signerAddr)
-      const d = true
-
-      if (d === true) {
+      if (approved === true) {
         setHlaHidden(!hlaHidden)
       } else {
         console.warn('Address not approved as doctor or reseacher')

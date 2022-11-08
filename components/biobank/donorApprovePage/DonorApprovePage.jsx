@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import {Contract, ethers} from "ethers";
+import DonorApproveBanner from "./DonorApproveBanner";
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
@@ -15,6 +16,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
     const [waitingForApprove, setWaitingForApprove] = useState(false)
     const [registering, setRegistering] = useState(false)
     const [finished, setFinished] = useState(false)
+    const [registrationTx, setRegistrationTx] = useState(false)
 
     useEffect(() => {
         setConnectingWallet(true)
@@ -44,7 +46,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
             setConnectingWallet(false)
 
             const authenticator = new Contract(
-            '0xe678C9BA5a9aE61fAc009a602b29ed869eD8156c',
+            '0xfB45e078E326A9f838E27B750cA7e84b554F97b4',
             AuthenticatorAbi,
             new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com')
             )
@@ -81,6 +83,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
                 setRegistering(false)
 
                 if(response.ok) {
+                    setRegistrationTx(await response.text())
                     setFinished(true)
                 } else {
                     setError("Registration error")
@@ -96,11 +99,17 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
 
   return (
     <div className="w-full">
-        <div>{error}</div>
-        { connectingWallet && <div>Connecting...</div>}
-        { waitingForApprove && <div>Waiting for approve...</div>}
-        { registering && <div>Registering...</div>}
-        { finished && <div>Donation registered</div>}
+        <DonorApproveBanner/>
+        <div className="w-full flex flex-col px-36 py-10">
+            <div className="text-5xl text-black py-3 font-satoshi" style={{paddingTop: '100px'}}>
+                { !connectingWallet && !waitingForApprove && !registering && !finished && <div>Sign message in Metamask on your mobile phone</div>}
+                <div>{error}</div>
+                { connectingWallet && <div>Connecting...</div>}
+                { waitingForApprove && <div>Waiting for approve...</div>}
+                { registering && <div>Registering...</div>}
+                { finished && <div>Donation registered (<a target="_blank" href={`https://mumbai.polygonscan.com/tx/${registrationTx}`}>check transaction</a>)</div>}
+            </div>
+        </div>
     </div>
   )
 }
