@@ -13,7 +13,7 @@ const NftCard = ({ item }) => {
   }
 
   return (
-    <Link href={`/marketplace/nft?tokenId=${item.tokenId}`}>
+    <Link href={`/marketplace/nft?tokenId=${item.tokenId}&matchRating=${percentage}`}>
       <div className="w-fit min-w-[223px] max-w-[223px] bg-white flex flex-col px-5 py-2 drop-shadow-nftCard cursor-pointer rounded-2xl">
         <div className="py-3">
           <div className="py-1 font-satoshiRegular text-base text-main">
