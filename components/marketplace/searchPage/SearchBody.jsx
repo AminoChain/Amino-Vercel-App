@@ -2,46 +2,46 @@ const SearchBody = ({ setSearch }) => {
   const searchInput = (e) => {
     e.preventDefault()
 
-    // let HLAA, HLAB, HLAC, HLADPB, HLADRB
-    // if (e.currentTarget[0].value) {
-    //     HLAA = JSON.parse(e.currentTarget[0].value) //e.target[0];
-    // } else {
-    //     HLAA = [0]
-    // }
-    // if (e.currentTarget[1].value) {
-    //     HLAB = JSON.parse(e.currentTarget[1].value)
-    // } else {
-    //     HLAB = [0]
-    // }
-    // if (e.currentTarget[2].value) {
-    //     HLAC = JSON.parse(e.currentTarget[2].value)
-    // } else {
-    //     HLAC = [0]
-    // }
-    // if (e.currentTarget[3].value) {
-    //     HLADPB = JSON.parse(e.currentTarget[3].value)
-    // } else {
-    //     HLADPB = [0]
-    // }
-    // if (e.currentTarget[4].value) {
-    //     HLADRB = JSON.parse(e.currentTarget[4].value)
-    // } else {
-    //     HLADRB = [0]
-    // }
+    let HLAA, HLAB, HLAC, HLADPB, HLADRB
+    if (e.currentTarget[0].value) {
+      HLAA = JSON.parse(e.currentTarget[0].value) //e.target[0];
+    } else {
+      HLAA = [0]
+    }
+    if (e.currentTarget[1].value) {
+      HLAB = JSON.parse(e.currentTarget[1].value)
+    } else {
+      HLAB = [0]
+    }
+    if (e.currentTarget[2].value) {
+      HLAC = JSON.parse(e.currentTarget[2].value)
+    } else {
+      HLAC = [0]
+    }
+    if (e.currentTarget[3].value) {
+      HLADPB = JSON.parse(e.currentTarget[3].value)
+    } else {
+      HLADPB = [0]
+    }
+    if (e.currentTarget[4].value) {
+      HLADRB = JSON.parse(e.currentTarget[4].value)
+    } else {
+      HLADRB = [0]
+    }
 
-    let HLAA = [2, 123]
-    let HLAB = [51, 123]
-    let HLAC = [4, 213]
-    let HLADPB = [35, 1, 1]
-    let HLADRB = [4, 165]
-    let HLADQA = [35, 1, 1]
+    // let HLAA = [2, 123]
+    // let HLAB = [51, 123]
+    // let HLAC = [4, 213]
+    // let HLADPB = [35, 1, 1]
+    // let HLADRB = [4, 165]
+    // let HLADQA = [35, 1, 1]
     setSearch({
       HLAA: HLAA,
       HLAB: HLAB,
       HLAC: HLAC,
       HLADPB: HLADPB,
       HLADRB: HLADRB,
-      HLADQA: HLADQA,
+      // HLADQA: HLADQA,
     })
   }
 

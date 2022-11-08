@@ -5,7 +5,11 @@ const DonateSearchSteps = ({ progress }) => {
     <div className="w-full flex flex-col pt-[1rem]">
       <div className="w-full flex flex-row px-20">
         <div className="w-full flex flex-row items-start">
-          <div className="flex justify-center items-center bg-main text-white text-base h-10 w-10 font-satoshiMedium rounded-full">
+          <div
+            className={`flex justify-center items-center ${
+              progress > 3 ? 'bg-primary' : 'bg-main'
+            } text-white text-base h-10 w-10 font-satoshiMedium rounded-full`}
+          >
             1
           </div>
           <div className="flex flex-col justify-end text-black py-2 px-4">

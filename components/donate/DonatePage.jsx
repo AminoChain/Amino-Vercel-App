@@ -9,7 +9,6 @@ const DonatePage = () => {
   const [bioBanks, setBioBanks] = useState([])
   const [location, setLocation] = useState('')
 
-
   return (
     <div className="w-screen flex flex-col">
       <DonateNav />

@@ -21,11 +21,11 @@ const InfoBody = () => {
               <p className="text-main font-satoshiMedium text-2xl mb-[10px]">
                 BioBanks
               </p>
-              <p className="text-black font-satoshiMedium text-3xl max-w-[60%] ">
-                **
+              <p className="text-black font-satoshiMedium text-3xl max-w-[70%] ">
+                Decentralize and incentivize stem cell donations
               </p>
               <p className="text-black text-base font-satoshiRegular my-[20px]">
-                **
+                Increase supply and access of stem cell samples
               </p>
             </div>
           </div>
@@ -50,10 +50,10 @@ const InfoBody = () => {
                 Researchers
               </p>
               <p className="text-black font-satoshiMedium text-3xl max-w-[60%]">
-                **
+                Find desired samples from all over the globe
               </p>
               <p className="text-black text-base font-satoshiRegular my-[20px]">
-                **
+                Improve the chances of successfull outcomes
               </p>
             </div>
           </div>

@@ -4,9 +4,9 @@ import discord from '../../assets/discordLogo.png'
 import twitter from '../../assets/twitterLogo.png'
 import github from '../../assets/githubLogo.png'
 
-const DonorFooter = () => {
+const DonateFooter = () => {
   return (
-    <div className="absolute bottom-0 flex w-full px-[12%] mt-[14rem] mb-[3rem]">
+    <div className="flex w-full px-[12%] mt-[14rem] mb-[3rem]">
       <div className="flex flex-row w-full justify-between content-center border-solid border-b-[1px] py-[1rem] px-[5%] rounded-[200px] border-main min-w-[42%]">
         <div className="flex flex-row justify-between content-center self-center h-min min-w-[160px] ">
           <a href="https://discord.com" className="flex h-min align-middle">
@@ -45,4 +45,4 @@ const DonorFooter = () => {
   )
 }
 
-export default DonorFooter
+export default DonateFooter
