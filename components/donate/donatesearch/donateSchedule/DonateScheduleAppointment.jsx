@@ -71,7 +71,7 @@ const DonateScheduleAppointment = ({ bioBank }) => {
                     className="border p-2 rounded font-satoshiRegular text-black"
                   >
                     {months.map((element) => {
-                      return <option value={element}>{element}</option>
+                      return <option  key={element} value={element}>{element}</option>
                     })}
                   </select>
                   <select
@@ -80,7 +80,7 @@ const DonateScheduleAppointment = ({ bioBank }) => {
                     className="border p-2 mx-2 rounded font-satoshiRegular text-black"
                   >
                     {days.map((element) => {
-                      return <option value={element}>{element}</option>
+                      return <option key={element} value={element}>{element}</option>
                     })}
                   </select>
                 </div>
