@@ -8,5 +8,8 @@
   .nftCells {
     box-shadow: 9px 9px 16px 0px rgba(254, 199, 255, 1) inset;
   }
+  .bioBankAppointment {
+    box-shadow: 9px 9px 16px 0px rgba(205, 205, 205, 0.4) inset;
+  }
   /* ... */
 }
