@@ -2,7 +2,7 @@ import Image from 'next/image'
 import googleMaps from '../../../../assets/googleMaps.png'
 import bioBankSymbolBig from '../../../../assets/bioBankSymbolBig.png'
 
-const DonateBioBankInfo = ({bioBank}) => {
+const DonateBioBankInfo = ({ bioBank }) => {
   return (
     <div className="w-1/4 flex flex-col items-start p-20">
       <div>

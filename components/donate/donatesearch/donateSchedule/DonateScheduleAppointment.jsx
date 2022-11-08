@@ -1,6 +1,7 @@
+import { useRouter } from 'next/router'
 
-
-const DonateScheduleAppointment = ({ bioBank }) => {
+const DonateScheduleAppointment = ({ bioBank, setProgress }) => {
+  const router = useRouter()
   let months = [
     'Jan',
     'Feb',
@@ -48,10 +49,54 @@ const DonateScheduleAppointment = ({ bioBank }) => {
     '29',
     '30',
   ]
+  const appointmentInput = (e) => {
+    e.preventDefault()
+
+    // let HLAA, HLAB, HLAC, HLADPB, HLADRB
+    // if (e.currentTarget[0].value) {
+    //     HLAA = JSON.parse(e.currentTarget[0].value) //e.target[0];
+    // } else {
+    //     HLAA = [0]
+    // }
+    // if (e.currentTarget[1].value) {
+    //     HLAB = JSON.parse(e.currentTarget[1].value)
+    // } else {
+    //     HLAB = [0]
+    // }
+    // if (e.currentTarget[2].value) {
+    //     HLAC = JSON.parse(e.currentTarget[2].value)
+    // } else {
+    //     HLAC = [0]
+    // }
+    // if (e.currentTarget[3].value) {
+    //     HLADPB = JSON.parse(e.currentTarget[3].value)
+    // } else {
+    //     HLADPB = [0]
+    // }
+    // if (e.currentTarget[4].value) {
+    //     HLADRB = JSON.parse(e.currentTarget[4].value)
+    // } else {
+    //     HLADRB = [0]
+    // }
+
+    let month = "jan"
+    let day = 1
+    let time = new Date()
+    const appointment = {
+      month: month,
+      day: day,
+      day: time,
+    }
+    const url = `/donate/biobank/appointmentConfirmed?bioBankId=${bioBank.id}`
+    //for now we will route to the confirmationpage
+    setProgress(4)
+    router.push(url)
+    // ADD functionality to submit to the database for the schedule to be sent to the bio bank
+  }
 
   return (
     <div className="w-3/4 flex flex-col p-20">
-      <form>
+      <form onSubmit={appointmentInput}>
         <div className="bioBankAppointment rounded-[12px] px-6 py-7">
           <div className="border-b-2">
             <div className=" font-satoshiBold text-[16px] text-black pb-4">
@@ -71,7 +116,11 @@ const DonateScheduleAppointment = ({ bioBank }) => {
                     className="border p-2 rounded font-satoshiRegular text-black"
                   >
                     {months.map((element) => {
-                      return <option  key={element} value={element}>{element}</option>
+                      return (
+                        <option key={element} value={element}>
+                          {element}
+                        </option>
+                      )
                     })}
                   </select>
                   <select
@@ -80,7 +129,11 @@ const DonateScheduleAppointment = ({ bioBank }) => {
                     className="border p-2 mx-2 rounded font-satoshiRegular text-black"
                   >
                     {days.map((element) => {
-                      return <option key={element} value={element}>{element}</option>
+                      return (
+                        <option key={element} value={element}>
+                          {element}
+                        </option>
+                      )
                     })}
                   </select>
                 </div>
@@ -96,7 +149,11 @@ const DonateScheduleAppointment = ({ bioBank }) => {
                     className="border p-2 rounded font-satoshiRegular text-black"
                   >
                     {months.map((element) => {
-                      return <option key={element} value={element}>{element}</option>
+                      return (
+                        <option key={element} value={element}>
+                          {element}
+                        </option>
+                      )
                     })}
                   </select>
                   <select
@@ -105,12 +162,15 @@ const DonateScheduleAppointment = ({ bioBank }) => {
                     className="border p-2 mx-2 rounded font-satoshiRegular text-black"
                   >
                     {days.map((element) => {
-                      return <option key={element} value={element}>{element}</option>
+                      return (
+                        <option key={element} value={element}>
+                          {element}
+                        </option>
+                      )
                     })}
                   </select>
                 </div>
               </div>
-              <input type="submit" className=" hover:hidden" />
             </div>
           </div>
         </div>
@@ -129,7 +189,6 @@ const DonateScheduleAppointment = ({ bioBank }) => {
             </div>
           </div>
         </div>
-
         <div className="flex justify-center items-center py-5">
           <input
             className="flex justify-items-center text-2xl cursor-pointer bg-marketplaceButton font-satoshiBold px-[6rem] mt-[1rem] h-[72px] rounded-full text-black drop-shadow-searchButtonShadow "

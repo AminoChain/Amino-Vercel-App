@@ -3,12 +3,11 @@ import { useRouter } from 'next/router'
 import bioBankSymbol from '../../../assets/bioBankSymbol.png'
 
 const DonateBioBankCard = ({ bioBank, setProgress }) => {
-
   const router = useRouter()
 
   const loadBioBankInfo = async (e) => {
     const url = `/donate/biobank?bioBankId=${bioBank.id}`
-   router.push(url)
+    router.push(url)
   }
 
   return (
