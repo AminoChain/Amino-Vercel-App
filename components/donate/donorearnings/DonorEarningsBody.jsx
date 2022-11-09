@@ -1,9 +1,8 @@
 import { gql, useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
-import DonorProfileCard from './DonorProfileCard'
 import { ethers } from 'ethers'
 
-const DonorProfileBody = () => {
+const DonorEarningsBody = () => {
   const [userAddress, setUserAddress] = useState(
     '0x0000000000000000000000000000000000000000'
   )
@@ -21,14 +20,11 @@ const DonorProfileBody = () => {
     })()
   }, [])
 
-  const GET_DONOR_NFTS = gql`
+  const GET_DONOR_EARNINGS = gql`
     query Nfts($userAddress: Bytes!) {
-      existingTokenIds(where: { donor: $userAddress }) {
-        tokenId
-        price
-        sizeInCC
-        bioBank
-        buyer
+      saleCompleteds(where: { donor: $userAddress }) {
+        transactionHash
+        donorIncentive
       }
     }
   `
@@ -36,8 +32,8 @@ const DonorProfileBody = () => {
   const {
     loading,
     error,
-    data: listing,
-  } = useQuery(GET_DONOR_NFTS, {
+    data: sales,
+  } = useQuery(GET_DONOR_EARNINGS, {
     variables: { userAddress },
   })
   if (loading) {
@@ -47,41 +43,34 @@ const DonorProfileBody = () => {
       </div>
     )
   }
-  if (error) return `Error! ${error}`
 
-  let donorNftArray = []
+  let donorSalesArray = []
   const getData = () => {
-    listing.existingTokenIds.forEach((nft, index) => {
-      const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
-      donorNftArray.push({
-        tokenId: nft.tokenId,
-        bioBank: nft.bioBank,
-        price: nft.price,
-        size: nft.sizeInCC,
+    sales.saleCompleteds.forEach((sale, index) => {
+      donorSalesArray.push({
+        transcationHash: sale.transcationHash,
+        incentive: sale.donorIncentive,
       })
     })
   }
   getData()
 
-  const donorNfts = donorNftArray.map((item, index) => (
-    <DonorProfileCard key={index} item={item} />
-  ))
-  const numOfDonations = donorNftArray.length
+  const numOfIncentives = donorSalesArray.length
 
   return (
     <div className="w-full flex flex-row px-20 py-5">
       {userAddress === '0x0000000000000000000000000000000000000000' ? (
         <div className="w-full justify-center flex px-auto font-satoshiMedium text-black text-4xl mt-[2rem] mb-[8%]">
-          Connect Wallet To View Donations
+          Connect Wallet To View Earnings
         </div>
       ) : (
         <div className="w-full flex flex-row flex-wrap">
-          {numOfDonations >= 1 ? (
-            <div className="w-full flex flex-row flex-wrap">{donorNfts}</div>
+          {numOfIncentives >= 1 ? (
+            <div className="w-full flex flex-row flex-wrap">x</div>
           ) : (
             <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
               <div className="font-satoshiMedium text-black text-4xl p-2">
-                You have no donated Stem Cells
+                You have no Earnings
               </div>
               <div className="text-black font-satoshiRegular text-xl p-2">
                 Visit the Donations Page to start a donation
@@ -94,4 +83,4 @@ const DonorProfileBody = () => {
   )
 }
 
-export default DonorProfileBody
+export default DonorEarningsBody
