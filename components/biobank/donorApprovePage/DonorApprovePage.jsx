@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import {Contract, ethers} from "ethers";
-import DonorApproveBanner from "./DonorApproveBanner";
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
@@ -99,7 +98,6 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
 
   return (
     <div className="w-full">
-        <DonorApproveBanner/>
         <div className="w-full flex flex-col px-36 py-10">
             <div className="text-5xl text-black py-3 font-satoshi" style={{paddingTop: '100px'}}>
                 { !connectingWallet && !waitingForApprove && !registering && !finished && <div>Sign message in Metamask on your mobile phone</div>}

@@ -25,7 +25,7 @@ const Nav = () => {
         <div className="flex self-center h-fit">
           <Image src={dot} alt="" draggable="false" />
         </div>
-        <Link href="/biobank">
+        <Link href="/biobank/appointments">
           <div className="text-base font-satoshiMedium text-primary hover:text-primaryHover cursor-pointer h-fit">
             BioBank Access
           </div>
