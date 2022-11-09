@@ -1,4 +1,4 @@
-import BioBankPage from "../../../components/biobank/BiobankPage"
+import BioBankPage from "../../../components/biobank/BioBankPage"
 
 
 const Biobank = () => {
