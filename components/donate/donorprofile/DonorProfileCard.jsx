@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import Link from 'next/link'
-import { biobankNames } from '../../constants/index'
+import { biobankNames } from '../../../constants/index'
 
 const DonorProfileCard = ({ item }) => {
   const biobank = item.bioBank
