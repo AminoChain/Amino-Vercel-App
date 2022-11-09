@@ -1,26 +1,20 @@
-import {useState} from "react";
-//import EnterHlaPage from "./enterHlaPage/EnterHlaPage";
-//import DonorApprovePage from "./donorApprovePage/DonorApprovePage";
-import BioBankNav from "./BioBankNav";
-import BioBankBanner from "./BioBankBanner";
-import BioBankAppointmentList from "./appointments/BioBankAppointmentList";
+import { useState } from 'react'
 
-const BiobankPage = ({  }) => {
-  
- // const [hla, setHla] = useState()
+import BioBankNav from './BioBankNav'
+import BioBankBanner from './BioBankBanner'
+import BioBankAppointments from './appointments/BioBankAppointments'
+import BioBankFooter from './BioBankFooter'
+
+const BioBankPage = ({}) => {
 
   return (
     <div className="w-screen">
       <BioBankBanner />
       <BioBankNav />
-      <BioBankAppointmentList/>
-      {/* { !hla ? (
-        <EnterHlaPage setHla={setHla}/>
-      ) : (
-        <DonorApprovePage hla={hla} biobankAddress={'0x35a5b80732eFe78D171327C39de408227C299AAc'}/>
-      )} */}
+      <BioBankAppointments />
+      <BioBankFooter/>
     </div>
   )
 }
 
-export default BiobankPage
+export default BioBankPage
