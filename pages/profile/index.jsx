@@ -1,5 +1,5 @@
-import DonorBanner from '../../../components/donate/DonateBanner'
-import DonorProfile from '../../../components/donate/donorprofile/DonorProfile'
+import DonorBanner from '../../components/donate/DonateBanner'
+import DonorProfile from '../../components/donorprofile/DonorProfile'
 
 const Profile = () => {
   return (
