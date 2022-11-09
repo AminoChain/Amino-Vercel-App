@@ -1,9 +1,11 @@
-import BioBankPage from '../../../components/biobank/register/donorApprovePage/BioBankPage'
+import BioBankPage from "../../../components/biobank/BiobankPage"
+
 
 const Biobank = () => {
   return (
     <div className="w-screen">
-      <BioBankPage />
+      <BioBankPage/>
+   
     </div>
   )
 }
