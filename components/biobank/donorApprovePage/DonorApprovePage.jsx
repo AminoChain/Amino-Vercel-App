@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import WalletConnect from '@walletconnect/client'
 import QRCodeModal from '@walletconnect/qrcode-modal'
 import { Contract, ethers } from 'ethers'
-import DonorApproveBanner from './DonorApproveBanner'
-import { abis } from '../../../constants/index'
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
@@ -101,7 +98,6 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
 
   return (
     <div className="w-full">
-      <DonorApproveBanner />
       <div className="w-full flex flex-col px-36 py-10">
         <div
           className="text-5xl text-black py-3 font-satoshi"
@@ -120,13 +116,12 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
           {finished && (
             <div>
               Donation registered (
-              <Link
-                target="_blank"
-                rel="norefferrer"
+              <a
+                className=" text-purpleHLADQA underline"
                 href={`https://mumbai.polygonscan.com/tx/${registrationTx}`}
               >
                 check transaction
-              </Link>
+              </a>
               )
             </div>
           )}
