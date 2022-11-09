@@ -1,15 +1,20 @@
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const DonateNav = () => {
   const { pathname } = useRouter()
-  const pathRoot = pathname.substring(0, pathname.indexOf('/', 2))
+  const path = pathname.substring(pathname.lastIndexOf('/'))
 
   return (
     <div className="flex w-1/3 px-20 py-5 justify-between">
-      {pathRoot !== '/donate' && pathname !== '/donate' ? (
-        <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
-          Donations
-        </div>
+      {path !== '/biobank' &&
+      path !== '/appointmentConfirmed' &&
+      pathname !== '/donate' ? (
+        <Link href="/donate">
+          <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
+            Donations
+          </div>
+        </Link>
       ) : (
         <div className="pb-0 border-b-4 border-black text-black cursor-pointer transition p-2 rounded font-satoshiMedium text-2xl">
           Donations
@@ -18,9 +23,17 @@ const DonateNav = () => {
       <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
         Earnings
       </div>
-      <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
-        Profile
-      </div>
+      {pathname !== '/donate/profile' ? (
+        <Link href="/donate/profile">
+          <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
+            Profile
+          </div>
+        </Link>
+      ) : (
+        <div className="pb-0 border-b-4 border-black text-black cursor-pointer transition p-2 rounded font-satoshiMedium text-2xl">
+          Profile
+        </div>
+      )}
     </div>
   )
 }

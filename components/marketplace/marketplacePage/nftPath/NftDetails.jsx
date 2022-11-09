@@ -2,8 +2,12 @@ import { ethers } from 'ethers'
 import Image from 'next/image'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 import hidden from '../../../../assets/hlaHidden.png'
-import {useEffect, useState} from 'react'
-import { contractAddresses, abis } from '../../../../constants/index'
+import { useEffect, useState } from 'react'
+import {
+  contractAddresses,
+  abis,
+  biobankNames,
+} from '../../../../constants/index'
 
 const NftDetailsAndBuy = ({ nftData }) => {
   const [hlaHidden, setHlaHidden] = useState(true)
@@ -11,18 +15,22 @@ const NftDetailsAndBuy = ({ nftData }) => {
   const [userAddress, setUserAddress] = useState()
 
   useEffect(() => {
-    (async () => {
-      let provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = await provider.getSigner()
-      const signerAddr = await signer.getAddress()
-      setUserAddress(signerAddr)
+    ;(async () => {
+      try {
+        let provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = await provider.getSigner()
+        const signerAddr = await signer.getAddress()
+        setUserAddress(signerAddr)
 
-      const marketplaceContract = new ethers.Contract(
+        const marketplaceContract = new ethers.Contract(
           contractAddresses.marketplace,
           abis.marketplace,
           signer
-      )
-      setMarketplace(marketplaceContract)
+        )
+        setMarketplace(marketplaceContract)
+      } catch (e) {
+        console.warn(e)
+      }
     })()
   }, [])
 
@@ -40,11 +48,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
     )
   const price = ethers.utils.formatUnits(nftData.price, 18).toString() //change back to 6 decimals later
 
-  const BioBankNames = {
-    '0x53c847035e9c2ea3aead920d395bccd7768ee63f': 'Coriell',
-    '0x35a5b80732efe78d171327c39de408227c299aac': 'Greenville',
-    '': 'National',
-  }
+  const BioBankNames = biobankNames
 
   const checkIfCanUnhide = async () => {
     try {
