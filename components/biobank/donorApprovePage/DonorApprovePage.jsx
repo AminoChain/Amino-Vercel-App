@@ -117,7 +117,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
             <div>
               Donation registered (
               <a
-                target="_blank"
+                className=" text-purpleHLADQA underline"
                 href={`https://mumbai.polygonscan.com/tx/${registrationTx}`}
               >
                 check transaction
