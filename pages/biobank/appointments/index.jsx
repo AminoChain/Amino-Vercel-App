@@ -1,4 +1,4 @@
-import BioBankPage from '../../../components/biobank/BioBankPage'
+import BioBankPage from '../../../components/biobank/register/donorApprovePage/BioBankPage'
 
 const Biobank = () => {
   return (
