@@ -1,5 +1,5 @@
-import DonateNav from '../DonateNav'
-import DonateFooter from '../DonateFooter'
+import DonateNav from '../donate/DonateNav'
+import DonateFooter from '../donate/DonateFooter'
 import DonorProfileBody from './DonorProfileBody'
 
 const DonorProfile = () => {

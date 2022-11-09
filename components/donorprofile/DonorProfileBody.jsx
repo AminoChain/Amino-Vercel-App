@@ -20,16 +20,24 @@ const DonorProfileBody = () => {
   }, [])
 
   const GET_DONOR_NFTS = gql`
-    {
+    query Nfts($userAddress: Bytes!) {
       existingTokenIds(where: { donor: $userAddress }) {
         tokenId
         price
-        bioBank
         sizeInCC
+        bioBank
+        buyer
       }
     }
   `
-  const { loading, error, data: listing } = useQuery(GET_DONOR_NFTS)
+
+  const {
+    loading,
+    error,
+    data: listing,
+  } = useQuery(GET_DONOR_NFTS, {
+    variables: { userAddress },
+  })
   if (loading) {
     return (
       <div>
@@ -67,7 +75,7 @@ const DonorProfileBody = () => {
       ) : (
         <div className="w-full flex flex-row flex-wrap">
           {numOfDonations >= 1 ? (
-            { donorNfts }
+            <div className="w-full flex flex-row flex-wrap">{donorNfts}</div>
           ) : (
             <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
               <div className="font-satoshiMedium text-black text-4xl p-2">
