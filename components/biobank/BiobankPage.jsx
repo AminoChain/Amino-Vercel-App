@@ -1,13 +1,13 @@
 import {useState} from "react";
-import EnterHlaPage from "./enterHlaPage/EnterHlaPage";
-import DonorApprovePage from "./donorApprovePage/DonorApprovePage";
+//import EnterHlaPage from "./enterHlaPage/EnterHlaPage";
+//import DonorApprovePage from "./donorApprovePage/DonorApprovePage";
 import BioBankNav from "./BioBankNav";
 import BioBankBanner from "./BioBankBanner";
 import BioBankAppointmentList from "./appointments/BioBankAppointmentList";
 
 const BiobankPage = ({  }) => {
   
-  const [hla, setHla] = useState()
+ // const [hla, setHla] = useState()
 
   return (
     <div className="w-screen">

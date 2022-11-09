@@ -18,7 +18,7 @@ const BioBankAppointmentList = () => {
         <div className=" font-satoshiMedium text-main basis-3/12 flex items-center">
           Nov 2nd
           <div className="flex items-center px-2">
-            <Image src={dot} />
+            <Image src={dot} alt="dot image"/>
           </div>
           10:15 am
         </div>
@@ -27,9 +27,9 @@ const BioBankAppointmentList = () => {
         </div>
         <div className=" font-satoshiMedium text-main basis-2/12 flex justify-center">
           Action
+          </div>
         </div>
       </div>
-    </div>
   )
 }
 
