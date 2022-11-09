@@ -4,7 +4,9 @@ import DonorProfileCard from './DonorProfileCard'
 import { ethers } from 'ethers'
 
 const DonorProfileBody = () => {
-  const [userAddress, setUserAddress] = useState(null)
+  const [userAddress, setUserAddress] = useState(
+    '0x0000000000000000000000000000000000000000'
+  )
 
   useEffect(() => {
     ;(async () => {
