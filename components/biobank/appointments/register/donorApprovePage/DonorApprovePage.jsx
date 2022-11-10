@@ -5,17 +5,17 @@ import Image from 'next/image'
 import WalletConnect from '@walletconnect/client'
 import QRCodeModal from '@walletconnect/qrcode-modal'
 import { Contract, ethers } from 'ethers'
-import { abis } from '../../../../../constants/index'
+import { abis, contractAddresses } from '../../../../../constants/index'
 import DonationSuccessfulNftCard from './DonationSuccessfulNftCard'
 import checkGreen from '../../../../../assets/success.png'
 import share from '../../../../../assets/share.png'
 import confetti from '../../../../../assets/confetti.gif'
+import {platformBackend} from "../../../../../context/state";
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
 export const currentChainId = mumbaiChainId
 // const platformBackend = "http://localhost:3003/"
-const platformBackend = 'https://amino-chain-backend.herokuapp.com/'
 
 const DonorApprovePage = ({ hla, biobankAddress }) => {
   const [error, setError] = useState('')
@@ -53,11 +53,9 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
       setConnectingWallet(false)
 
       const authenticator = new Contract(
-        '0xfB45e078E326A9f838E27B750cA7e84b554F97b4',
+        contractAddresses.authenticator,
         abis.authenticator,
-        new ethers.providers.JsonRpcProvider(
-          'https://rpc-mumbai.maticvigil.com'
-        )
+        new ethers.providers.JsonRpcProvider('https://rpc-mumbai.matic.today')
       )
 
       let hlaHash = ethers.utils.id(JSON.stringify(hla))

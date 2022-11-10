@@ -1,14 +1,15 @@
 import Image from 'next/image'
 import nftCellsArt from '../../../../../assets/nftCellsArt.png'
 import aminoLogo2 from '../../../../../assets/aminoLogo2.png'
+import { biobankNames } from '../../../../../constants/index'
 
 const DonationSuccessfulNftCard = () => {
   let item = {
-    bioBank: "0x53c847035e9c2ea3aead920d395bccd7768ee63f",
+    bioBank: '0x53c847035e9c2ea3aead920d395bccd7768ee63f',
     price: 4000,
     tokenId: 3,
-    size: "20cc",
-    donor: "0x53c847035e9c2ea3aead920d395bccd7768ee63f"
+    size: '20cc',
+    donor: '0x53c847035e9c2ea3aead920d395bccd7768ee63f',
   }
   const biobank = item.bioBank
   const donor =
@@ -16,11 +17,7 @@ const DonationSuccessfulNftCard = () => {
     '...' +
     item.donor.slice(item.donor.length - 4, item.donor.length)
 
-  const BioBankNames = {
-    '0x53c847035e9c2ea3aead920d395bccd7768ee63f': 'Coriell',
-    '0x35a5b80732efe78d171327c39de408227c299aac': 'Greenville',
-    '': 'National',
-  }
+  const BioBankNames = biobankNames
 
   return (
     <div className="w-full pb-10 ">
@@ -60,7 +57,6 @@ const DonationSuccessfulNftCard = () => {
       </div>
     </div>
   )
-  
 }
 
 export default DonationSuccessfulNftCard
