@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+
 import WalletConnect from '@walletconnect/client'
 import QRCodeModal from '@walletconnect/qrcode-modal'
 import { Contract, ethers } from 'ethers'
-import { abis } from '../../../../constants/index'
+import { abis } from '../../../../../constants/index'
+import DonationSuccessfulNftCard from './DonationSuccessfulNftCard'
+import checkGreen from '../../../../../assets/success.png'
+import share from '../../../../../assets/share.png'
+import confetti from '../../../../../assets/confetti.gif'
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
@@ -97,13 +103,11 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
       // }
     })
   }, [])
+
   return (
-    <div className="w-full">
+    <div className={`w-full ${finished ? 'confettiBG' : null}`}>
       <div className="w-full flex flex-col px-36 py-10">
-        <div
-          className="text-5xl text-black py-3 font-satoshi"
-          style={{ paddingTop: '100px' }}
-        >
+        <div className="flex flex-col items-center text-5xl text-black py-3 font-satoshi">
           {!connectingWallet &&
             !waitingForApprove &&
             !registering &&
@@ -116,14 +120,20 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
           {registering && <div>Registering...</div>}
           {finished && (
             <div>
-              Donation registered (
+              <div className="flex flex-col items-center font-satoshiBold text-black text-2xl pb-10">
+                <div>Verification successful</div>
+                <div className="px-2">
+                  <Image src={checkGreen} />
+                </div>
+              </div>
+              <DonationSuccessfulNftCard />
               <a
-                className=" text-purpleHLADQA underline"
+                className="px-6 py-3 flex items-center bg-white font-satoshiMedium text-xl border-main border rounded-full "
                 href={`https://mumbai.polygonscan.com/tx/${registrationTx}`}
               >
-                check transaction
+                <div className="px-2">View on PolygonScan</div>
+                <Image src={share} />
               </a>
-              )
             </div>
           )}
         </div>

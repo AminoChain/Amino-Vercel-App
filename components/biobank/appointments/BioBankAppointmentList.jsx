@@ -15,7 +15,7 @@ const BioBankAppointmentList = () => {
       <div className=" font-satoshiMedium text-main basis-7/12">
         0x279A27Ee501E1a515429573691683971FE2aBbfd
       </div>
-      <Link href="/biobank/register">
+      <Link href="/biobank/appointments/register">
         <div className=" font-satoshiMedium text-main basis-2/12 flex justify-center">
           <div className="bg-primary flex py-3 px-7 font-satoshiMedium text-black rounded-full cursor-pointer">
             Start verification

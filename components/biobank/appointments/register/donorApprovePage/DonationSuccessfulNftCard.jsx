@@ -1,13 +1,20 @@
 import Image from 'next/image'
-import nftCellsArt from '../../../../assets/nftCellsArt.png'
-import aminoLogo2 from '../../../../assets/aminoLogo2.png'
+import nftCellsArt from '../../../../../assets/nftCellsArt.png'
+import aminoLogo2 from '../../../../../assets/aminoLogo2.png'
 
-const NftArtCard = ({ nftData, matchRating }) => {
-  const biobank = nftData.bioBank
+const DonationSuccessfulNftCard = () => {
+  let item = {
+    bioBank: "0x53c847035e9c2ea3aead920d395bccd7768ee63f",
+    price: 4000,
+    tokenId: 3,
+    size: "20cc",
+    donor: "0x53c847035e9c2ea3aead920d395bccd7768ee63f"
+  }
+  const biobank = item.bioBank
   const donor =
-    nftData.donor.slice(0, 4) +
+    item.donor.slice(0, 4) +
     '...' +
-    nftData.donor.slice(nftData.donor.length - 4, nftData.donor.length)
+    item.donor.slice(item.donor.length - 4, item.donor.length)
 
   const BioBankNames = {
     '0x53c847035e9c2ea3aead920d395bccd7768ee63f': 'Coriell',
@@ -16,8 +23,8 @@ const NftArtCard = ({ nftData, matchRating }) => {
   }
 
   return (
-    <div className="w-1/4">
-      <div className="w-full p-10 nftCellsShadowPink rounded-3xl">
+    <div className="w-full pb-10 ">
+      <div className="w-full p-10 nftCellsShadowGreen bg-white rounded-3xl">
         <div className="flex h-min justify-center">
           <Image src={nftCellsArt} alt="nftcells image" draggable="false" />
         </div>
@@ -51,24 +58,9 @@ const NftArtCard = ({ nftData, matchRating }) => {
           </div>
         </div>
       </div>
-      <div className="flex w-full m-0 pt-6 justify-between items-center">
-        <div className="w-1/3 font-satoshiRegular text-base text-main">
-          Match Rate
-        </div>
-        <div className="flex w-2/3 items-center">
-          <div className="px-2 font-satoshiRegular text-base text-black">
-            {matchRating}%
-          </div>
-          <div className=" w-full h-2 bg-slate-200 rounded-full">
-            <div
-              style={{ width: `${matchRating}%` }}
-              className="h-2 bg-primary rounded-full"
-            ></div>
-          </div>
-        </div>
-      </div>
     </div>
   )
+  
 }
 
-export default NftArtCard
+export default DonationSuccessfulNftCard

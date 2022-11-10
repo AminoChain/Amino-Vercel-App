@@ -146,7 +146,7 @@ const BioBankBanner = () => {
             className="text-6xl flex cursor-pointer"
             onClick={() => setOpen(!openStatus)}
           >
-            <div className=" text-black font-satoshiBold">Welcome BioBank...&nbsp;</div>
+            <div className=" text-black font-satoshiBold">gm,&nbsp;</div>
             {!wallet ? (
               <div className="text-main font-satoshiBold">
                 insert wallet address
