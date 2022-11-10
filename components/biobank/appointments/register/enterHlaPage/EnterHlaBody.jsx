@@ -61,7 +61,7 @@ const EnterHlaBody = ({ setHla }) => {
         </div>
         <div className="">
           <div className=" flex items-center py-3 px-9 border border-main rounded-full ">
-            <div className='pr-3 font-satoshiMedium text-black'>Upload CSV</div><Image src={documentOpen} />
+            <div className='pr-3 font-satoshiMedium text-black'>Upload CSV</div><Image src={documentOpen} alt="documentOpen icon" />
           </div>
         </div>
       </div>

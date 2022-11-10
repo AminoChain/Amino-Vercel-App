@@ -5,7 +5,7 @@ const AppointmentDetails = ({ bioBank }) => {
   return (
     <div className="w-1/2 flex flex-col items-center">
       <div className="pt-5">
-        <Image src={manWithCalendar} />
+        <Image src={manWithCalendar} alt="calendar image" />
       </div>
       <div>
         <div className=" font-satoshiBold text-black text-[20px]">

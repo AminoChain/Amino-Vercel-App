@@ -25,7 +25,7 @@ const BioBankHistory = () => {
                 Marketplace
               </div>
               <div className='flex items-center'>
-                <Image src={share} />
+                <Image src={share} alt="share icon"/>
               </div>
             </div>
           </div>
