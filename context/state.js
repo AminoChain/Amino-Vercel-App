@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 
-
+export const platformBackend = 'https://amino-chain-backend.herokuapp.com/'
 
 const AppContext = createContext();
 

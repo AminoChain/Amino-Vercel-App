@@ -10,12 +10,12 @@ import DonationSuccessfulNftCard from './DonationSuccessfulNftCard'
 import checkGreen from '../../../../../assets/success.png'
 import share from '../../../../../assets/share.png'
 import confetti from '../../../../../assets/confetti.gif'
+import {platformBackend} from "../../../../../context/state";
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
 export const currentChainId = mumbaiChainId
 // const platformBackend = "http://localhost:3003/"
-const platformBackend = 'https://amino-chain-backend.herokuapp.com/'
 
 const DonorApprovePage = ({ hla, biobankAddress }) => {
   const [error, setError] = useState('')
