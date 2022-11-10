@@ -20,16 +20,16 @@ const AppointmentVisit = ({ bioBank }) => {
       <div className="flex flex-col pt-4">
         <div className="flex">
           <div className="flex items-center pr-2">
-            <Image src={checkGreen} width={20} draggable="false" />
+            <Image src={checkGreen} width={20} draggable="false" alt='checkgreen icon' />
           </div>
           <div className=" font-satoshiMedium text-black">Book Appointment</div>
         </div>
         <div className="p-2">
-          <Image src={dottedLine} draggable="false" />
+          <Image src={dottedLine} draggable="false" alt='dotted line image' />
         </div>
         <div className="flex items-center">
           <div className="flex items-center pr-2">
-            <Image src={checkGrey} width={20} draggable="false" />
+            <Image src={checkGrey} width={20} draggable="false" alt='checkgrey icon' />
           </div>
           <div className=" font-satoshiMedium text-black">
             Scan QR code at the donation center after donating Stem Cells
@@ -39,13 +39,13 @@ const AppointmentVisit = ({ bioBank }) => {
       <div className="flex justify-center p-10">
         <div className="flex justify-center qrCodeShadow p-8 rounded-[20px]">
           <div>
-            <Image src={QRcode} draggable="false" />
+            <Image src={QRcode} draggable="false" alt='qrcode icon' />
           </div>
         </div>
       </div>
       <div className="flex items-center">
         <div className="flex items-center ">
-          <Image src={metamaskLogo} draggable="false" />
+          <Image src={metamaskLogo} draggable="false" alt='metamask logo' />
         </div>
         <div className="flex flex-col px-2">
           <div className=" font-satoshiRegular text-black">

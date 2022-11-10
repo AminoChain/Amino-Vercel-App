@@ -121,7 +121,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
               <div className="flex flex-col items-center font-satoshiBold text-black text-2xl pb-10">
                 <div>Verification successful</div>
                 <div className="px-2">
-                  <Image src={checkGreen} />
+                  <Image src={checkGreen} alt="checkgreen icon"/>
                 </div>
               </div>
               <DonationSuccessfulNftCard />
@@ -130,7 +130,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
                 href={`https://mumbai.polygonscan.com/tx/${registrationTx}`}
               >
                 <div className="px-2">View on PolygonScan</div>
-                <Image src={share} />
+                <Image src={share} alt="share icon"/>
               </a>
             </div>
           )}

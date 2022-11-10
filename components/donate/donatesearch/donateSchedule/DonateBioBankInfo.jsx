@@ -6,7 +6,7 @@ const DonateBioBankInfo = ({ bioBank }) => {
   return (
     <div className="w-[30%] flex flex-col items-start pl-20 py-20">
       <div>
-        <Image src={bioBankSymbolBig} width={200} height={178} />
+        <Image src={bioBankSymbolBig} width={200} height={178} alt="biobank symbol"/>
       </div>
       <div className="flex flex-col pt-4">
         <div className=" font-satoshiMedium text-main text-[16px]">Name</div>
