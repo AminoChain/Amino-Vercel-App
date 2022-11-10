@@ -11,10 +11,11 @@ datasource db {
 }
 
 model BioBank {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  name     String
-  location String
-  nft      Nft?
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  location     String
+  nft          Nft?
+  ShippingInfo ShippingInfo[]
 }
 
 model Nft {
@@ -38,8 +39,10 @@ model Donor {
 }
 
 model ShippingInfo {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
   deliveryAddress String
-  arrived         Boolean @default(false)
+  arrived         Boolean  @default(false)
   nft             Nft?
+  biobank         BioBank? @relation(fields: [biobankId], references: [id])
+  biobankId       String?
 }

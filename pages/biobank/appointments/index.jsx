@@ -1,11 +1,11 @@
-import BioBankPage from '../../../components/biobank/BioBankPage'
+import BioBankAppointmentPage from '../../../components/biobank/appointments/BioBankAppointmentPage'
 
-const Biobank = () => {
+const BioBankAppointments = () => {
   return (
     <div className="w-screen">
-      <BioBankPage />
+      <BioBankAppointmentPage />
     </div>
   )
 }
 
-export default Biobank
+export default BioBankAppointments

@@ -1,11 +1,12 @@
+import BioBankHistoryPage from "../../../components/biobank/history/BioBankHistoryPage"
 
-const bioBankHistory = () => {
+const BioBankHistory = () => {
 
   return(
     <div>
-      Hello History
+      <BioBankHistoryPage/>
     </div>
   )
 }
 
-export default bioBankHistory
+export default BioBankHistory

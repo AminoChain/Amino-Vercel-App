@@ -3,6 +3,7 @@ import Image from 'next/image'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 import hidden from '../../../../assets/hlaHidden.png'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import {
     contractAddresses,
     abis,
@@ -73,12 +74,13 @@ const NftDetailsAndBuy = ({ nftData }) => {
         }
     }
 
-    async function handlePurchase() {
-        let usdcContract, marketplace
-        try {
-            let provider = new ethers.providers.Web3Provider(window.ethereum)
-            const signer = await provider.getSigner()
-            const signerAddr = await signer.getAddress()
+  async function handlePurchase() {
+    //router.push( `/marketplace/nft/shipping?tokenId=${item.tokenId}`)
+    let usdcContract, marketplace
+    try {
+      let provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = await provider.getSigner()
+      const signerAddr = await signer.getAddress()
 
             usdcContract = new ethers.Contract(
                 contractAddresses.usdc,

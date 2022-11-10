@@ -3,11 +3,9 @@ import { useRouter } from 'next/router'
 
 const BioBankNav = () => {
   const { pathname } = useRouter()
-  const pathRoot = pathname.substring(0, pathname.indexOf('/', 2))
-
   return (
     <div className="flex px-20 py-5 justify-start ">
-      {pathRoot !== '/biobank' && pathname !== '/biobank' ? (
+      {pathname !== '/biobank/appointments' ? (
         <Link href="/biobank/appointments">
           <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 mr-4 rounded text-main font-satoshiMedium text-2xl">
             Appointments
@@ -18,7 +16,7 @@ const BioBankNav = () => {
           Appointments
         </div>
       )}
-      {pathRoot !== '/history' && pathname !== '/history' ? (
+      {pathname !== '/biobank/history' ? (
         <Link href="/biobank/history">
           <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 mx-4 rounded text-main font-satoshiMedium text-2xl ">
             History
@@ -29,7 +27,7 @@ const BioBankNav = () => {
           History
         </div>
       )}
-      {pathRoot !== '/bioBankDetails' && pathname !== '/bioBankDetails' ? (
+      {pathname !== '/biobank/details' ? (
         <Link href="/biobank/details">
           <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 mx-4 rounded text-main font-satoshiMedium text-2xl whitespace-nowrap">
             BioBank Details
