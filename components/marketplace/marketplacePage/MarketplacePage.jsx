@@ -1,4 +1,4 @@
-import NftCard from './NftCard'
+import MarketplaceNftCard from './MarketplaceNftCard'
 import { ethers } from 'ethers'
 import { gql, useQuery } from '@apollo/client'
 import { useState } from 'react'
@@ -132,7 +132,7 @@ const MarketplacePage = ({ search }) => {
   organizeBestMatches()
 
   const nftMatches = bestMatchNftArray.map((item, index) => (
-    <NftCard key={index} item={item} />
+    <MarketplaceNftCard key={index} item={item} />
   ))
 
   return (

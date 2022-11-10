@@ -3,6 +3,7 @@ import Image from 'next/image'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 import hidden from '../../../../assets/hlaHidden.png'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import {
   contractAddresses,
   abis,
@@ -13,7 +14,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
   const [hlaHidden, setHlaHidden] = useState(true)
   const [marketplace, setMarketplace] = useState()
   const [userAddress, setUserAddress] = useState()
-
+  const router = useRouter()
   useEffect(() => {
     ;(async () => {
       try {
@@ -66,56 +67,57 @@ const NftDetailsAndBuy = ({ nftData }) => {
   }
 
   async function handlePurchase() {
-    let usdcContract, marketplace
-    try {
-      let provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = await provider.getSigner()
-      const signerAddr = await signer.getAddress()
+    router.push( `/marketplace/nft/shipping?tokenId=${item.tokenId}`)
+    // let usdcContract, marketplace
+    // try {
+    //   let provider = new ethers.providers.Web3Provider(window.ethereum)
+    //   const signer = await provider.getSigner()
+    //   const signerAddr = await signer.getAddress()
 
-      usdcContract = new ethers.Contract(
-        contractAddresses.usdc,
-        abis.usdc,
-        signer
-      )
-      marketplace = new ethers.Contract(
-        contractAddresses.marketplace,
-        abis.marketplace,
-        signer
-      )
+    //   usdcContract = new ethers.Contract(
+    //     contractAddresses.usdc,
+    //     abis.usdc,
+    //     signer
+    //   )
+    //   marketplace = new ethers.Contract(
+    //     contractAddresses.marketplace,
+    //     abis.marketplace,
+    //     signer
+    //   )
 
-      const price = await marketplace.getListingData(nftData.tokenId)
-      const userBal = await usdcContract.balanceOf(signerAddr)
+    //   const price = await marketplace.getListingData(nftData.tokenId)
+    //   const userBal = await usdcContract.balanceOf(signerAddr)
 
-      if (parseInt(userBal.toString()) >= parseInt(price.price.toString())) {
-        const allowance = await usdcContract.allowance(
-          signerAddr,
-          contractAddresses.marketplace
-        )
-        if (
-          parseInt(allowance.toString()) >= parseInt(price.price.toString())
-        ) {
-          try {
-            await marketplace.buyItem(nftData.tokenId)
-          } catch (e) {
-            console.warn(e)
-          }
-        } else {
-          //approve maximum amount {trade off between ux and user security}
-          try {
-            await usdcContract.approve(
-              contractAddresses.marketplace,
-              '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
-            )
-          } catch (e) {
-            console.warn(e)
-          }
-        }
-      } else {
-        console.warn('User usdc balance too low.')
-      }
-    } catch (e) {
-      console.warn(e)
-    }
+    //   if (parseInt(userBal.toString()) >= parseInt(price.price.toString())) {
+    //     const allowance = await usdcContract.allowance(
+    //       signerAddr,
+    //       contractAddresses.marketplace
+    //     )
+    //     if (
+    //       parseInt(allowance.toString()) >= parseInt(price.price.toString())
+    //     ) {
+    //       try {
+    //         await marketplace.buyItem(nftData.tokenId)
+    //       } catch (e) {
+    //         console.warn(e)
+    //       }
+    //     } else {
+    //       //approve maximum amount {trade off between ux and user security}
+    //       try {
+    //         await usdcContract.approve(
+    //           contractAddresses.marketplace,
+    //           '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+    //         )
+    //       } catch (e) {
+    //         console.warn(e)
+    //       }
+    //     }
+    //   } else {
+    //     console.warn('User usdc balance too low.')
+    //   }
+    // } catch (e) {
+    //   console.warn(e)
+    // }
   }
 
   return (

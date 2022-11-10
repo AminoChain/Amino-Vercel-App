@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ethers } from 'ethers'
 import { biobankNames } from '../../../constants'
 
-const NftCard = ({ item }) => {
+const MarketplaceNftCard = ({ item }) => {
   const percentage = (item.matchRating / 5) * 100
   const biobank = item.bioBank
   const price = ethers.utils.formatUnits(item.price, 18).toString() //change to 6 decimals later
@@ -52,4 +52,4 @@ const NftCard = ({ item }) => {
   )
 }
 
-export default NftCard
+export default MarketplaceNftCard

@@ -4,14 +4,17 @@ import DonorApprovePage from './donorApprovePage/DonorApprovePage'
 import BioBankBanner from '../../BioBankBanner'
 import BioBankNav from '../../BioBankNav'
 import BioBankFooter from '../../BioBankFooter'
+import { useRouter } from 'next/router'
 
 const BioBankRegisterPage = () => {
   const [hla, setHla] = useState()
+  const { pathname } = useRouter()
+  const path = pathname.substring(pathname.lastIndexOf('/'))
 
   return (
     <div className="w-full">
       <BioBankBanner />
-      <BioBankNav />
+      {pathname == "/biobank/appointments/register" ? null : <BioBankNav /> }
       {!hla ? (
         <EnterHlaPage setHla={setHla} />
       ) : (

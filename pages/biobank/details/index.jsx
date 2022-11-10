@@ -1,12 +1,13 @@
+import BioBankDetailsPage from "../../../components/biobank/details/BioBankDetailsPage"
 
 
-const bioBankDetails = () => {
+const BioBankDetails = () => {
 
   return(
     <div>
-      Hello Details
+      <BioBankDetailsPage/>
     </div>
   )
 }
 
-export default bioBankDetails
+export default BioBankDetails

@@ -1,4 +1,5 @@
-
+import documentOpen from '../../../../../assets/document-open.png'
+import Image from 'next/image'
 
 const EnterHlaBody = ({ setHla }) => {
   const submit = (e) => {
@@ -43,16 +44,28 @@ const EnterHlaBody = ({ setHla }) => {
       B: HLAB,
       C: HLAC,
       DPB: HLADPB,
-      DRB: HLADRB
+      DRB: HLADRB,
     })
   }
 
   return (
     <div className="w-full flex flex-col px-36 py-10">
-      <div className="text-5xl text-black py-3 font-satoshi">Enter HLA Sequences</div>
-      <div className="text-2xl text-black pb-10 font-satoshi">
-        Enter sequence details to find the nearest match
+      <div className="w-8/12 flex items-center justify-between">
+        <div className="flex flex-col">
+          <div className="text-[40px] text-black py-3 font-satoshiBold">
+            Enter Genome Sequence
+          </div>
+          <div className="text-xl text-black pb-10 font-satoshiMedium">
+            Input the same sequence as the donor’s or upload a CSV instead
+          </div>
+        </div>
+        <div className="">
+          <div className=" flex items-center py-3 px-9 border border-main rounded-full ">
+            <div className='pr-3 font-satoshiMedium text-black'>Upload CSV</div><Image src={documentOpen} />
+          </div>
+        </div>
       </div>
+
       <form className="flex-col w-8/12" onSubmit={submit}>
         <div className="w-full rounded-[20px] border-main border-b-[0.5px]">
           <div className="flex justify-between p-5">
@@ -131,7 +144,7 @@ const EnterHlaBody = ({ setHla }) => {
             className="flex justify-items-center text-2xl bg-white h-[72px] px-10 rounded-full text-black drop-shadow-searchButtonShadow "
             name="submit"
             type="submit"
-            value="Enter"
+            value="Register"
           />
         </div>
       </form>
