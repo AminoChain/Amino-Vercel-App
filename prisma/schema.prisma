@@ -15,7 +15,7 @@ model BioBank {
   name         String
   location     String
   nft          Nft?
-  ShippingInfo ShippingInfo[]
+  shippingInfo ShippingInfo[]
 }
 
 model Nft {
@@ -39,10 +39,13 @@ model Donor {
 }
 
 model ShippingInfo {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
-  deliveryAddress String
-  arrived         Boolean  @default(false)
-  nft             Nft?
-  biobank         BioBank? @relation(fields: [biobankId], references: [id])
-  biobankId       String?
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  street       String
+  apartmentNum String
+  state        String
+  zipcode      String
+  arrived      Boolean  @default(false)
+  nft          Nft?
+  biobank      BioBank? @relation(fields: [biobankId], references: [id])
+  biobankId    String?
 }
