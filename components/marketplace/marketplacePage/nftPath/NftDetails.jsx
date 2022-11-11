@@ -14,7 +14,9 @@ import { platformBackend } from '../../../../context/state'
 const NftDetailsAndBuy = ({ nftData }) => {
   const router = useRouter()
   const [hlaHidden, setHlaHidden] = useState(true)
+  const [genomeHidden, setGenomeHidden] = useState(true)
   const [hlaSource, setHlaSource] = useState()
+  const [genome, setGenome] = useState()
   const [marketplace, setMarketplace] = useState()
   const [userAddress, setUserAddress] = useState()
 
@@ -56,7 +58,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
 
   const BioBankNames = biobankNames
 
-  const checkIfCanUnhide = async () => {
+  const unhideHla = async () => {
     try {
       // const approved = marketplace && await marketplace.isApprovedToBuy(userAddress)
       const approved = true
@@ -76,6 +78,25 @@ const NftDetailsAndBuy = ({ nftData }) => {
       console.log(e)
     }
   }
+
+    const unhideGenome = async () => {
+        try {
+            // const approved = marketplace && await marketplace.isApprovedToBuy(userAddress)
+            const approved = true
+
+            if (approved === true) {
+                const response = await fetch(platformBackend + `decode-genome/${nftData.tokenId}`)
+                if (response.ok) {
+                    setGenome(await response.text())
+                    setGenomeHidden(false)
+                }
+            } else {
+                console.warn('Address not approved as doctor or reseacher')
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
   async function handlePurchase() {
     let usdcContract, marketplace
@@ -146,7 +167,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
           </p>
           {hlaHidden ? (
             <div
-              onClick={checkIfCanUnhide}
+              onClick={unhideHla}
               className="flex flex-row justify-between py-4 px-6 w-3/4 font-satoshiMedium text-base rounded-md bg-hiddenHla text-black"
             >
               Only Available to doctors and researchers.
@@ -167,6 +188,24 @@ const NftDetailsAndBuy = ({ nftData }) => {
               <div className="flex flex-col">
                 <p className="pb-2">HLA C: {hlaSource.C.join(', ')}</p>
               </div>
+                        </div>
+                    )}
+
+                    <p className="text-main font-satoshiRegular text-base pb-2">
+                        Genome and Donor Condition Details
+                    </p>
+                    {genomeHidden ? (
+                        <div onClick={unhideGenome} className="flex flex-row justify-between py-4 px-6 w-3/4 font-satoshiMedium text-base rounded-md bg-hiddenHla text-black">
+                            Only Available to doctors and researchers.
+                            <div
+                                className="flex h-min self-center cursor-pointer"
+                            >
+                                <Image src={hidden} alt="" draggable="false" />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="flex flex-row space-x-[2rem] font-satoshiBold text-black text-base">
+                            {genome}
             </div>
           )}
         </div>
