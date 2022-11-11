@@ -10,7 +10,7 @@ import DonationSuccessfulNftCard from './DonationSuccessfulNftCard'
 import checkGreen from '../../../../../assets/success.png'
 import share from '../../../../../assets/share.png'
 import confetti from '../../../../../assets/confetti.gif'
-import {platformBackend} from "../../../../../context/state";
+import { platformBackend } from '../../../../../context/state'
 
 export const mumbaiChainId = 80001
 export const polygonChainId = 137
@@ -121,7 +121,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
               <div className="flex flex-col items-center font-satoshiBold text-black text-2xl pb-10">
                 <div>Verification successful</div>
                 <div className="px-2">
-                  <Image src={checkGreen} alt="checkgreen icon"/>
+                  <Image src={checkGreen} alt="checkgreen icon" />
                 </div>
               </div>
               <DonationSuccessfulNftCard />
@@ -130,7 +130,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
                 href={`https://mumbai.polygonscan.com/tx/${registrationTx}`}
               >
                 <div className="px-2">View on PolygonScan</div>
-                <Image src={share} alt="share icon"/>
+                <Image src={share} alt="share icon" />
               </a>
             </div>
           )}

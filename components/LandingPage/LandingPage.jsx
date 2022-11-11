@@ -7,7 +7,7 @@ import Footer from './Footer'
 
 const LandingPage = () => {
   return (
-    <div className="w-[100vw] flex flex-col bg-white">
+    <div className="w-screen flex flex-col bg-white">
       <Header />
       {/* add more here to complete the landing page */}
       <IntroBody />

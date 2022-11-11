@@ -1,6 +1,6 @@
 import MarketplaceBanner from '../MarketplaceBanner'
 import NftArtCard from './NftArtCard'
-import NftDetailsAndBuy from './NftDetails'
+import NftDetails from './NftDetails'
 import SearchFooter from '../../searchPage/SearchFooter'
 
 const NftListingPage = ({ nftData, matchRating }) => {
@@ -10,7 +10,7 @@ const NftListingPage = ({ nftData, matchRating }) => {
       <div className="w-full px-52 pt-[2rem]">
         <div className="w-full flex">
           <NftArtCard nftData={nftData} matchRating={matchRating}/>
-          <NftDetailsAndBuy nftData={nftData} />
+          <NftDetails nftData={nftData} />
         </div>
       </div>
       <SearchFooter />
