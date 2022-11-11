@@ -597,21 +597,13 @@
   "authenticator": [
     {
       "inputs": [
-        {
-          "internalType": "address",
-          "name": "nftAddress",
-          "type": "address"
-        },
+        { "internalType": "address", "name": "nftAddress", "type": "address" },
         {
           "internalType": "address",
           "name": "marketplaceAddress",
           "type": "address"
         },
-        {
-          "internalType": "address",
-          "name": "usdcAddress",
-          "type": "address"
-        }
+        { "internalType": "address", "name": "usdcAddress", "type": "address" }
       ],
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -622,17 +614,36 @@
         {
           "indexed": true,
           "internalType": "address",
-          "name": "donor",
+          "name": "previousOwner",
           "type": "address"
         },
         {
           "indexed": true,
           "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "donor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
           "name": "biobank",
           "type": "address"
         },
         {
-          "indexed": true,
+          "indexed": false,
           "internalType": "uint256[]",
           "name": "tokenIds",
           "type": "uint256[]"
@@ -649,63 +660,20 @@
     },
     {
       "inputs": [
-        {
-          "internalType": "address",
-          "name": "donor",
-          "type": "address"
-        },
-        {
-          "internalType": "bytes32",
-          "name": "biodataHash",
-          "type": "bytes32"
-        }
+        { "internalType": "address", "name": "donor", "type": "address" },
+        { "internalType": "bytes32", "name": "biodataHash", "type": "bytes32" }
       ],
       "name": "getRegistrationHash",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
+      "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
       "stateMutability": "pure",
       "type": "function"
     },
     {
       "inputs": [
-        {
-          "internalType": "string",
-          "name": "str",
-          "type": "string"
-        }
-      ],
-      "name": "hash",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "",
-          "type": "bytes32"
-        }
-      ],
-      "stateMutability": "pure",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "donor",
-          "type": "address"
-        }
+        { "internalType": "address", "name": "donor", "type": "address" }
       ],
       "name": "isRegistered",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
-        }
-      ],
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
       "stateMutability": "view",
       "type": "function"
     },
@@ -737,36 +705,21 @@
     },
     {
       "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        },
-        {
-          "internalType": "bytes",
-          "name": "",
-          "type": "bytes"
-        }
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" },
+        { "internalType": "bytes", "name": "", "type": "bytes" }
       ],
       "name": "onERC721Received",
-      "outputs": [
-        {
-          "internalType": "bytes4",
-          "name": "",
-          "type": "bytes4"
-        }
-      ],
+      "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
       "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -775,49 +728,21 @@
           "components": [
             {
               "components": [
-                {
-                  "internalType": "bytes32",
-                  "name": "A",
-                  "type": "bytes32"
-                },
-                {
-                  "internalType": "bytes32",
-                  "name": "B",
-                  "type": "bytes32"
-                },
-                {
-                  "internalType": "bytes32",
-                  "name": "C",
-                  "type": "bytes32"
-                },
-                {
-                  "internalType": "bytes32",
-                  "name": "DPB",
-                  "type": "bytes32"
-                },
-                {
-                  "internalType": "bytes32",
-                  "name": "DRB",
-                  "type": "bytes32"
-                }
+                { "internalType": "bytes32", "name": "A", "type": "bytes32" },
+                { "internalType": "bytes32", "name": "B", "type": "bytes32" },
+                { "internalType": "bytes32", "name": "C", "type": "bytes32" },
+                { "internalType": "bytes32", "name": "DPB", "type": "bytes32" },
+                { "internalType": "bytes32", "name": "DRB", "type": "bytes32" }
               ],
               "internalType": "struct AminoChainLibrary.HlaHashed",
               "name": "hlaHashed",
               "type": "tuple"
             },
-            {
-              "internalType": "bytes32",
-              "name": "hlaHash",
-              "type": "bytes32"
-            },
-            {
-              "internalType": "bytes",
-              "name": "hlaEncoded",
-              "type": "bytes"
-            },
+            { "internalType": "bytes32", "name": "hlaHash", "type": "bytes32" },
+            { "internalType": "bytes", "name": "hlaEncoded", "type": "bytes" },
             {
               "internalType": "string",
-              "name": "genomeEncodedUrl",
+              "name": "genomeEncodedIpfsId",
               "type": "string"
             },
             {
@@ -825,21 +750,8 @@
               "name": "amounts",
               "type": "uint256[]"
             },
-            {
-              "internalType": "address",
-              "name": "donor",
-              "type": "address"
-            },
-            {
-              "internalType": "bytes",
-              "name": "signature",
-              "type": "bytes"
-            },
-            {
-              "internalType": "address",
-              "name": "biobank",
-              "type": "address"
-            }
+            { "internalType": "address", "name": "donor", "type": "address" },
+            { "internalType": "address", "name": "biobank", "type": "address" }
           ],
           "internalType": "struct AminoChainLibrary.RegistrationData",
           "name": "data",
@@ -853,13 +765,56 @@
     },
     {
       "inputs": [],
-      "name": "usdc",
-      "outputs": [
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
         {
-          "internalType": "contract IERC20",
-          "name": "",
+          "internalType": "address",
+          "name": "marketplaceAddress",
           "type": "address"
         }
+      ],
+      "name": "setMarketplaceAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "nftAddress", "type": "address" }
+      ],
+      "name": "setNftAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "usdcAddress", "type": "address" }
+      ],
+      "name": "setUsdcAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "newOwner", "type": "address" }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "usdc",
+      "outputs": [
+        { "internalType": "contract IERC20", "name": "", "type": "address" }
       ],
       "stateMutability": "view",
       "type": "function"

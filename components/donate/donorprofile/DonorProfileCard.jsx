@@ -4,7 +4,7 @@ import { biobankNames } from '../../../constants/index'
 
 const DonorProfileCard = ({ item }) => {
   const biobank = item.bioBank
-  const price = ethers.utils.formatUnits(item.price, 18).toString() //change to 6 decimals later
+  const price = ethers.utils.formatUnits(item.price, 6).toString()
 
   const BioBankNames = biobankNames
 
