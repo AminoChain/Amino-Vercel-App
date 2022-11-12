@@ -17,6 +17,7 @@ const Nft = ({ tokenId, matchRating }) => {
         price
         sizeInCC
         donor
+        mintTimestamp
         bioBank
         hlaHashes {
           hlaHashed_A
@@ -50,7 +51,10 @@ const Nft = ({ tokenId, matchRating }) => {
 
   return (
     <div className="w-screen">
-      <NftListingPage nftData={listing.existingTokenIds[0]} matchRating={matchRating}/>
+      <NftListingPage
+        nftData={listing.existingTokenIds[0]}
+        matchRating={matchRating}
+      />
     </div>
   )
 }

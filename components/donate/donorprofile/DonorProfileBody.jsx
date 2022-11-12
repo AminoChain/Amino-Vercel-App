@@ -1,5 +1,8 @@
 import { gql, useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import newDonation from '../../../assets/newDonation.png'
 import DonorProfileCard from './DonorProfileCard'
 import { ethers } from 'ethers'
 
@@ -25,6 +28,7 @@ const DonorProfileBody = () => {
     query Nfts($userAddress: Bytes!) {
       existingTokenIds(where: { donor: $userAddress }) {
         tokenId
+        mintTimestamp
         price
         sizeInCC
         bioBank
@@ -43,7 +47,7 @@ const DonorProfileBody = () => {
   if (loading) {
     return (
       <div>
-        <h2>Loading...</h2>
+        <h2 className="font-satoshiRegular text-black w-1/2">Loading...</h2>
       </div>
     )
   }
@@ -52,12 +56,12 @@ const DonorProfileBody = () => {
   let donorNftArray = []
   const getData = () => {
     listing.existingTokenIds.forEach((nft, index) => {
-      const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
       donorNftArray.push({
         tokenId: nft.tokenId,
         bioBank: nft.bioBank,
         price: nft.price,
         size: nft.sizeInCC,
+        mintTimestamp: nft.mintTimestamp,
       })
     })
   }
@@ -77,7 +81,19 @@ const DonorProfileBody = () => {
       ) : (
         <div className="w-full flex flex-row flex-wrap">
           {numOfDonations >= 1 ? (
-            <div className="w-full flex flex-row flex-wrap">{donorNfts}</div>
+            <div className="w-full flex flex-row flex-wrap">
+              {donorNfts}
+              <Link href="/donate">
+                <div className="flex flex-col justify-center bg-marketplaceButton rounded-2xl drop-shadow-marketplaceButtonShadow1 px-10 mb-[2rem] cursor-pointer">
+                  <div className="flex justify-center mb-6">
+                    <Image src={newDonation} alt="" draggable="false" />
+                  </div>
+                  <p className="font-satoshiMedium text-main text-2xl">
+                    New Donation
+                  </p>
+                </div>
+              </Link>
+            </div>
           ) : (
             <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
               <div className="font-satoshiMedium text-black text-4xl p-2">
