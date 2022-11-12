@@ -37,7 +37,6 @@ const EnterHlaBody = ({ setHla }) => {
     let HLAC = [4, 213]
     let HLADPB = [35, 1, 1]
     let HLADRB = [4, 165]
-    let HLADQA = [35, 1, 1]
 
     setHla({
       A: HLAA,

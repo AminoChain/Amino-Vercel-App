@@ -9,7 +9,6 @@ import { useRouter } from 'next/router'
 const BioBankRegisterPage = () => {
   const [hla, setHla] = useState()
   const { pathname } = useRouter()
-  const path = pathname.substring(pathname.lastIndexOf('/'))
 
   return (
     <div className="w-full">
