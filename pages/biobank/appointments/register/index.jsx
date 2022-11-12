@@ -1,7 +1,7 @@
 import BioBankRegisterPage from '../../../../components/biobank/appointments/register/BioBankRegisterPage'
 import { useState } from 'react'
 
-const bioBankRegister = () => {
+const BioBankRegister = () => {
   const [hla, setHla] = useState()
 
   return (
@@ -11,4 +11,4 @@ const bioBankRegister = () => {
   )
 }
 
-export default bioBankRegister
+export default BioBankRegister
