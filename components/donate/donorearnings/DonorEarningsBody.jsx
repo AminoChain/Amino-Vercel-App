@@ -59,7 +59,8 @@ const DonorEarningsBody = () => {
         incentive: sale.donorIncentive,
         buyer: sale.buyer,
       })
-      earnings = earnings + ethers.utils.formatUnits(sale.donorIncentive, 6)
+      earnings =
+        earnings + parseFloat(ethers.utils.formatUnits(sale.donorIncentive, 6))
     })
     if (totalEarnings !== earnings) {
       setTotalEarnings(earnings)
