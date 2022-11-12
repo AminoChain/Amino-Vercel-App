@@ -51,7 +51,8 @@ const StatsBody = () => {
     try {
       sales.saleCompleteds.forEach((sale, index) => {
         incentives =
-          incentives + ethers.utils.formatUnits(sale.donorIncentive, 6)
+          incentives +
+          parseFloat(ethers.utils.formatUnits(sale.donorIncentive, 6))
         cellsDelivered++
       })
       listing.existingTokenIds.forEach((token, index) => {
