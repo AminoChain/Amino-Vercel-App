@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import EnterHlaPage from './enterHlaPage/EnterHlaPage'
 import DonorApprovePage from './donorApprovePage/DonorApprovePage'
 import BioBankBanner from '../../BioBankBanner'
@@ -6,14 +5,14 @@ import BioBankNav from '../../BioBankNav'
 import BioBankFooter from '../../BioBankFooter'
 import { useRouter } from 'next/router'
 
-const BioBankRegisterPage = () => {
-  const [hla, setHla] = useState()
+const BioBankRegisterPage = ({hla, setHla}) => {
+ 
   const { pathname } = useRouter()
 
   return (
     <div className="w-full">
       <BioBankBanner />
-      {pathname == "/biobank/appointments/register" ? null : <BioBankNav /> }
+      {/* {pathname == "/biobank/appointments/register" ? null : <BioBankNav /> } */}
       {!hla ? (
         <EnterHlaPage setHla={setHla} />
       ) : (
