@@ -30,14 +30,9 @@ const StatsBody = () => {
       }
     }
   `
-  const queryMultiple = () => {
-    const res1 = useQuery(GET_MINTED_NFTS)
-    const res2 = useQuery(GET_COMPLETED_SALES)
-    return [res1, res2]
-  }
 
-  const [{ loading, error, data: listing }, { loading1, error1, data: sales }] =
-    queryMultiple()
+  const { loading, error, data: listing } = useQuery(GET_MINTED_NFTS)
+  const { loading1, error1, data: sales } = useQuery(GET_COMPLETED_SALES)
 
   if (loading || loading1) {
     return (
