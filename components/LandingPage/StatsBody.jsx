@@ -48,21 +48,26 @@ const StatsBody = () => {
   let cellsDelivered = 0
   let cellsTokenized = 0
   const getData = () => {
-    sales.saleCompleteds.forEach((sale, index) => {
-      incentives = incentives + ethers.utils.formatUnits(sale.donorIncentive, 6)
-      cellsDelivered++
-    })
-    listing.existingTokenIds.forEach((token, index) => {
-      cellsTokenized++
-    })
-    if (totalIncentivesPaid !== incentives) {
-      setTotalIncentivesPaid(incentives)
-    }
-    if (totalStemCellsDelivered !== cellsDelivered) {
-      setTotalStemCellsDelivered(cellsDelivered)
-    }
-    if (totalTokenizedStemCells !== cellsTokenized) {
-      setTotalTokenizedStemCells(cellsTokenized)
+    try {
+      sales.saleCompleteds.forEach((sale, index) => {
+        incentives =
+          incentives + ethers.utils.formatUnits(sale.donorIncentive, 6)
+        cellsDelivered++
+      })
+      listing.existingTokenIds.forEach((token, index) => {
+        cellsTokenized++
+      })
+      if (totalIncentivesPaid !== incentives) {
+        setTotalIncentivesPaid(incentives)
+      }
+      if (totalStemCellsDelivered !== cellsDelivered) {
+        setTotalStemCellsDelivered(cellsDelivered)
+      }
+      if (totalTokenizedStemCells !== cellsTokenized) {
+        setTotalTokenizedStemCells(cellsTokenized)
+      }
+    } catch (e) {
+      console.warn(e)
     }
   }
   getData()
