@@ -17,7 +17,7 @@ const MarketplaceNav = () => {
           Marketplace
         </div>
       )}
-      {pathname !== '/profile' ? (
+      {pathname !== '/marketplace/tracking' ? (
         <Link href="/marketplace/tracking">
           <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
             Tracking
@@ -25,11 +25,10 @@ const MarketplaceNav = () => {
         </Link>
       ) : (
         <div className="pb-0 border-b-4 border-black text-black cursor-pointer transition p-2 rounded font-satoshiMedium text-2xl">
-          Profile
+          Tracking
         </div>
       )}
-     
-      {pathname !== '/profile' ? (
+      {pathname !== '/marketplace/profile' ? (
         <Link href="/marketplace/profile">
           <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
             Profile
