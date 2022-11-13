@@ -7,7 +7,7 @@ const DonateSearch = ({ setProgress, setBioBanks, location, setLocation }) => {
     e.preventDefault()
     try {
       const body = { location }
-      const res = await fetch('/api/nearbyBiobanks', {
+      const res = await fetch('/api/nearby-biobanks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

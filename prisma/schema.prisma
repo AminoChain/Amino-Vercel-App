@@ -14,6 +14,7 @@ model BioBank {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   location     String
+  address      String
   nft          Nft?
   shippingInfo ShippingInfo[]
 }
