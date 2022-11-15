@@ -6,7 +6,7 @@ const MarketplaceNav = () => {
 
   return (
     <div className="flex w-1/3 px-[5%] py-5 justify-between">
-      {pathname !== '/marketplace' ? (
+      {pathname !== '/marketplace' && pathname !== '/marketplace/nft' ? (
         <Link href="/marketplace">
           <div className="pb-[4px] hover:pb-0 hover:border-b-4 hover:border-black hover:text-black cursor-pointer transition p-2 rounded text-main font-satoshiMedium text-2xl">
             Marketplace

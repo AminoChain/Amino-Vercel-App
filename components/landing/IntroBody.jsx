@@ -44,7 +44,7 @@ const IntroBody = () => {
           </Link>
         </div>
       </article>
-      <div className="flex min-w-[690px]">
+      <div className="flex">
         <Image
           src={cellImage}
           width={690}

@@ -16,7 +16,7 @@ const NftArtCard = ({ nftData, matchRating }) => {
   }
 
   return (
-    <div className="w-1/4">
+    <div className="w-1/4 max-w-[340px]">
       <div className="w-full p-10 nftCellsShadowPink rounded-3xl">
         <div className="flex h-min justify-center">
           <Image src={nftCellsArt} alt="nftcells image" draggable="false" />
