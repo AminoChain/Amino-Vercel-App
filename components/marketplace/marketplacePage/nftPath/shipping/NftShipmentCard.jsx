@@ -1,29 +1,18 @@
 import Image from 'next/image'
 import nftCellsArt from '../../../../../assets/nftCellsArt.png'
 import aminoLogo2 from '../../../../../assets/aminoLogo2.png'
+import { biobankNames } from '../../../../../constants/index'
 
-const NftShipmentCard = ({NftData}) => {
-  let item = {
-    bioBank: '0x53c847035e9c2ea3aead920d395bccd7768ee63f',
-    price: 4000,
-    tokenId: 3,
-    size: '20cc',
-    donor: '0x53c847035e9c2ea3aead920d395bccd7768ee63f',
-  }
-  const biobank = item.bioBank
+const NftShipmentCard = ({ NftData }) => {
+  const biobank = NftData.bioBank
   const donor =
-    item.donor.slice(0, 4) +
+    NftData.donor.slice(0, 4) +
     '...' +
-    item.donor.slice(item.donor.length - 4, item.donor.length)
-
-  const BioBankNames = {
-    "0x53c847035e9c2ea3aead920d395bccd7768ee63f": "Coriell",
-    "0x35a5b80732efe78d171327c39de408227c299aac": "Greenville",
-    "": "National"
-  }
+    NftData.donor.slice(NftData.donor.length - 4, NftData.donor.length)
+  const BioBankNames = biobankNames
 
   return (
-    <div className="w-1/5 p-10 nftCellsShadowGreen bg-white rounded-3xl">
+    <div className="w-1/5 min-w-[250px] p-10 nftCellsShadowGreen bg-white rounded-3xl">
       <div className="flex h-min justify-center">
         <Image src={nftCellsArt} alt="nftcells image" draggable="false" />
       </div>

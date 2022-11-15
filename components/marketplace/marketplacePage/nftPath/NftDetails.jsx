@@ -17,6 +17,8 @@ const NftDetailsAndBuy = ({ nftData }) => {
   const [genomeHidden, setGenomeHidden] = useState(true)
   const [hlaSource, setHlaSource] = useState()
   const [genome, setGenome] = useState()
+  const [signerAddress, setSignerAddress] = useState()
+  const [marketplace, setMarketplace] = useState()
   const [isApproved, setIsApproved] = useState(null)
 
   useEffect(() => {
@@ -27,12 +29,14 @@ const NftDetailsAndBuy = ({ nftData }) => {
           if (provider) {
             const signer = await provider.getSigner()
             const signerAddr = await signer.getAddress()
+            setSignerAddress(signerAddr)
 
             const marketplaceContract = new ethers.Contract(
               contractAddresses.marketplace,
               abis.marketplace,
               signer
             )
+            setMarketplace(marketplaceContract)
 
             const approved = await marketplaceContract.isApprovedToBuy(
               signerAddr
@@ -104,58 +108,43 @@ const NftDetailsAndBuy = ({ nftData }) => {
   }
 
   async function handlePurchase() {
-    let usdcContract, marketplace
+    let usdcContract
     try {
       let provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = await provider.getSigner()
-      const signerAddr = await signer.getAddress()
 
       usdcContract = new ethers.Contract(
         contractAddresses.usdc,
         abis.usdc,
         signer
       )
-      marketplace = new ethers.Contract(
-        contractAddresses.marketplace,
-        abis.marketplace,
-        signer
+
+      const allowance = await usdcContract.allowance(
+        signerAddress,
+        contractAddresses.marketplace
       )
-
-      const price = await marketplace.getListingData(nftData.tokenId)
-      const userBal = await usdcContract.balanceOf(signerAddr)
-
-      if (parseInt(userBal.toString()) >= parseInt(price.price.toString())) {
-        const allowance = await usdcContract.allowance(
-          signerAddr,
-          contractAddresses.marketplace
-        )
-        if (
-          parseInt(allowance.toString()) >= parseInt(price.price.toString())
-        ) {
-          try {
-            const tx = await marketplace.buyItem(nftData.tokenId) //buys nft
-            await tx.wait(3)
-            router.push(`/marketplace/nft/shipping?tokenId=${nftData.tokenId}`)
-            // routes to the shipping page
-          } catch (e) {
-            console.warn(e)
-          }
-        } else {
-          //approve maximum amount {trade off between ux and user security}
-          try {
-            const tx = await usdcContract.approve(
-              contractAddresses.marketplace,
-              '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
-            )
-            await tx.wait(3).then(() => {
-              handlePurchase()
-            })
-          } catch (e) {
-            console.warn(e)
-          }
+      if (parseInt(allowance.toString()) >= parseInt(price.price.toString())) {
+        try {
+          const tx = await marketplace.buyItem(nftData.tokenId) //buys nft
+          await tx.wait(2)
+          router.push(`/marketplace/nft/shipping?tokenId=${nftData.tokenId}`)
+          // routes to the shipping page
+        } catch (e) {
+          console.warn(e)
         }
       } else {
-        console.warn('User usdc balance too low.')
+        //approve maximum amount {trade off between ux and user security}
+        try {
+          const tx = await usdcContract.approve(
+            contractAddresses.marketplace,
+            '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+          )
+          await tx.wait(2).then(() => {
+            handlePurchase()
+          })
+        } catch (e) {
+          console.warn(e)
+        }
       }
     } catch (e) {
       console.warn(e)
@@ -241,19 +230,6 @@ const NftDetailsAndBuy = ({ nftData }) => {
               </div>
             </div>
           )}
-        </div>
-        <div className="flex justify-between w-fit ">
-          <div className="px-4 font-satoshiRegular">{nftData.halotypes_A}</div>
-          <div className="px-4 font-satoshiRegular">{nftData.halotypes_B}</div>
-          <div className="px-4 font-satoshiRegular">{nftData.halotypes_C}</div>
-        </div>
-        <div className="flex justify-between w-fit">
-          <div className="px-4 font-satoshiRegular">
-            {nftData.halotypes_DPB}
-          </div>
-          <div className="px-4 font-satoshiRegular">
-            {nftData.halotypes_DRB}
-          </div>
         </div>
       </div>
       <div className="border-l-2 px-4 py-4 rounded-xl w-full my-2">

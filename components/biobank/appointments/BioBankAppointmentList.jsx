@@ -7,7 +7,7 @@ const BioBankAppointmentList = () => {
     <BioBankAppointment key={index} />
   ))
   return (
-    <div className="w-full px-20">
+    <div className="w-full px-20 mt-5">
       <div className="w-full flex rounded-full border-t-[1px] border-b-[1px] border-main py-2 px-8">
         <div className=" font-satoshiMedium text-main basis-3/12">
           Date & Time
