@@ -42,13 +42,13 @@ const SearchFooter = () => {
         </div>
         <div className="flex flex-row justify-between content-center self-center h-fit min-w-[220px] ">
           <p className="text-black font-satoshiMedium text-base">Contact</p>
-          <div classNeme="flex content-center justify-center">
+          <div className="flex content-center justify-center">
             <div className="flex h-fit py-[0.6rem] self-center">
               <Image src={dot} alt="." draggable="false" />
             </div>
           </div>
           <p className="text-black font-satoshiMedium text-base">FAQs</p>
-          <div classNeme="flex content-center justify-center">
+          <div className="flex content-center justify-center">
             <div className="flex h-fit py-[0.6rem] self-center">
               <Image src={dot} alt="." draggable="false" />
             </div>
