@@ -19,13 +19,6 @@ const Nft = ({ tokenId, matchRating }) => {
         donor
         mintTimestamp
         bioBank
-        hlaHashes {
-          hlaHashed_A
-          hlaHashed_B
-          hlaHashed_C
-          hlaHashed_DPB
-          hlaHashed_DRB
-        }
       }
     }
   `

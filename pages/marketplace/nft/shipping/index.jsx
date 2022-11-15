@@ -9,7 +9,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-const MarketplaceShipping = ({tokenId}) => {
+const MarketplaceShipping = ({ tokenId }) => {
   const GET_TOKEN_DATA = gql`
     query Nft($tokenId: Int!) {
       existingTokenIds(where: { tokenId: $tokenId }) {
@@ -48,10 +48,9 @@ const MarketplaceShipping = ({tokenId}) => {
 
   if (error) return `Error! ${error}`
 
-
   return (
     <div>
-      <NftShipmentPage NftData={NftData} />
+      <NftShipmentPage NftData={NftData.existingTokenIds[0]} />
     </div>
   )
 }

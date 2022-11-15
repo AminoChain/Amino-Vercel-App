@@ -20,12 +20,12 @@ const BioBankHistory = () => {
       <Link href="/marketplace">
         <div className="flex justify-center basis-2/12">
           <div className="w-fit flex justify-center py-3 px-7 border border-main rounded-full cursor-pointer">
-            <div className='flex h-[22px] items-center'>
+            <div className="flex h-[22px] items-center">
               <div className="font-satoshiMedium text-black pr-2">
                 Marketplace
               </div>
-              <div className='flex items-center'>
-                <Image src={share} alt="share icon"/>
+              <div className="flex items-center">
+                <Image src={share} alt="share icon" />
               </div>
             </div>
           </div>
