@@ -14,8 +14,6 @@ import MarketplaceFilterMenu from './MarketplaceFilterMenu'
 const MarketplacePage = ({ search }) => {
   const [filterMenuOpen, setFilterMenu] = useState(false)
   const [matchFilter, setMatchFilter] = useState(null)
-  const [highestPrice, setHighestPrice] = useState(null)
-
 
   const GET_MINTED_NFTS = gql`
     {
@@ -52,70 +50,65 @@ const MarketplacePage = ({ search }) => {
   let matchRating = 0
   let bestMatchNftArray = []
   const matchingAlgo = () => {
-    listing.existingTokenIds.forEach((nft, index) => {
-      const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
+    try {
+      listing.existingTokenIds.forEach((nft, index) => {
+        const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b)
 
-      //hashes input and compares to hashed hla
-      if (
-        equals(
-          nft.hlaHashes.hlaHashed_A,
-          ethers.utils.id(search.HLAA.toString())
-        )
-      ) {
-        matchRating++
-      }
-      if (
-        equals(
-          nft.hlaHashes.hlaHashed_B,
-          ethers.utils.id(search.HLAB.toString())
-        )
-      ) {
-        matchRating++
-      }
-      if (
-        equals(
-          nft.hlaHashes.hlaHashed_C,
-          ethers.utils.id(search.HLAC.toString())
-        )
-      ) {
-        matchRating++
-      }
-      if (
-        equals(
-          nft.hlaHashes.hlaHashed_DPB,
-          ethers.utils.id(search.HLADPB.toString())
-        )
-      ) {
-        matchRating++
-      }
-      if (
-        equals(
-          nft.hlaHashes.hlaHashed_DRB,
-          ethers.utils.id(search.HLADRB.toString())
-        )
-      ) {
-        matchRating++
-      }
-      bestMatchNftArray.push({
-        tokenId: nft.tokenId,
-        matchRating: matchRating,
-        bioBank: nft.bioBank,
-        price: nft.price,
-        size: nft.sizeInCC,
+        //hashes input and compares to hashed hla
+        if (
+          equals(
+            nft.hlaHashes.hlaHashed_A,
+            ethers.utils.id(search.HLAA.toString())
+          )
+        ) {
+          matchRating++
+        }
+        if (
+          equals(
+            nft.hlaHashes.hlaHashed_B,
+            ethers.utils.id(search.HLAB.toString())
+          )
+        ) {
+          matchRating++
+        }
+        if (
+          equals(
+            nft.hlaHashes.hlaHashed_C,
+            ethers.utils.id(search.HLAC.toString())
+          )
+        ) {
+          matchRating++
+        }
+        if (
+          equals(
+            nft.hlaHashes.hlaHashed_DPB,
+            ethers.utils.id(search.HLADPB.toString())
+          )
+        ) {
+          matchRating++
+        }
+        if (
+          equals(
+            nft.hlaHashes.hlaHashed_DRB,
+            ethers.utils.id(search.HLADRB.toString())
+          )
+        ) {
+          matchRating++
+        }
+        bestMatchNftArray.push({
+          tokenId: nft.tokenId,
+          matchRating: matchRating,
+          bioBank: nft.bioBank,
+          price: nft.price,
+          size: nft.sizeInCC,
+        })
+        matchRating = 0
       })
-      matchRating = 0
-    })
-  }
-  const findHighestPrice = () => {
-    if (highestPrice === null) {
-      bestMatchNftArray.sort((a, b) => {
-        return b.price - a.price
-      })
-      setHighestPrice(bestMatchNftArray[0].price)
+    } catch (e) {
+      console.warn(e)
     }
   }
   const organizeBestMatches = () => {
-    findHighestPrice()
     bestMatchNftArray.sort((a, b) => {
       return b.matchRating - a.matchRating
     })
@@ -123,7 +116,9 @@ const MarketplacePage = ({ search }) => {
   matchingAlgo()
   organizeBestMatches()
 
-  const nftMatches = bestMatchNftArray.map((item, index) => <MarketplaceNftCard key={index} item={item} /> )
+  const nftMatches = bestMatchNftArray.map((item, index) => (
+    <MarketplaceNftCard key={index} item={item} />
+  ))
 
   return (
     <div className="w-[100vw] flex flex-col min-h-[100vh]">
@@ -143,7 +138,10 @@ const MarketplacePage = ({ search }) => {
           )}
         </div>
         {filterMenuOpen ? (
-          <MarketplaceFilterMenu matchFilter={matchFilter} setMatchFilter={setMatchFilter} />
+          <MarketplaceFilterMenu
+            matchFilter={matchFilter}
+            setMatchFilter={setMatchFilter}
+          />
         ) : (
           <></>
         )}

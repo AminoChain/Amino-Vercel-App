@@ -52,21 +52,32 @@ const DonorEarningsBody = () => {
   let donorSalesArray = []
   let earnings = 0
   const getData = () => {
-    sales.saleCompleteds.forEach((sale, index) => {
-      donorSalesArray.push({
-        date: sale.timestamp,
-        transcationHash: sale.transactionHash,
-        incentive: sale.donorIncentive,
-        buyer: sale.buyer,
+    try {
+      sales.saleCompleteds.forEach((sale, index) => {
+        donorSalesArray.push({
+          date: sale.timestamp,
+          transcationHash: sale.transactionHash,
+          incentive: sale.donorIncentive,
+          buyer: sale.buyer,
+        })
+        earnings =
+          earnings +
+          parseFloat(ethers.utils.formatUnits(sale.donorIncentive, 6))
       })
-      earnings =
-        earnings + parseFloat(ethers.utils.formatUnits(sale.donorIncentive, 6))
-    })
-    if (totalEarnings !== earnings) {
-      setTotalEarnings(earnings)
+      if (totalEarnings !== earnings) {
+        setTotalEarnings(earnings)
+      }
+    } catch (e) {
+      console.warn(e)
     }
   }
+  const organizeByTime = () => {
+    donorSalesArray.sort((a, b) => {
+      return parseInt(b.date) - parseInt(a.date)
+    })
+  }
   getData()
+  organizeByTime()
 
   const numOfIncentives = donorSalesArray.length
 

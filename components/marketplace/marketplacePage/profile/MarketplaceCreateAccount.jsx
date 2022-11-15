@@ -1,6 +1,4 @@
-
-
-const MarketplaceCreateAccount = ({loggedIn, setLoggedIn}) => {
+const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
   const login = async (e) => {
     e.preventDefault()
 
@@ -25,14 +23,14 @@ const MarketplaceCreateAccount = ({loggedIn, setLoggedIn}) => {
       }
     }
     const address = checkConnection()
-    if (address){
+    if (address) {
       const body = e.currentTarget
       const name = body[0].value
       const street = body[1].value
       const apartmentNum = body[2].value
       const state = body[3].value
       const zipcode = body[4].value
-  
+
       const destination = {
         name: name,
         street: street,
@@ -41,7 +39,7 @@ const MarketplaceCreateAccount = ({loggedIn, setLoggedIn}) => {
         zipcode: zipcode,
         arrived: false,
       }
-  
+
       try {
         const res = await fetch('/api/create-account', {
           method: 'POST',
@@ -112,7 +110,7 @@ const MarketplaceCreateAccount = ({loggedIn, setLoggedIn}) => {
           </div>
           <div className="flex justify-center items-center">
             <input
-              className="flex justify-items-center text-xl cursor-pointer bg-marketplaceButton font-satoshiBold px-8 py-4 rounded-full text-black drop-shadow-searchButtonShadow "
+              className="flex justify-items-center text-xl cursor-pointer bg-marketplaceButton font-satoshiBold px-10 py-4 rounded-full text-black drop-shadow-searchButtonShadow "
               name="submit"
               type="submit"
               value="Submit"

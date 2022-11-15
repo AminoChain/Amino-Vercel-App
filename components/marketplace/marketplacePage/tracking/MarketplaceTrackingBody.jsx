@@ -10,14 +10,14 @@ const MarketplaceTrackingBody = () => {
     console.log(e.target[0].value)
   }
   return (
-    <div className="flex flex-col px-20">
+    <div className="flex flex-col px-36 pt-6 pb-[8%]">
       <div className=" font-satoshiBold text-[40px] text-black">
         Track shipment
       </div>
-      <div className=" font-satoshiMedium text-black text-xl py-4">
+      <div className=" font-satoshiMedium text-black text-xl py-2">
         Enter Order ID of your purchase
       </div>
-      <form onSubmit={findOrder} className='flex w-1/4 py-5'>
+      <form onSubmit={findOrder} className="flex w-1/4 py-6">
         <div className="flex flex-row w-full border border-main bg-white px-5 rounded-full justify-start">
           <div className="flex items-center pr-[0.6rem] ">
             <Image src={locate} alt="target image" />

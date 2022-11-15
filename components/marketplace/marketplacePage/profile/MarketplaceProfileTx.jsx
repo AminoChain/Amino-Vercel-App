@@ -6,10 +6,10 @@ import linkIcon from '../../../../assets/share.png'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 
 const MarketplaceProfileTx = ({ item }) => {
-  const buyerShort =
-    item.buyer.slice(0, 4) +
+  const donorShort =
+    item.donor.slice(0, 4) +
     '...' +
-    item.buyer.slice(item.buyer.length - 4, item.buyer.length)
+    item.donor.slice(item.donor.length - 4, item.donor.length)
   const txHashShort =
     item.transcationHash.slice(0, 4) +
     '...' +
@@ -17,28 +17,31 @@ const MarketplaceProfileTx = ({ item }) => {
       item.transcationHash.length - 4,
       item.transcationHash.length
     )
-  const incentive = ethers.utils.formatUnits(item.incentive, 6).toString()
+  const price = ethers.utils.formatUnits(item.price, 6).toString()
 
   const date = new Date(item.date * 1000)
 
   return (
     <div className="w-full flex items-center border-b-[1px] border-main py-8 pl-8 ">
-      <div className="font-satoshiMedium text-black flex items-center basis-[30%]">
+      <div className="font-satoshiMedium text-black flex items-center basis-[24%]">
         {date.toLocaleDateString()}
         <div className="flex items-center px-2">
           <Image src={dot} alt="dot image" draggable="false" />
         </div>
         {date.toLocaleTimeString()}
       </div>
-      <div className=" font-satoshiMedium text-black text-lg basis-[25%]">
-        {buyerShort}
+      <div className=" font-satoshiMedium text-black text-lg basis-[18%]">
+        {donorShort}
       </div>
-      <div className="flex flex-row font-satoshiMedium text-black text-lg items-center basis-[30%]">
+      <div className=" font-satoshiMedium text-black text-lg basis-[18%]">
+        {item.size} cc
+      </div>
+      <div className="flex flex-row font-satoshiMedium text-black text-lg items-center basis-[25%]">
         <div className="flex mr-2 self-center">
           <Image src={usdcLogo} alt="" draggable="false" />
         </div>
         <p>
-          {parseFloat(incentive)
+          {parseFloat(price)
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')}
         </p>
