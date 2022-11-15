@@ -67,13 +67,13 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
         </div>
       </div>
       {!loggedIn ? (
-        <form onSubmit={login} className="flex">
+        <form onSubmit={login} className="flex ">
           <div className="basis-2/12">
             <div className=" font-satoshiMedium text-main">Business Name</div>
             <input
               type="text"
               placeholder="enter here"
-              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium"
+              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium focus:outline-none"
             />
           </div>
           <div className="basis-2/12">
@@ -81,7 +81,7 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
             <input
               type="text"
               placeholder="enter here"
-              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium"
+              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium focus:outline-none"
             />
           </div>
           <div className="basis-2/12">
@@ -89,7 +89,7 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
             <input
               type="text"
               placeholder="enter here"
-              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium"
+              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium focus:outline-none"
             />
           </div>
           <div className="basis-2/12">
@@ -97,7 +97,7 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
             <input
               type="text"
               placeholder="enter here"
-              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium"
+              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium focus:outline-none"
             />
           </div>
           <div className="basis-2/12">
@@ -105,10 +105,10 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
             <input
               type="text"
               placeholder="enter here"
-              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium"
+              className="border-b-[1px] border-black p-1 pl-0 text-black font-satoshiMedium focus:outline-none"
             />
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center ">
             <input
               className="flex justify-items-center text-xl cursor-pointer bg-marketplaceButton font-satoshiBold px-10 py-4 rounded-full text-black drop-shadow-searchButtonShadow "
               name="submit"
