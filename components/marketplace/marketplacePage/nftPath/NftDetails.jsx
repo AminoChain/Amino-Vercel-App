@@ -17,24 +17,32 @@ const NftDetailsAndBuy = ({ nftData }) => {
   const [genomeHidden, setGenomeHidden] = useState(true)
   const [hlaSource, setHlaSource] = useState()
   const [genome, setGenome] = useState()
-  const [marketplace, setMarketplace] = useState()
-  const [userAddress, setUserAddress] = useState()
+  const [isApproved, setIsApproved] = useState(null)
 
   useEffect(() => {
     ;(async () => {
       try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-        if (provider) {
-          const signer = await provider.getSigner()
-          const signerAddr = await signer.getAddress()
-          setUserAddress(signerAddr)
+        if (isApproved === null) {
+          const provider = new ethers.providers.Web3Provider(window.ethereum)
+          if (provider) {
+            const signer = await provider.getSigner()
+            const signerAddr = await signer.getAddress()
 
-          const marketplaceContract = new ethers.Contract(
-            contractAddresses.marketplace,
-            abis.marketplace,
-            signer
-          )
-          setMarketplace(marketplaceContract)
+            const marketplaceContract = new ethers.Contract(
+              contractAddresses.marketplace,
+              abis.marketplace,
+              signer
+            )
+
+            const approved = await marketplaceContract.isApprovedToBuy(
+              signerAddr
+            )
+            if (approved) {
+              setIsApproved(approved)
+            } else {
+              setIsApproved(false)
+            }
+          }
         }
       } catch (e) {
         console.warn(e)
@@ -61,10 +69,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
 
   const unhideHla = async () => {
     try {
-      // const approved = marketplace && await marketplace.isApprovedToBuy(userAddress)
-      const approved = true
-
-      if (approved === true) {
+      if (isApproved === true) {
         const response = await fetch(
           platformBackend + `decode-hla/${nftData.tokenId}`
         )
@@ -82,10 +87,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
 
   const unhideGenome = async () => {
     try {
-      // const approved = marketplace && await marketplace.isApprovedToBuy(userAddress)
-      const approved = true
-
-      if (approved === true) {
+      if (isApproved === true) {
         const response = await fetch(
           platformBackend + `decode-genome/${nftData.tokenId}`
         )
@@ -131,18 +133,23 @@ const NftDetailsAndBuy = ({ nftData }) => {
           parseInt(allowance.toString()) >= parseInt(price.price.toString())
         ) {
           try {
-            await marketplace.buyItem(nftData.tokenId)
+            const tx = await marketplace.buyItem(nftData.tokenId) //buys nft
+            await tx.wait(3)
+            router.push(`/marketplace/nft/shipping?tokenId=${nftData.tokenId}`)
+            // routes to the shipping page
           } catch (e) {
             console.warn(e)
           }
         } else {
           //approve maximum amount {trade off between ux and user security}
           try {
-            await usdcContract.approve(
+            const tx = await usdcContract.approve(
               contractAddresses.marketplace,
               '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
             )
-            router.push(`/marketplace/nft/shipping?tokenId=${nftData.tokenId}`) // routes to the shipping page
+            await tx.wait(3).then(() => {
+              handlePurchase()
+            })
           } catch (e) {
             console.warn(e)
           }
@@ -168,28 +175,39 @@ const NftDetailsAndBuy = ({ nftData }) => {
           <p className="text-main font-satoshiRegular text-base pb-2">
             HLA Haplotypes
           </p>
-          {hlaHidden ? (
-            <div
-              onClick={unhideHla}
-              className="flex flex-row justify-between py-4 px-6 w-3/4 font-satoshiMedium text-base rounded-md bg-hiddenHla text-black mb-4"
-            >
-              Only Available to doctors and researchers.
-              <div className="flex h-min self-center cursor-pointer">
-                <Image src={hidden} alt="" draggable="false" />
-              </div>
+          {isApproved ? (
+            <div>
+              {hlaHidden ? (
+                <div
+                  onClick={unhideHla}
+                  className="flex flex-row justify-between py-4 px-6 w-3/4 font-satoshiMedium cursor-pointer text-base rounded-md bg-hiddenHla text-black mb-4"
+                >
+                  Only Available to doctors and researchers.
+                  <div className="flex h-min self-center">
+                    <Image src={hidden} alt="" draggable="false" />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-row space-x-[2rem] font-satoshiBold text-black text-base mb-4">
+                  <div className="flex flex-col">
+                    <p className="pb-2">HLA A: {hlaSource.A.join(' : ')}</p>
+                    <p>HLA DRB: {hlaSource.DRB.join(' : ')}</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="pb-2">HLA B: {hlaSource.B.join(' : ')}</p>
+                    <p>HLA DPB: {hlaSource.DPB.join(' : ')}</p>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="pb-2">HLA C: {hlaSource.C.join(' : ')}</p>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
-            <div className="flex flex-row space-x-[2rem] font-satoshiBold text-black text-base">
-              <div className="flex flex-col">
-                <p className="pb-2">HLA A: {hlaSource.A.join(', ')}</p>
-                <p>HLA DRB: {hlaSource.DRB.join(', ')}</p>
-              </div>
-              <div className="flex flex-col">
-                <p className="pb-2">HLA B: {hlaSource.B.join(', ')}</p>
-                <p>HLA DPB: {hlaSource.DPB.join(', ')}</p>
-              </div>
-              <div className="flex flex-col">
-                <p className="pb-2">HLA C: {hlaSource.C.join(', ')}</p>
+            <div className="flex flex-row justify-between py-4 px-6 w-3/4 font-satoshiMedium cursor-not-allowed text-base rounded-md bg-hiddenHla text-black mb-4">
+              Only Available to doctors and researchers.
+              <div className="flex h-min self-center">
+                <Image src={hidden} alt="" draggable="false" />
               </div>
             </div>
           )}
@@ -197,19 +215,30 @@ const NftDetailsAndBuy = ({ nftData }) => {
           <p className="text-main font-satoshiRegular text-base pb-2">
             Genome and Donor Condition Details
           </p>
-          {genomeHidden ? (
-            <div
-              onClick={unhideGenome}
-              className="flex flex-row justify-between py-4 px-6 w-3/4 font-satoshiMedium text-base rounded-md bg-hiddenHla text-black"
-            >
-              Only Available to doctors and researchers.
-              <div className="flex h-min self-center cursor-pointer">
-                <Image src={hidden} alt="" draggable="false" />
-              </div>
+          {isApproved ? (
+            <div>
+              {genomeHidden ? (
+                <div
+                  onClick={unhideGenome}
+                  className="flex flex-row justify-between py-4 px-6 w-3/4 cursor-pointer font-satoshiMedium text-base rounded-md bg-hiddenHla text-black"
+                >
+                  Only Available to doctors and researchers.
+                  <div className="flex h-min self-center">
+                    <Image src={hidden} alt="" draggable="false" />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-row space-x-[2rem] font-satoshiBold text-black text-base">
+                  {genome}
+                </div>
+              )}
             </div>
           ) : (
-            <div className="flex flex-row space-x-[2rem] font-satoshiBold text-black text-base">
-              {genome}
+            <div className="flex flex-row justify-between py-4 px-6 w-3/4 cursor-not-allowed font-satoshiMedium text-base rounded-md bg-hiddenHla text-black">
+              Only Available to doctors and researchers.
+              <div className="flex h-min self-center">
+                <Image src={hidden} alt="" draggable="false" />
+              </div>
             </div>
           )}
         </div>
@@ -305,12 +334,18 @@ const NftDetailsAndBuy = ({ nftData }) => {
             </div>
           </div>
         </div>
-        <button
-          className=" py-5 px-[5rem] rounded-full text-xl font-satoshiBold text-black bg-gradient-to-r drop-shadow-marketplaceButtonShadow1 from-gradientDonateStart to-gradientDonateEnd"
-          onClick={handlePurchase}
-        >
-          Buy Now
-        </button>
+        {isApproved ? (
+          <button
+            className=" py-5 px-[5rem] rounded-full text-xl font-satoshiBold text-black bg-gradient-to-r drop-shadow-marketplaceButtonShadow1 from-gradientDonateStart to-gradientDonateEnd"
+            onClick={handlePurchase}
+          >
+            Buy Now
+          </button>
+        ) : (
+          <button className=" py-5 px-[5rem] cursor-not-allowed rounded-full text-xl font-satoshiBold text-black bg-gradient-to-r drop-shadow-marketplaceButtonShadow1 from-gradientDonateStart to-gradientDonateEnd opacity-40">
+            Buy Now
+          </button>
+        )}
       </div>
     </div>
   )
