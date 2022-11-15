@@ -55,15 +55,19 @@ const DonorProfileBody = () => {
 
   let donorNftArray = []
   const getData = () => {
-    listing.existingTokenIds.forEach((nft, index) => {
-      donorNftArray.push({
-        tokenId: nft.tokenId,
-        bioBank: nft.bioBank,
-        price: nft.price,
-        size: nft.sizeInCC,
-        mintTimestamp: nft.mintTimestamp,
+    try {
+      listing.existingTokenIds.forEach((nft, index) => {
+        donorNftArray.push({
+          tokenId: nft.tokenId,
+          bioBank: nft.bioBank,
+          price: nft.price,
+          size: nft.sizeInCC,
+          mintTimestamp: nft.mintTimestamp,
+        })
       })
-    })
+    } catch (e) {
+      console.warn(e)
+    }
   }
   getData()
 
