@@ -15,26 +15,28 @@ const BioBankBanner = () => {
   useEffect(() => {
     const checkConnection = async () => {
       let provider, signer
-      try {
-        provider = new ethers.providers.Web3Provider(window.ethereum)
-        signer = await provider.getSigner(0)
+      if (wallet === '') {
+        try {
+          provider = new ethers.providers.Web3Provider(window.ethereum)
+          signer = await provider.getSigner(0)
 
-        if (signer === undefined) {
-          setWallet('')
-        } else {
-          try {
-            let address = await signer.getAddress()
-            address =
-              address.slice(0, 4) +
-              '...' +
-              address.slice(address.length - 4, address.length)
-            setWallet(address)
-          } catch (e) {
-            console.warn(e)
+          if (signer === undefined) {
+            setWallet('')
+          } else {
+            try {
+              let address = await signer.getAddress()
+              address =
+                address.slice(0, 4) +
+                '...' +
+                address.slice(address.length - 4, address.length)
+              setWallet(address)
+            } catch (e) {
+              console.warn(e)
+            }
           }
+        } catch (e) {
+          console.warn(e)
         }
-      } catch (e) {
-        console.warn(e)
       }
     }
     checkConnection()

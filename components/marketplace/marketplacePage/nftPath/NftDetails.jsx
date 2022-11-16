@@ -17,8 +17,8 @@ const NftDetailsAndBuy = ({ nftData }) => {
   const [genomeHidden, setGenomeHidden] = useState(true)
   const [hlaSource, setHlaSource] = useState()
   const [genome, setGenome] = useState()
-  const [signerAddress, setSignerAddress] = useState()
-  const [marketplace, setMarketplace] = useState()
+  const [signerAddress, setSignerAddress] = useState(null)
+  const [marketplace, setMarketplace] = useState(null)
   const [isApproved, setIsApproved] = useState(null)
 
   useEffect(() => {
@@ -123,6 +123,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
         signerAddress,
         contractAddresses.marketplace
       )
+      const price = await marketplace.getListingData(nftData.tokenId)
       if (parseInt(allowance.toString()) >= parseInt(price.price.toString())) {
         try {
           const tx = await marketplace.buyItem(nftData.tokenId) //buys nft
