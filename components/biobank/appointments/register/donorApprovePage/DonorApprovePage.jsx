@@ -55,7 +55,9 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
       const authenticator = new Contract(
         contractAddresses.authenticator,
         abis.authenticator,
-        new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com')
+        new ethers.providers.JsonRpcProvider(
+          'https://rpc-mumbai.maticvigil.com'
+        )
       )
 
       let hlaHash = ethers.utils.id(JSON.stringify(hla))
@@ -78,9 +80,9 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
               hla,
               biobankAddress,
               donorAddress: account,
-              amounts: [20, 10],
+              amounts: [5, 30],
               signature,
-              genome: 'genome',
+              genome: 'GTACTCAG',
             }),
           })
 

@@ -92,56 +92,56 @@ const MarketplaceProfileBody = ({ loggedIn, setLoggedIn }) => {
       {userAddress === '0x0000000000000000000000000000000000000000' ? (
         <div className="w-full">
           <div className="w-full justify-center flex px-auto font-satoshiMedium text-black text-4xl mt-[2rem] mb-[8%]">
-            Connect Wallet To View Earnings
+            Connect Wallet To View Profile
           </div>
           <MarketplaceCreateAccount />
         </div>
       ) : (
         <div className="w-full flex flex-row flex-wrap">
-          {numOfPuchases >= 1 ? (
-            <div className="w-full flex flex-col">
-              <MarketplaceProfileStats
-                totalSpent={totalSpent}
-                numPurchased={numOfPuchases}
-              />
-              <div className="w-full mt-8">
-                <p className="font-satoshiMedium text-main text-xl pl-8">
-                  Completed Purchases
-                </p>
-                <div className="w-full flex flex-row flex-wrap">
-                  <div className="w-full flex flex-col">
-                    <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
-                      <div className="font-satoshiMedium text-main basis-[24%]">
-                        Date & Time
+          <div className="w-full flex flex-col">
+            <MarketplaceProfileStats
+              totalSpent={totalSpent}
+              numPurchased={numOfPuchases}
+            />
+            <div className="w-full mt-8">
+              <p className="font-satoshiMedium text-main text-xl pl-8">
+                Completed Purchases
+              </p>
+              <div className="w-full flex flex-row flex-wrap">
+                <div className="w-full flex flex-col">
+                  <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
+                    <div className="font-satoshiMedium text-main basis-[24%]">
+                      Date & Time
+                    </div>
+                    <div className="font-satoshiMedium text-main basis-[18%]">
+                      Donor Address
+                    </div>
+                    <div className=" font-satoshiMedium text-main basis-[18%]">
+                      Size
+                    </div>
+                    <div className=" font-satoshiMedium text-main basis-[25%]">
+                      Amount
+                    </div>
+                    <div className=" font-satoshiMedium text-main ">
+                      Txn Hash
+                    </div>
+                  </div>
+                  {numOfPuchases >= 1 ? (
+                    <div className="flex flex-col">{earningTxs}</div>
+                  ) : (
+                    <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
+                      <div className="font-satoshiMedium text-black text-4xl p-2">
+                        You have no purchases
                       </div>
-                      <div className="font-satoshiMedium text-main basis-[18%]">
-                        Donor Address
-                      </div>
-                      <div className=" font-satoshiMedium text-main basis-[18%]">
-                        Size
-                      </div>
-                      <div className=" font-satoshiMedium text-main basis-[25%]">
-                        Amount
-                      </div>
-                      <div className=" font-satoshiMedium text-main ">
-                        Txn Hash
+                      <div className="text-black font-satoshiRegular text-xl p-2">
+                        Visit the Marketplace to buy your first order!
                       </div>
                     </div>
-                    <div className="flex flex-col">{earningTxs}</div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
-          ) : (
-            <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
-              <div className="font-satoshiMedium text-black text-4xl p-2">
-                You have no purchases
-              </div>
-              <div className="text-black font-satoshiRegular text-xl p-2">
-                Visit the Marketplace to buy your first order!
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       )}
     </div>
