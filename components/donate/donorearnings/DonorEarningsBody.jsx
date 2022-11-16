@@ -93,49 +93,49 @@ const DonorEarningsBody = () => {
         </div>
       ) : (
         <div className="w-full flex flex-row flex-wrap">
-          {numOfIncentives >= 1 ? (
-            <div className="w-full flex flex-row flex-wrap">
-              <div className="w-full flex p-8 border-solid border-x-[1px] rounded-[8px] border-main">
-                <div className="flex flex-col">
-                  <p className="font-satoshiMedium text-base text-main mb-[0.6rem]">
-                    Total Earnings
+          <div className="w-full flex flex-row flex-wrap">
+            <div className="w-full flex p-8 border-solid border-x-[1px] rounded-[8px] border-main">
+              <div className="flex flex-col">
+                <p className="font-satoshiMedium text-base text-main mb-[0.6rem]">
+                  Total Earnings
+                </p>
+                <div className="flex flex-row">
+                  <p className="text-primary font-satoshiBlack text-5xl">$</p>
+                  <p className="text-black font-satoshiBlack text-5xl">
+                    {parseFloat(totalEarnings)
+                      .toFixed(2)
+                      .replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                   </p>
-                  <div className="flex flex-row">
-                    <p className="text-primary font-satoshiBlack text-5xl">$</p>
-                    <p className="text-black font-satoshiBlack text-5xl">
-                      {parseFloat(totalEarnings)
-                        .toFixed(2)
-                        .replace(/\d(?=(\d{3})+\.)/g, '$&,')}
-                    </p>
-                  </div>
                 </div>
               </div>
-              <div className="w-full flex flex-col">
-                <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-10">
-                  <div className="font-satoshiMedium text-main basis-[30%]">
-                    Date & Time
-                  </div>
-                  <div className="font-satoshiMedium text-main basis-[25%]">
-                    Buyer Address
-                  </div>
-                  <div className=" font-satoshiMedium text-main basis-[30%]">
-                    Amount
-                  </div>
-                  <div className=" font-satoshiMedium text-main ">Txn Hash</div>
+            </div>
+            <div className="w-full flex flex-col">
+              <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-10">
+                <div className="font-satoshiMedium text-main basis-[30%]">
+                  Date & Time
                 </div>
+                <div className="font-satoshiMedium text-main basis-[25%]">
+                  Buyer Address
+                </div>
+                <div className=" font-satoshiMedium text-main basis-[30%]">
+                  Amount
+                </div>
+                <div className=" font-satoshiMedium text-main ">Txn Hash</div>
+              </div>
+              {numOfIncentives >= 1 ? (
                 <div className="flex flex-col">{earningTxs}</div>
-              </div>
+              ) : (
+                <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
+                  <div className="font-satoshiMedium text-black text-4xl p-2">
+                    You have no Earnings
+                  </div>
+                  <div className="text-black font-satoshiRegular text-xl p-2">
+                    Visit the Donations Page to start a donation
+                  </div>
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
-              <div className="font-satoshiMedium text-black text-4xl p-2">
-                You have no Earnings
-              </div>
-              <div className="text-black font-satoshiRegular text-xl p-2">
-                Visit the Donations Page to start a donation
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       )}
     </div>

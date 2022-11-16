@@ -24,7 +24,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
   useEffect(() => {
     ;(async () => {
       try {
-        if (isApproved === null) {
+        if (!isApproved) {
           const provider = new ethers.providers.Web3Provider(window.ethereum)
           if (provider) {
             const signer = await provider.getSigner()
@@ -123,8 +123,9 @@ const NftDetailsAndBuy = ({ nftData }) => {
         signerAddress,
         contractAddresses.marketplace
       )
-      const price = await marketplace.getListingData(nftData.tokenId)
-      if (parseInt(allowance.toString()) >= parseInt(price.price.toString())) {
+      if (
+        parseInt(allowance.toString()) >= parseInt(nftData.price.toString())
+      ) {
         try {
           const tx = await marketplace.buyItem(nftData.tokenId) //buys nft
           await tx.wait(2)
