@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dot from '../../../assets/footerDot.png'
 import share from '../../../assets/share.png'
-import { ethers } from 'ethers'
 
 const BioBankHistory = ({ item }) => {
   const donor =

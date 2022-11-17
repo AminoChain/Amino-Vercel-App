@@ -1,11 +1,11 @@
 import documentOpen from '../../../../../assets/document-open.png'
 import Image from 'next/image'
 
-const EnterHlaBody = ({ setHla }) => {
+const EnterHlaBody = ({ setHla, setSequence }) => {
   const submit = (e) => {
     e.preventDefault()
 
-    let HLAA, HLAB, HLAC, HLADPB, HLADRB
+    let HLAA, HLAB, HLAC, HLADPB, HLADRB, SEQUENCE
     if (e.currentTarget[0].value) {
       HLAA = JSON.parse(e.currentTarget[0].value) //e.target[0];
     } else {
@@ -31,6 +31,11 @@ const EnterHlaBody = ({ setHla }) => {
     } else {
       HLADRB = [0]
     }
+    if (e.currentTarget[5].value) {
+      SEQUENCE = JSON.parse(e.currentTarget[5].value)
+    } else {
+      SEQUENCE = ['']
+    }
 
     // let HLAA = [2, 123]
     // let HLAB = [51, 123]
@@ -45,6 +50,7 @@ const EnterHlaBody = ({ setHla }) => {
       DPB: HLADPB,
       DRB: HLADRB,
     })
+    setSequence(SEQUENCE)
   }
 
   return (
@@ -55,7 +61,7 @@ const EnterHlaBody = ({ setHla }) => {
             Enter Genome Sequence
           </div>
           <div className="text-xl text-black pb-10 font-satoshiMedium">
-            Input the same sequence as the donor’s or upload a CSV instead
+            Input the donor’s HLA haplotype and sequence or upload a CSV instead
           </div>
         </div>
         <div className="">
@@ -127,14 +133,17 @@ const EnterHlaBody = ({ setHla }) => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="flex items-center text-black" htmlFor="HLA DQA">
+              <label
+                className="flex items-center text-black"
+                htmlFor="Genetic Sequence"
+              >
                 <div className="w-3 h-3 mx-2 bg-purpleHLADQA rounded" />
-                HLA DQA
+                Genetic Sequence
               </label>
               <input
                 className=" p-2 border-main border-[0.5px] rounded"
-                name="HLA DQA"
-                placeholder="[x, y, z]"
+                name="Genetic Sequence"
+                placeholder="['CTAG...']"
               />
             </div>
           </div>

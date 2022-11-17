@@ -308,7 +308,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
               <Image src={usdcLogo} alt="usdcLogo" draggable="false" />
             </div>
             <div className="p-2 font-satoshiBold text-black text-xl">
-              ${parseFloat(price).toLocaleString()} USDC
+              ${parseFloat(price).toLocaleString('en-US')} USDC
             </div>
           </div>
         </div>
