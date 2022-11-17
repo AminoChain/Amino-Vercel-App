@@ -15,19 +15,18 @@ model BioBank {
   name         String
   location     String
   address      String?       @unique
-  nft          Nft?
+  nft          Nft[]
   shippingInfo ShippingInfo?
 }
 
 model Nft {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  tokenId      String
-  biobank      BioBank?      @relation(fields: [biobankId], references: [id])
-  shippingInfo ShippingInfo? @relation(fields: [shippingId], references: [id])
-  donor        Donor?        @relation(fields: [donorId], references: [id])
-  donorId      String?       @unique @db.ObjectId
-  shippingId   String?       @unique @db.ObjectId
-  biobankId    String?       @unique @db.ObjectId
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  tokenId        String
+  trackingNumber String
+  biobank        BioBank?      @relation(fields: [biobankId], references: [id])
+  donor          Donor?        @relation(fields: [donorId], references: [id])
+  donorId        String?       @unique @db.ObjectId
+  biobankId      String?       @unique @db.ObjectId
 }
 
 model Donor {
@@ -44,7 +43,6 @@ model ShippingInfo {
   city      String?
   state     String
   zipcode   String
-  nft       Nft?
   biobank   BioBank? @relation(fields: [biobankId], references: [id])
   biobankId String?  @unique @db.ObjectId
 }

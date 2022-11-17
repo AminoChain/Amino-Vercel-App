@@ -26,8 +26,8 @@ const MarketplaceProfileBody = () => {
         })
         if (res.ok) {
           const body = await res.json()
-          const hasNull = Object.values(body.shippingInfo).every(element => element !== null || undefined || '');
-          if (hasNull) {
+          const noNulls = Object.values(body.shippingInfo).every(element => element !== null || undefined || '');
+          if (noNulls) {
             setShippingAddress(true)
           }
         }
@@ -94,7 +94,7 @@ const MarketplaceProfileBody = () => {
   getData()
   organizeByTime()
 
-  const numOfPuchases = buyerPurchasesArray.length
+  const numPurchased = buyerPurchasesArray.length
 
   const earningTxs = buyerPurchasesArray.map((item, index) => (
     <MarketplaceProfileTx key={index} item={item} />
@@ -124,7 +124,7 @@ const MarketplaceProfileBody = () => {
             <div className="w-full flex flex-col">
               <MarketplaceProfileStats
                 totalSpent={totalSpent}
-                numPurchased={numOfPuchases}
+                numPurchased={numPurchased}
               />
               <div className="w-full mt-8">
                 <p className="font-satoshiMedium text-main text-xl pl-8">
@@ -149,7 +149,7 @@ const MarketplaceProfileBody = () => {
                         Txn Hash
                       </div>
                     </div>
-                    {numOfPuchases >= 1 ? (
+                    {numPurchased >= 1 ? (
                       <div className="flex flex-col">{earningTxs}</div>
                     ) : (
                       <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">

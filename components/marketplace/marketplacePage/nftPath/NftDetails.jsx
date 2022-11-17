@@ -72,56 +72,96 @@ const NftDetailsAndBuy = ({ nftData }) => {
   const date = new Date(nftData.mintTimestamp * 1000)
 
   async function postData() {
-    let shipment = {
-      service_code: 'ups_ground',
-      ship_to: {
-        name: 'Jane Doe',
-        address_line1: '525 S Winchester Blvd',
-        city_locality: 'San Jose',
-        state_province: 'CA',
-        postal_code: '95128',
-        country_code: 'US',
-        address_residential_indicator: 'yes',
-      },
-      ship_from: {
-        name: 'Tester',
-        phone: '555-555-5555',
-        company_name: 'Example Corp',
-        address_line1: '4009 Marathon Blvd',
-        city_locality: 'Austin',
-        state_province: 'TX',
-        postal_code: '78756',
-        country_code: 'US',
-        address_residential_indicator: 'no',
-      },
-      packages: [
-        {
-          dimensions: {
-            height: 6,
-            width: 12,
-            length: 24,
-            unit: 'inch',
-          },
-          weight: {
-            value: 20,
-            unit: 'ounce',
-          },
-        },
-      ],
-    }
-
-    const response = await fetch(
-      `https://c184-2601-89-c601-7400-f957-5f9d-e0d2-60e2.ngrok.io/shipPackage/${nftData.tokenId}`,
-      {
+    let shipment
+    try {
+      const res = await fetch('/api/single-biobank', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(shipment),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(signerAddress),
+      })
+      if (res.ok) {
+        const body = await res.json()
+        const noNulls = Object.values(body.shippingInfo).every(
+          (element) => element !== null || undefined || ''
+        )
+        if (noNulls) {
+          shipment = {
+            service_code: 'ups_ground',
+            ship_to: {
+              name: `${body.name}`,
+              address_line1: `${body.shippingInfo.street}`,
+              city_locality: `${body.shippingInfo.city}`,
+              state_province: `${body.shippingInfo.state}`,
+              postal_code: `${body.shippingInfo.zipcode}`,
+              country_code: 'US',
+              address_residential_indicator: 'yes',
+            },
+            ship_from: {
+              name: 'Tester',
+              phone: '555-555-5555',
+              company_name: 'Example Corp',
+              address_line1: '4009 Marathon Blvd',
+              city_locality: 'Austin',
+              state_province: 'TX',
+              postal_code: '78756',
+              country_code: 'US',
+              address_residential_indicator: 'no',
+            },
+            packages: [
+              {
+                dimensions: {
+                  height: 6,
+                  width: 12,
+                  length: 24,
+                  unit: 'inch',
+                },
+                weight: {
+                  value: 20,
+                  unit: 'ounce',
+                },
+              },
+            ],
+          }
+        }
       }
-    )
-    let ship = await response.json()
-    return ship
+
+      const response = await fetch(
+        `https://c184-2601-89-c601-7400-f957-5f9d-e0d2-60e2.ngrok.io/shipPackage/${nftData.tokenId}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(shipment),
+        }
+      )
+      let ship = await response.json()
+      return ship
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+
+  async function updateProfile(trackingNumber) {
+    //let tempTrackingnum = '1Z6844599958396849'
+    const purchasedNft = {
+      address: signerAddress,
+      trackingNumber: trackingNumber,
+      tokenId: nftData.tokenId,
+    }
+    try {
+      const res = await fetch('/api/add-nft-with-tracking-number', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(purchasedNft),
+      })
+      if (res.ok) {
+        const body = await res.json()
+        return body
+      }
+    } catch (error) {
+      console.warn(error)
+    }
   }
 
   const unhideHla = async () => {
@@ -184,6 +224,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
           await tx.wait(2)
           const shippingInfo = await postData()
           const trackingNumber = shippingInfo.tracking_number
+          const profileUpdated = await updateProfile(trackingNumber)
           router.push(
             `/marketplace/nft/shipping?tokenId=${nftData.tokenId}&trackingNum=${trackingNumber}`
           )

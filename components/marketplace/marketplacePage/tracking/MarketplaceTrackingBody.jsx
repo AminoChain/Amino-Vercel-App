@@ -4,10 +4,46 @@ import { useState } from 'react'
 
 const MarketplaceTrackingBody = () => {
   const [orderId, setOrderId] = useState('')
-  const findOrder = (e) => {
+  const findOrder = async (e) => {
     e.preventDefault()
-    // add some logic here for accessing the tracking api
-    console.log(e.target[0].value)
+
+    const checkConnection = async () => {
+      let provider, signer
+      try {
+        provider = new ethers.providers.Web3Provider(window.ethereum)
+        signer = await provider.getSigner(0)
+      } catch (e) {
+        console.log(e)
+      }
+
+      if (signer === undefined) {
+        return false
+      } else {
+        try {
+          let address = await signer.getAddress()
+          return address
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    }
+    const address = await checkConnection()
+    if (address) {
+      const trackingId = e.target[0].value
+     
+      try {
+        const res = await fetch('/api/single-biobank', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+        if (res.ok) {
+          setShippingAddress(true)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
   }
   return (
     <div className="flex flex-col px-36 pt-6 pb-[8%]">
