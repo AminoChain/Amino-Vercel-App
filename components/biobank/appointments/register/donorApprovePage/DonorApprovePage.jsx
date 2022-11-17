@@ -17,7 +17,7 @@ export const polygonChainId = 137
 export const currentChainId = mumbaiChainId
 // const platformBackend = "http://localhost:3003/"
 
-const DonorApprovePage = ({ hla, sequence, biobankAddress }) => {
+const DonorApprovePage = ({ hla, sequenceAndData, biobankAddress }) => {
   const [error, setError] = useState('')
   const [connectingWallet, setConnectingWallet] = useState(false)
   const [waitingForApprove, setWaitingForApprove] = useState(false)
@@ -81,9 +81,9 @@ const DonorApprovePage = ({ hla, sequence, biobankAddress }) => {
               hla,
               biobankAddress,
               donorAddress: account,
-              amounts: [5, 30],
+              amounts: sequenceAndData.sizes,
               signature,
-              genome: sequence[0].toString(),
+              genome: sequenceAndData.sequence.toString(),
             }),
           })
 
