@@ -11,24 +11,23 @@ datasource db {
 }
 
 model BioBank {
-  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   location     String
-  address      String
+  address      String?       @unique
   nft          Nft?
-  shippingInfo ShippingInfo[]
+  shippingInfo ShippingInfo?
 }
 
 model Nft {
-  id              String        @id @default(auto()) @map("_id") @db.ObjectId
-  halotypeHash    String?
-  contractAddress String
-  biobank         BioBank?      @relation(fields: [biobankId], references: [id])
-  shippingInfo    ShippingInfo? @relation(fields: [shippingId], references: [id])
-  donor           Donor?        @relation(fields: [donorId], references: [id])
-  donorId         String?       @unique @db.ObjectId
-  shippingId      String?       @unique @db.ObjectId
-  biobankId       String?       @unique @db.ObjectId
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  tokenId      String
+  biobank      BioBank?      @relation(fields: [biobankId], references: [id])
+  shippingInfo ShippingInfo? @relation(fields: [shippingId], references: [id])
+  donor        Donor?        @relation(fields: [donorId], references: [id])
+  donorId      String?       @unique @db.ObjectId
+  shippingId   String?       @unique @db.ObjectId
+  biobankId    String?       @unique @db.ObjectId
 }
 
 model Donor {
@@ -40,13 +39,12 @@ model Donor {
 }
 
 model ShippingInfo {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  street       String
-  apartmentNum String
-  state        String
-  zipcode      String
-  arrived      Boolean  @default(false)
-  nft          Nft?
-  biobank      BioBank? @relation(fields: [biobankId], references: [id])
-  biobankId    String?
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  street    String
+  city      String?
+  state     String
+  zipcode   String
+  nft       Nft?
+  biobank   BioBank? @relation(fields: [biobankId], references: [id])
+  biobankId String?  @unique @db.ObjectId
 }

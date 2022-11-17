@@ -71,6 +71,59 @@ const NftDetailsAndBuy = ({ nftData }) => {
   const BioBankNames = biobankNames
   const date = new Date(nftData.mintTimestamp * 1000)
 
+  async function postData() {
+    let shipment = {
+      service_code: 'ups_ground',
+      ship_to: {
+        name: 'Jane Doe',
+        address_line1: '525 S Winchester Blvd',
+        city_locality: 'San Jose',
+        state_province: 'CA',
+        postal_code: '95128',
+        country_code: 'US',
+        address_residential_indicator: 'yes',
+      },
+      ship_from: {
+        name: 'Tester',
+        phone: '555-555-5555',
+        company_name: 'Example Corp',
+        address_line1: '4009 Marathon Blvd',
+        city_locality: 'Austin',
+        state_province: 'TX',
+        postal_code: '78756',
+        country_code: 'US',
+        address_residential_indicator: 'no',
+      },
+      packages: [
+        {
+          dimensions: {
+            height: 6,
+            width: 12,
+            length: 24,
+            unit: 'inch',
+          },
+          weight: {
+            value: 20,
+            unit: 'ounce',
+          },
+        },
+      ],
+    }
+
+    const response = await fetch(
+      `https://c184-2601-89-c601-7400-f957-5f9d-e0d2-60e2.ngrok.io/shipPackage/${nftData.tokenId}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(shipment),
+      }
+    )
+    let ship = await response.json()
+    return ship
+  }
+
   const unhideHla = async () => {
     try {
       if (isApproved === true) {
@@ -129,7 +182,11 @@ const NftDetailsAndBuy = ({ nftData }) => {
         try {
           const tx = await marketplace.buyItem(nftData.tokenId) //buys nft
           await tx.wait(2)
-          router.push(`/marketplace/nft/shipping?tokenId=${nftData.tokenId}`)
+          const shippingInfo = await postData()
+          const trackingNumber = shippingInfo.tracking_number
+          router.push(
+            `/marketplace/nft/shipping?tokenId=${nftData.tokenId}&trackingNum=${trackingNumber}`
+          )
           // routes to the shipping page
         } catch (e) {
           console.warn(e)

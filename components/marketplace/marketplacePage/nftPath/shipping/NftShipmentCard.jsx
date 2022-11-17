@@ -3,7 +3,7 @@ import nftCellsArt from '../../../../../assets/nftCellsArt.png'
 import aminoLogo2 from '../../../../../assets/aminoLogo2.png'
 import { biobankNames } from '../../../../../constants/index'
 
-const NftShipmentCard = ({ NftData }) => {
+const NftShipmentCard = ({ NftData, NftStatus }) => {
   const biobank = NftData.bioBank
   const donor =
     NftData.donor.slice(0, 4) +

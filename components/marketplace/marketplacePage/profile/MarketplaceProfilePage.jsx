@@ -5,13 +5,12 @@ import MarketplaceNav from '../MarketplaceNav'
 import MarketplaceProfileBody from './MarketplaceProfileBody'
 
 const MarketplaceProfilePage = () => {
-  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <div>
       <MarketplaceBanner />
       <MarketplaceNav />
-      <MarketplaceProfileBody loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <MarketplaceProfileBody />
       <SearchFooter />
     </div>
   )

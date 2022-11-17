@@ -3,11 +3,12 @@ import MarketplaceBanner from '../../MarketplaceBanner'
 import NftShipmentBody from './NftShipmentBody'
 import ShippingForm from './ShippingForm'
 
-const NftShippmentPage = ({ NftData }) => {
+const NftShippmentPage = ({ NftData, NftStatus }) => {
+
   return (
     <div className="w-screen">
       <MarketplaceBanner />
-      <NftShipmentBody NftData={NftData} />
+      <NftShipmentBody NftData={NftData} NftStatus={NftStatus} />
       <SearchFooter />
     </div>
   )

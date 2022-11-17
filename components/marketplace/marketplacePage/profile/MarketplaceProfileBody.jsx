@@ -5,19 +5,32 @@ import MarketplaceProfileStats from './MarketplaceProfileStats'
 import MarketplaceProfileTx from './MarketplaceProfileTx'
 import MarketplaceCreateAccount from './MarketplaceCreateAccount'
 
-const MarketplaceProfileBody = ({ loggedIn, setLoggedIn }) => {
+const MarketplaceProfileBody = () => {
   const [userAddress, setUserAddress] = useState(
     '0x0000000000000000000000000000000000000000'
   )
+  const [shippingAddress, setShippingAddress] = useState(false)
   const [totalSpent, setTotalSpent] = useState(null)
 
   useEffect(() => {
     ;(async () => {
       try {
         let provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = await provider.getSigner()
+        const signer = await provider.getSigner(0)
         const signerAddr = await signer.getAddress()
         setUserAddress(signerAddr)
+        const res = await fetch('/api/single-biobank', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(signerAddr),
+        })
+        if (res.ok) {
+          const body = await res.json()
+          const hasNull = Object.values(body.shippingInfo).every(element => element !== null || undefined || '');
+          if (hasNull) {
+            setShippingAddress(true)
+          }
+        }
       } catch (e) {
         console.warn(e)
       }
@@ -94,54 +107,65 @@ const MarketplaceProfileBody = ({ loggedIn, setLoggedIn }) => {
           <div className="w-full justify-center flex px-auto font-satoshiMedium text-black text-4xl mt-[2rem] mb-[8%]">
             Connect Wallet To View Profile
           </div>
-          <MarketplaceCreateAccount />
         </div>
       ) : (
         <div className="w-full flex flex-row flex-wrap">
-          <div className="w-full flex flex-col">
-            <MarketplaceProfileStats
-              totalSpent={totalSpent}
-              numPurchased={numOfPuchases}
-            />
-            <div className="w-full mt-8">
-              <p className="font-satoshiMedium text-main text-xl pl-8">
-                Completed Purchases
-              </p>
-              <div className="w-full flex flex-row flex-wrap">
-                <div className="w-full flex flex-col">
-                  <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
-                    <div className="font-satoshiMedium text-main basis-[24%]">
-                      Date & Time
+          {!shippingAddress ? (
+            <div className="w-full">
+              <div className="w-full justify-center flex px-auto font-satoshiMedium text-black text-4xl mt-[2rem] mb-[8%]">
+                Finish your profile by filling out the below form
+              </div>
+              <MarketplaceCreateAccount
+                shippingAddress={shippingAddress}
+                setShippingAddress={setShippingAddress}
+              />
+            </div>
+          ) : (
+            <div className="w-full flex flex-col">
+              <MarketplaceProfileStats
+                totalSpent={totalSpent}
+                numPurchased={numOfPuchases}
+              />
+              <div className="w-full mt-8">
+                <p className="font-satoshiMedium text-main text-xl pl-8">
+                  Completed Purchases
+                </p>
+                <div className="w-full flex flex-row flex-wrap">
+                  <div className="w-full flex flex-col">
+                    <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
+                      <div className="font-satoshiMedium text-main basis-[24%]">
+                        Date & Time
+                      </div>
+                      <div className="font-satoshiMedium text-main basis-[18%]">
+                        Donor Address
+                      </div>
+                      <div className=" font-satoshiMedium text-main basis-[18%]">
+                        Size
+                      </div>
+                      <div className=" font-satoshiMedium text-main basis-[25%]">
+                        Amount
+                      </div>
+                      <div className=" font-satoshiMedium text-main ">
+                        Txn Hash
+                      </div>
                     </div>
-                    <div className="font-satoshiMedium text-main basis-[18%]">
-                      Donor Address
-                    </div>
-                    <div className=" font-satoshiMedium text-main basis-[18%]">
-                      Size
-                    </div>
-                    <div className=" font-satoshiMedium text-main basis-[25%]">
-                      Amount
-                    </div>
-                    <div className=" font-satoshiMedium text-main ">
-                      Txn Hash
-                    </div>
+                    {numOfPuchases >= 1 ? (
+                      <div className="flex flex-col">{earningTxs}</div>
+                    ) : (
+                      <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
+                        <div className="font-satoshiMedium text-black text-4xl p-2">
+                          You have no purchases
+                        </div>
+                        <div className="text-black font-satoshiRegular text-xl p-2">
+                          Visit the Marketplace to buy your first order!
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  {numOfPuchases >= 1 ? (
-                    <div className="flex flex-col">{earningTxs}</div>
-                  ) : (
-                    <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
-                      <div className="font-satoshiMedium text-black text-4xl p-2">
-                        You have no purchases
-                      </div>
-                      <div className="text-black font-satoshiRegular text-xl p-2">
-                        Visit the Marketplace to buy your first order!
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>
