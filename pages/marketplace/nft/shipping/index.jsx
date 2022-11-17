@@ -2,14 +2,17 @@ import NftShipmentPage from '../../../../components/marketplace/marketplacePage/
 import { gql, useQuery } from '@apollo/client'
 
 export async function getServerSideProps(context) {
-  const { tokenId } = context.query
+  const { tokenId, trackingNum } = context.query
 
   return {
-    props: { tokenId: tokenId }, // will be passed to the page component as props
+    props: { tokenId: tokenId, trackingNum: trackingNum }, // will be passed to the page component as props
   }
 }
 
-const MarketplaceShipping = ({ tokenId }) => {
+const MarketplaceShipping = ({ tokenId, trackingNum }) => {
+
+  //const updateBiobank = fetch()
+
   const GET_TOKEN_DATA = gql`
     query Nft($tokenId: Int!) {
       existingTokenIds(where: { tokenId: $tokenId }) {
@@ -28,6 +31,14 @@ const MarketplaceShipping = ({ tokenId }) => {
       }
     }
   `
+  const GET_TOKEN_STATUS = gql`
+  query NftStatus($tokenId: Int!) {
+    pendingSales(where: { tokenId: $tokenId }) {
+      tokenId
+      status
+    }
+  }
+`
 
   let id = Number(tokenId)
   const {
@@ -38,7 +49,15 @@ const MarketplaceShipping = ({ tokenId }) => {
     variables: { tokenId: id },
   })
 
-  if (loading) {
+  const {
+    loading: loading2,
+    error: error2,
+    data: NftStatus,
+  } = useQuery(GET_TOKEN_STATUS, {
+    variables: { tokenId: id },
+  })
+
+  if (loading || loading2) {
     return (
       <div>
         <h2>Loading...</h2>
@@ -46,11 +65,11 @@ const MarketplaceShipping = ({ tokenId }) => {
     )
   }
 
-  if (error) return `Error! ${error}`
+  if (error || error2) return `Error! ${error}`
 
   return (
     <div>
-      <NftShipmentPage NftData={NftData.existingTokenIds[0]} />
+      <NftShipmentPage NftData={NftData.existingTokenIds[0]} NftStatus={NftStatus.pendingSales[0]} />
     </div>
   )
 }

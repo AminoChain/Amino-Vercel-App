@@ -1,12 +1,36 @@
 import prisma from '../../../lib/prisma'
 
 export default async function handler(req, res) {
-  req.body.location = req.body.state
-
-  const bioBank = await prisma.bioBank.create({
-    data: {
+  const bioBank = await prisma.bioBank.upsert({
+    where: {
+      address: req.body.address,
+    },
+    include: {
+      shippingInfo: true,
+      nft: true
+    },
+    update: {
+      shippingInfo: {
+        upsert: {
+          create: {
+            street: req.body.street,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipcode,
+          },
+          update: {
+            street: req.body.street,
+            city: req.body.city,
+            state: req.body.state,
+            zipcode: req.body.zipcode,
+          },
+        },
+      },
+    },
+    create: {
       name: req.body.name,
-      location: req.body.location,
+      location: req.body.state,
+      address: req.body.address,
       shippingInfo: {
         create: {
           street: req.body.street,
@@ -19,5 +43,5 @@ export default async function handler(req, res) {
     },
   })
 
-  return res.status(200).json({ message: 'Shipping info submitted' })
+  return res.status(200).json(bioBank) //{ message: 'Shipping info submitted' }
 }

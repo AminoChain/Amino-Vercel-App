@@ -1,4 +1,7 @@
-const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
+import { ethers } from "ethers"
+
+const MarketplaceCreateAccount = ({ shippingAddress, setShippingAddress }) => {
+  
   const login = async (e) => {
     e.preventDefault()
 
@@ -22,32 +25,31 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
         }
       }
     }
-    const address = checkConnection()
+    const address = await checkConnection()
     if (address) {
-      const body = e.currentTarget
-      const name = body[0].value
-      const street = body[1].value
-      const apartmentNum = body[2].value
-      const state = body[3].value
-      const zipcode = body[4].value
+      const name = e.target[0].value
+      const street = e.target[1].value
+      const city = e.target[2].value
+      const state = e.target[3].value
+      const zipcode = e.target[4].value
 
-      const destination = {
+      const data = {
+        address: address,
         name: name,
         street: street,
-        apartmentNum: apartmentNum,
+        city: city,
         state: state,
         zipcode: zipcode,
-        arrived: false,
       }
 
       try {
         const res = await fetch('/api/create-account', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(destination),
+          body: JSON.stringify(data),
         })
         if (res.ok) {
-          setShipmentConfirmed(true)
+          setShippingAddress(true)
         }
       } catch (error) {
         console.error(error)
@@ -66,7 +68,7 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
           when you order stemcells
         </div>
       </div>
-      {!loggedIn ? (
+      {!shippingAddress ? (
         <form onSubmit={login} className="flex ">
           <div className="basis-2/12">
             <div className=" font-satoshiMedium text-main">Business Name</div>
@@ -85,7 +87,7 @@ const MarketplaceCreateAccount = ({ loggedIn, setLoggedIn }) => {
             />
           </div>
           <div className="basis-2/12">
-            <div className=" font-satoshiMedium text-main">Apt number</div>
+            <div className=" font-satoshiMedium text-main">City</div>
             <input
               type="text"
               placeholder="enter here"
