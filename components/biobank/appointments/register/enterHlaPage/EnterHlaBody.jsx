@@ -1,11 +1,11 @@
 import documentOpen from '../../../../../assets/document-open.png'
 import Image from 'next/image'
 
-const EnterHlaBody = ({ setHla, setSequence }) => {
+const EnterHlaBody = ({ setHla, setSequenceAndData }) => {
   const submit = (e) => {
     e.preventDefault()
 
-    let HLAA, HLAB, HLAC, HLADPB, HLADRB, SEQUENCE
+    let HLAA, HLAB, HLAC, HLADPB, HLADRB, SEQUENCE, SIZES
     if (e.currentTarget[0].value) {
       HLAA = JSON.parse(e.currentTarget[0].value) //e.target[0];
     } else {
@@ -36,6 +36,11 @@ const EnterHlaBody = ({ setHla, setSequence }) => {
     } else {
       SEQUENCE = ['']
     }
+    if (e.currentTarget[6].value) {
+      SIZES = JSON.parse(e.currentTarget[6].value)
+    } else {
+      SIZES = [20, 10]
+    }
 
     // let HLAA = [2, 123]
     // let HLAB = [51, 123]
@@ -50,7 +55,7 @@ const EnterHlaBody = ({ setHla, setSequence }) => {
       DPB: HLADPB,
       DRB: HLADRB,
     })
-    setSequence(SEQUENCE)
+    setSequenceAndData({ sequence: SEQUENCE, sizes: SIZES })
   }
 
   return (
@@ -61,7 +66,7 @@ const EnterHlaBody = ({ setHla, setSequence }) => {
             Enter Genome Sequence
           </div>
           <div className="text-xl text-black pb-10 font-satoshiMedium">
-            Input the donor’s HLA haplotype and sequence or upload a CSV instead
+            Input the donor’s HLA haplotype and data or upload a CSV instead
           </div>
         </div>
         <div className="">
@@ -74,7 +79,7 @@ const EnterHlaBody = ({ setHla, setSequence }) => {
 
       <form className="flex-col w-8/12" onSubmit={submit}>
         <div className="w-full rounded-[20px] border-main border-b-[0.5px]">
-          <div className="flex justify-between p-5">
+          <div className="flex justify-between p-5 pr-[28%]">
             <div className="flex flex-col">
               <label className="flex items-center text-black" htmlFor="HLA A">
                 <div className="w-3 h-3 mx-2 bg-pinkHLAA rounded" />
@@ -146,11 +151,22 @@ const EnterHlaBody = ({ setHla, setSequence }) => {
                 placeholder="['CTAG...']"
               />
             </div>
+            <div className="flex flex-col">
+              <label className="flex items-center text-black" htmlFor="Sizes">
+                <div className="w-3 h-3 mx-2 bg-primaryHover rounded" />
+                Donation Sizes in CC
+              </label>
+              <input
+                className=" p-2 border-main border-[0.5px] rounded"
+                name="Sizes"
+                placeholder="[30, 5]"
+              />
+            </div>
           </div>
         </div>
         <div className="flex justify-center items-center py-5">
           <input
-            className="flex justify-items-center text-2xl bg-white h-[72px] px-10 rounded-full text-black drop-shadow-searchButtonShadow "
+            className="flex justify-items-center text-2xl bg-white h-[72px] px-16 rounded-full text-black drop-shadow-searchButtonShadow "
             name="submit"
             type="submit"
             value="Register"

@@ -1,9 +1,9 @@
 import EnterHlaBody from './EnterHlaBody'
 
-const EnterHlaPage = ({ setHla, setSequence }) => {
+const EnterHlaPage = ({ setHla, setSequenceAndData }) => {
   return (
     <div className="w-full">
-      <EnterHlaBody setHla={setHla} setSequence={setSequence} />
+      <EnterHlaBody setHla={setHla} setSequenceAndData={setSequenceAndData} />
     </div>
   )
 }

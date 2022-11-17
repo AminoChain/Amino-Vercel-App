@@ -3,15 +3,15 @@ import { useState } from 'react'
 
 const BioBankRegister = () => {
   const [hla, setHla] = useState()
-  const [sequence, setSequence] = useState()
+  const [sequenceAndData, setSequenceAndData] = useState()
 
   return (
     <div>
       <BioBankRegisterPage
         setHla={setHla}
         hla={hla}
-        setSequence={setSequence}
-        sequence={sequence}
+        setSequenceAndData={setSequenceAndData}
+        sequenceAndData={sequenceAndData}
       />
     </div>
   )
