@@ -17,13 +17,14 @@ export const polygonChainId = 137
 export const currentChainId = mumbaiChainId
 // const platformBackend = "http://localhost:3003/"
 
-const DonorApprovePage = ({ hla, biobankAddress }) => {
+const DonorApprovePage = ({ hla, sequence, biobankAddress }) => {
   const [error, setError] = useState('')
   const [connectingWallet, setConnectingWallet] = useState(false)
   const [waitingForApprove, setWaitingForApprove] = useState(false)
   const [registering, setRegistering] = useState(false)
   const [finished, setFinished] = useState(false)
   const [registrationTx, setRegistrationTx] = useState(false)
+  const [donorAddress, setDonorAddress] = useState()
 
   useEffect(() => {
     setConnectingWallet(true)
@@ -49,7 +50,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
 
     connector.connect().then(async ({ accounts, chainId }) => {
       const [account] = accounts
-
+      setDonorAddress(account)
       setConnectingWallet(false)
 
       const authenticator = new Contract(
@@ -82,7 +83,7 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
               donorAddress: account,
               amounts: [5, 30],
               signature,
-              genome: 'GTACTCAG',
+              genome: sequence[0].toString(),
             }),
           })
 
@@ -121,12 +122,15 @@ const DonorApprovePage = ({ hla, biobankAddress }) => {
           {finished && (
             <div>
               <div className="flex flex-col items-center font-satoshiBold text-black text-2xl pb-10">
-                <div>Verification successful</div>
+                <div>Registration successful</div>
                 <div className="px-2">
                   <Image src={checkGreen} alt="checkgreen icon" />
                 </div>
               </div>
-              <DonationSuccessfulNftCard />
+              <DonationSuccessfulNftCard
+                bioBank={biobankAddress}
+                donor={donorAddress}
+              />
               <a
                 className="px-6 py-3 flex items-center bg-white font-satoshiMedium text-xl border-main border rounded-full "
                 href={`https://mumbai.polygonscan.com/tx/${registrationTx}`}

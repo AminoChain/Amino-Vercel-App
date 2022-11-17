@@ -44,7 +44,7 @@ const MarketplaceNftCard = ({ item }) => {
         <div className="py-3">
           <div className="font-satoshiRegular text-base text-main">Price</div>
           <div className="font-satoshiBold text-black text-xl mt-[0.4rem] truncate">
-            ${parseFloat(price).toLocaleString()}
+            ${parseFloat(price).toLocaleString('en-US')}
           </div>
         </div>
       </div>

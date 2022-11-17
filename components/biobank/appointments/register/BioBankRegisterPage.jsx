@@ -5,8 +5,7 @@ import BioBankNav from '../../BioBankNav'
 import BioBankFooter from '../../BioBankFooter'
 import { useRouter } from 'next/router'
 
-const BioBankRegisterPage = ({hla, setHla}) => {
- 
+const BioBankRegisterPage = ({ hla, setHla, sequence, setSequence }) => {
   const { pathname } = useRouter()
 
   return (
@@ -14,10 +13,11 @@ const BioBankRegisterPage = ({hla, setHla}) => {
       <BioBankBanner />
       {/* {pathname == "/biobank/appointments/register" ? null : <BioBankNav /> } */}
       {!hla ? (
-        <EnterHlaPage setHla={setHla} />
+        <EnterHlaPage setHla={setHla} setSequence={setSequence} />
       ) : (
         <DonorApprovePage
           hla={hla}
+          sequence={sequence}
           biobankAddress={'0x35a5b80732eFe78D171327C39de408227C299AAc'}
         />
       )}
