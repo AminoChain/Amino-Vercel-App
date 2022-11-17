@@ -2,21 +2,26 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dot from '../../../assets/footerDot.png'
 import share from '../../../assets/share.png'
+import { ethers } from 'ethers'
 
-const BioBankHistory = () => {
+const BioBankHistory = ({ item }) => {
+  const donor =
+    item.donor.slice(0, 4) +
+    '...' +
+    item.donor.slice(item.donor.length - 4, item.donor.length)
+  const date = new Date(item.timestamp * 1000)
+
   return (
     <div className="w-full flex items-center border-b-[1px] border-main py-8 px-8">
       <div className=" font-satoshiMedium text-black basis-3/12 flex items-center">
-        Nov 2nd
+        {date.toLocaleDateString()}
         <div className="flex items-center px-2">
           <Image src={dot} alt="dot image" draggable="false" />
         </div>
-        10:15 am
+        {date.toLocaleTimeString()}
       </div>
-      <div className=" font-satoshiMedium text-black basis-5/12">
-        0x279A27Ee501E1a515429573691683971FE2aBbfd
-      </div>
-      <div className="font-satoshiMedium text-black basis-2/12">30cc</div>
+      <div className=" font-satoshiMedium text-black basis-4/12">{donor}</div>
+      <div className="font-satoshiMedium text-black basis-[22%]">35cc</div>
       <Link href="/marketplace">
         <div className="flex justify-center basis-2/12">
           <div className="w-fit flex justify-center py-3 px-7 border border-main rounded-full cursor-pointer">
