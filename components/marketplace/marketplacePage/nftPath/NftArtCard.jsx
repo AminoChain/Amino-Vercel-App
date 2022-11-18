@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import nftCellsArt from '../../../../assets/nftCellsArt.png'
 import aminoLogo2 from '../../../../assets/aminoLogo2.png'
+import { biobankNames } from '../../../../constants'
 
 const NftArtCard = ({ nftData, matchRating }) => {
   const biobank = nftData.bioBank
@@ -9,11 +10,7 @@ const NftArtCard = ({ nftData, matchRating }) => {
     '...' +
     nftData.donor.slice(nftData.donor.length - 4, nftData.donor.length)
 
-  const BioBankNames = {
-    '0x53c847035e9c2ea3aead920d395bccd7768ee63f': 'Coriell',
-    '0x35a5b80732efe78d171327c39de408227c299aac': 'Greenville',
-    '': 'National',
-  }
+  const BioBankNames = biobankNames
 
   return (
     <div className="w-1/4 max-w-[340px]">

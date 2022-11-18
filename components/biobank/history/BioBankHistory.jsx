@@ -2,13 +2,29 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dot from '../../../assets/footerDot.png'
 import share from '../../../assets/share.png'
+import { useState } from 'react'
 
 const BioBankHistory = ({ item }) => {
+  const [totalAmount, setTotalAmount] = useState(0)
+
   const donor =
     item.donor.slice(0, 4) +
     '...' +
     item.donor.slice(item.donor.length - 4, item.donor.length)
   const date = new Date(item.timestamp * 1000)
+
+  let amount = 0
+  const getTotalAmount = () => {
+    if (totalAmount === 0) {
+      item.amounts.forEach((item, index) => {
+        amount = amount + parseFloat(item)
+      })
+      if (amount !== totalAmount) {
+        setTotalAmount(amount)
+      }
+    }
+  }
+  getTotalAmount()
 
   return (
     <div className="w-full flex items-center border-b-[1px] border-main py-8 px-8">
@@ -20,7 +36,9 @@ const BioBankHistory = ({ item }) => {
         {date.toLocaleTimeString()}
       </div>
       <div className=" font-satoshiMedium text-black basis-4/12">{donor}</div>
-      <div className="font-satoshiMedium text-black basis-[22%]">35cc</div>
+      <div className="font-satoshiMedium text-black basis-[22%]">
+        {totalAmount}cc
+      </div>
       <Link href="/marketplace">
         <div className="flex justify-center basis-2/12">
           <div className="w-fit flex justify-center py-3 px-7 border border-main rounded-full cursor-pointer">
