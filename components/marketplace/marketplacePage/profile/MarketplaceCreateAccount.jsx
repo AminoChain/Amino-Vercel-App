@@ -71,7 +71,7 @@ const MarketplaceCreateAccount = ({ shippingAddress, setShippingAddress }) => {
       {!shippingAddress ? (
         <form onSubmit={login} className="flex ">
           <div className="basis-2/12">
-            <div className=" font-satoshiMedium text-main">Business Name</div>
+            <div className=" font-satoshiMedium text-main">Full Name</div>
             <input
               type="text"
               placeholder="enter here"

@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     },
     include: {
       shippingInfo: true,
-      nft: true
+      nfts: true
     },
     update: {
       shippingInfo: {
