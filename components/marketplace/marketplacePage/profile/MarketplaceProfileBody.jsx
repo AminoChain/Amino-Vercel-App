@@ -100,22 +100,9 @@ const MarketplaceProfileBody = () => {
 
   const numPurchased = buyerPurchasesArray.length
 
-
-  const earningTxs = buyerPurchasesArray.map(async (item, index) => {
-    const retrieveNftTrackingNumber = async () => {
-      const res = await fetch('/api/buyer-nft', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(item.tokenId),
-      })
-      if (res.ok) {
-        const body = await res.json()
-        return body.trackingNumber
-      }
-    }
-    const trackingNumber = await retrieveNftTrackingNumber()
-    return (<MarketplaceProfileTx key={index} item={item} trackingNumber={trackingNumber} />)
-  })
+  const earningTxs = buyerPurchasesArray.map((item, index) => (
+     <MarketplaceProfileTx key={index} item={item} index={index} />
+     ))
 
   return (
     <div className="w-full flex flex-row px-20 py-5">
