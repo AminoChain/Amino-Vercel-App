@@ -100,23 +100,9 @@ const MarketplaceProfileBody = () => {
 
   const numPurchased = buyerPurchasesArray.length
 
-  buyerPurchasesArray = [1,2]
-
-  const earningTxs = buyerPurchasesArray.map(async (item, index) => {
-    const retrieveNftTrackingNumber = async () => {
-      const res = await fetch('/api/buyer-nft', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(4),
-      })
-      if (res.ok) {
-        const body = await res.json()
-        return body.trackingNumber
-      }
-    }
-    const trackingNumber = await retrieveNftTrackingNumber()
-    return (<MarketplaceProfileTx key={index} item={item} trackingNumber={trackingNumber} />)
-  })
+  const earningTxs = buyerPurchasesArray.map((item, index) => (
+     <MarketplaceProfileTx key={index} item={item} index={index} />
+     ))
 
   return (
     <div className="w-full flex flex-row px-20 py-5">
@@ -170,7 +156,7 @@ const MarketplaceProfileBody = () => {
                         Txn Hash
                       </div>
                     </div>
-                    {numPurchased == 0 ? (
+                    {numPurchased > 0 ? (
                       <div className="flex flex-col">{earningTxs}</div>
                     ) : (
                       <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">

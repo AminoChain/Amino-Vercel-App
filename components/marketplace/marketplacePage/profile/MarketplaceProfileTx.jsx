@@ -6,46 +6,42 @@ import linkIcon from '../../../../assets/share.png'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 
 const MarketplaceProfileTx = ({ item, trackingNumber }) => {
-  // const donorShort =
-  //   item.donor.slice(0, 4) +
-  //   '...' +
-  //   item.donor.slice(item.donor.length - 4, item.donor.length)
-  // const txHashShort =
-  //   item.transcationHash.slice(0, 4) +
-  //   '...' +
-  //   item.transcationHash.slice(
-  //     item.transcationHash.length - 4,
-  //     item.transcationHash.length
-  //   )
-  // const price = ethers.utils.formatUnits(item.price, 6).toString()
+  const donorShort =
+    item.donor.slice(0, 4) +
+    '...' +
+    item.donor.slice(item.donor.length - 4, item.donor.length)
+  const txHashShort =
+    item.transcationHash.slice(0, 4) +
+    '...' +
+    item.transcationHash.slice(
+      item.transcationHash.length - 4,
+      item.transcationHash.length
+    )
+  const price = ethers.utils.formatUnits(item.price, 6).toString()
 
-  // const date = new Date(item.date * 1000)
-
-  const test = async () => {
-    const retrieveNftTrackingNumber = async () => {
-      const res = await fetch('/api/buyer-nft', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(4),
-      })
-      if (res.ok) {
-        const body = await res.json()
-        return body
-      }
-    }
+  const date = new Date(item.date * 1000)
+  try {
     
-    const body = await retrieveNftTrackingNumber()
-    let item = body
-    let trackingNumber = body.trackingNumber
-    return (<MarketplaceProfileTx item={item} trackingNumber={trackingNumber} />)
-}
+  } catch (error) {
+    
+  }
+  const retrieveNftTrackingNumber = async () => {
+    const res = await fetch('/api/buyer-nft', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item.tokenId),
+    })
+    if (res.ok) {
+      const body = await res.json()
+      return body.trackingNumber
+    }
+  }
 
 
 
   return (
     <div className="w-full flex items-center border-b-[1px] border-main py-8 pl-8 ">
-      {trackingNumber}
-      {/* <div className="font-satoshiMedium text-black flex items-center basis-[24%]">
+      <div className="font-satoshiMedium text-black flex items-center basis-[24%]">
         {date.toLocaleDateString()}
         <div className="flex items-center px-2">
           <Image src={dot} alt="dot image" draggable="false" />
@@ -69,7 +65,7 @@ const MarketplaceProfileTx = ({ item, trackingNumber }) => {
         </p>
       </div>
       <div className=" font-satoshiMedium text-black text-lg basis-[18%]">
-        {trackingNumber} 
+        {retrieveNftTrackingNumber} 
       </div>
       <Link href={`https://mumbai.polygonscan.com/tx/` + item.transcationHash}>
         <div className="flex flex-row font-satoshiMedium text-black text-lg justify-center cursor-pointer">
@@ -78,7 +74,7 @@ const MarketplaceProfileTx = ({ item, trackingNumber }) => {
             <Image src={linkIcon} alt="" draggable="false" />
           </div>
         </div>
-      </Link> */}
+      </Link>
     </div>
   )
 }
