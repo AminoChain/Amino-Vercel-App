@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import nftCellsArt from '../../../../assets/nftCellsArt.png'
 import aminoLogo2 from '../../../../assets/aminoLogo2.png'
 import { biobankNames } from '../../../../constants'
+import NftRandomImage from './NftRandomImage'
 
 const NftArtCard = ({ nftData, matchRating }) => {
   const biobank = nftData.bioBank
@@ -16,7 +16,7 @@ const NftArtCard = ({ nftData, matchRating }) => {
     <div className="w-1/4 max-w-[340px]">
       <div className="w-full p-10 nftCellsShadowPink rounded-3xl">
         <div className="flex h-min justify-center">
-          <Image src={nftCellsArt} alt="nftcells image" draggable="false" />
+        <NftRandomImage tokenID={nftData.tokenId}/>
         </div>
         <div className="w-2/3 border-b-[1px] mt-[4rem] border-slate-200 "></div>
         <div>
