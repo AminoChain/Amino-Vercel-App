@@ -5,7 +5,7 @@ import MarketplaceProfileStats from './MarketplaceProfileStats'
 import MarketplaceProfileTx from './MarketplaceProfileTx'
 import MarketplaceCreateAccount from './MarketplaceCreateAccount'
 
-const MarketplaceProfileBody = () => {
+const MarketplaceProfileBody = () => { 
   const [userAddress, setUserAddress] = useState(
     '0x0000000000000000000000000000000000000000'
   )
@@ -68,12 +68,12 @@ const MarketplaceProfileBody = () => {
   }
   if (error) return `Error! ${error}`
 
-  let buyerPurchasesArray = []
+  let buyerCompletedPurchasesArray = []
   let spent = 0
   const getData = () => {
     try {
       sales.saleCompleteds.forEach((sale, index) => {
-        buyerPurchasesArray.push({
+        buyerCompletedPurchasesArray.push({
           date: sale.timestamp,
           transcationHash: sale.transactionHash,
           price: sale.salePrice,
@@ -91,18 +91,22 @@ const MarketplaceProfileBody = () => {
     }
   }
   const organizeByTime = () => {
-    buyerPurchasesArray.sort((a, b) => {
+    buyerCompletedPurchasesArray.sort((a, b) => {
       return parseInt(b.date) - parseInt(a.date)
     })
   }
   getData()
   organizeByTime()
 
-  const numPurchased = buyerPurchasesArray.length
+  const numPurchased = buyerCompletedPurchasesArray.length
 
-  const earningTxs = buyerPurchasesArray.map((item, index) => (
-     <MarketplaceProfileTx key={index} item={item} index={index} />
-     ))
+  const completedTxs = buyerCompletedPurchasesArray.map((item, index) => (
+    <MarketplaceProfileTx key={index} item={item} index={index} />
+  ))
+
+  const pendingTxs = buyerCompletedPurchasesArray.map((item, index) => (
+    <MarketplaceProfileTx key={index} item={item} index={index} />
+  ))
 
   return (
     <div className="w-full flex flex-row px-20 py-5">
