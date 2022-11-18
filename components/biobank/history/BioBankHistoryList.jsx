@@ -7,6 +7,7 @@ const BioBankHistoryList = () => {
       stemCellDonationTokenizeds {
         timestamp
         donor
+        amounts
       }
     }
   `
@@ -32,6 +33,7 @@ const BioBankHistoryList = () => {
       allRegisteredDonations.push({
         timestamp: item.timestamp,
         donor: item.donor,
+        amounts: item.amounts,
       })
     })
   }
