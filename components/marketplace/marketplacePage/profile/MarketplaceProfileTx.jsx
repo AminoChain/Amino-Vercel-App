@@ -4,8 +4,9 @@ import { ethers } from 'ethers'
 import dot from '../../../../assets/footerDot.png'
 import linkIcon from '../../../../assets/share.png'
 import usdcLogo from '../../../../assets/usdcLogo.png'
-
-const MarketplaceProfileTx = ({ item, trackingNumber }) => {
+import { useState } from 'react'
+const MarketplaceProfileTx = ({ item }) => {
+  const [trackingNumber, setTrackingNumber] = useState('')
   const donorShort =
     item.donor.slice(0, 4) +
     '...' +
@@ -20,11 +21,7 @@ const MarketplaceProfileTx = ({ item, trackingNumber }) => {
   const price = ethers.utils.formatUnits(item.price, 6).toString()
 
   const date = new Date(item.date * 1000)
-  try {
-    
-  } catch (error) {
-    
-  }
+
   const retrieveNftTrackingNumber = async () => {
     const res = await fetch('/api/buyer-nft', {
       method: 'POST',
@@ -33,11 +30,10 @@ const MarketplaceProfileTx = ({ item, trackingNumber }) => {
     })
     if (res.ok) {
       const body = await res.json()
-      return body.trackingNumber
+      setTrackingNumber(body.trackingNumber)
     }
   }
-
-
+  retrieveNftTrackingNumber()
 
   return (
     <div className="w-full flex items-center border-b-[1px] border-main py-8 pl-8 ">
@@ -65,7 +61,7 @@ const MarketplaceProfileTx = ({ item, trackingNumber }) => {
         </p>
       </div>
       <div className=" font-satoshiMedium text-black text-lg basis-[18%]">
-        {retrieveNftTrackingNumber} 
+        {trackingNumber}
       </div>
       <Link href={`https://mumbai.polygonscan.com/tx/` + item.transcationHash}>
         <div className="flex flex-row font-satoshiMedium text-black text-lg justify-center cursor-pointer">
