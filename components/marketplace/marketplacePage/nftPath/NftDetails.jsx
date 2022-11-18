@@ -126,7 +126,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
       }
 
       const response = await fetch(
-        `https://ebbc-2601-89-c601-7400-8168-aec9-15f3-b768.ngrok.io/shipPackage/${nftData.tokenId}`,
+        `http://34.170.13.163/shipPackage/${nftData.tokenId}`,
         {
           method: 'POST',
           headers: {
