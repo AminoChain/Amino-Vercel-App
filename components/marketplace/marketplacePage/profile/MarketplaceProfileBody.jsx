@@ -19,38 +19,40 @@ const MarketplaceProfileBody = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        let provider = new ethers.providers.Web3Provider(window.ethereum)
-        const signer = await provider.getSigner(0)
-        const signerAddr = await signer.getAddress()
-        setUserAddress(signerAddr)
+        if (isApproved === null) {
+          let provider = new ethers.providers.Web3Provider(window.ethereum)
+          const signer = await provider.getSigner(0)
+          const signerAddr = await signer.getAddress()
+          setUserAddress(signerAddr)
 
-        const res = await fetch('/api/single-buyer', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(signerAddr),
-        })
-        if (res.ok) {
-          const body = await res.json()
-          const noNulls = Object.values(body.shippingInfo).every(
-            (element) => element !== null || undefined || ''
-          )
-          if (noNulls) {
-            setShippingAddress(true)
+          const res = await fetch('/api/single-buyer', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(signerAddr),
+          })
+          if (res.ok) {
+            const body = await res.json()
+            const noNulls = Object.values(body.shippingInfo).every(
+              (element) => element !== null || undefined || ''
+            )
+            if (noNulls) {
+              setShippingAddress(true)
+            }
           }
-        }
 
-        const marketplaceContract = new ethers.Contract(
-          contractAddresses.marketplace,
-          abis.marketplace,
-          signer
-        )
-        setMarketplace(marketplaceContract)
+          const marketplaceContract = new ethers.Contract(
+            contractAddresses.marketplace,
+            abis.marketplace,
+            signer
+          )
+          setMarketplace(marketplaceContract)
 
-        const approved = await marketplaceContract.isApprovedToBuy(signerAddr)
-        if (approved) {
-          setIsApproved(approved)
-        } else {
-          setIsApproved(false)
+          const approved = await marketplaceContract.isApprovedToBuy(signerAddr)
+          if (approved) {
+            setIsApproved(approved)
+          } else {
+            setIsApproved(false)
+          }
         }
       } catch (e) {
         console.warn(e)
