@@ -224,7 +224,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
       ) {
         try {
           const tx = await marketplace.buyItem(nftData.tokenId) //buys nft
-          await tx.wait(2)
+          await tx.wait(1)
           const shippingInfo = await postData()
           const trackingNumber = shippingInfo.tracking_number
           await updateProfile(trackingNumber)
@@ -242,7 +242,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
             contractAddresses.marketplace,
             '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
           )
-          await tx.wait(2).then(() => {
+          await tx.wait(1).then(() => {
             handlePurchase()
           })
         } catch (e) {
