@@ -5,7 +5,7 @@ import dot from '../../../../assets/footerDot.png'
 import linkIcon from '../../../../assets/share.png'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 import { useState } from 'react'
-const MarketplaceProfileTx = ({ item }) => {
+const MarketplaceProfileTxComplete = ({ item }) => {
   const [trackingNumber, setTrackingNumber] = useState('')
   const donorShort =
     item.donor.slice(0, 4) +
@@ -75,4 +75,4 @@ const MarketplaceProfileTx = ({ item }) => {
   )
 }
 
-export default MarketplaceProfileTx
+export default MarketplaceProfileTxComplete

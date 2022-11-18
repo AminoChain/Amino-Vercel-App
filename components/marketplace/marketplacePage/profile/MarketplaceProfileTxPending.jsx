@@ -5,7 +5,7 @@ import dot from '../../../../assets/footerDot.png'
 import linkIcon from '../../../../assets/share.png'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 import { useState } from 'react'
-const MarketplaceProfileTx = ({ item }) => {
+const MarketplaceProfileTxPending = ({ item }) => {
   const [trackingNumber, setTrackingNumber] = useState('')
   const donorShort =
     item.donor.slice(0, 4) +
@@ -18,7 +18,7 @@ const MarketplaceProfileTx = ({ item }) => {
       item.transcationHash.length - 4,
       item.transcationHash.length
     )
-  const price = ethers.utils.formatUnits(item.price, 6).toString()
+  const price = ethers.utils.formatUnits(item.escrowedPayment, 6).toString()
 
   const date = new Date(item.date * 1000)
 
@@ -75,4 +75,4 @@ const MarketplaceProfileTx = ({ item }) => {
   )
 }
 
-export default MarketplaceProfileTx
+export default MarketplaceProfileTxPending
