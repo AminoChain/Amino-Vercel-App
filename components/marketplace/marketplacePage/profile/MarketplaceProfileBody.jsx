@@ -2,10 +2,11 @@ import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import MarketplaceProfileStats from './MarketplaceProfileStats'
-import MarketplaceProfileTx from './MarketplaceProfileTx'
+import MarketplaceProfileTxComplete from './MarketplaceProfileTxComplete'
 import MarketplaceCreateAccount from './MarketplaceCreateAccount'
+import MarketplaceProfileTxPending from './MarketplaceProfileTxPending'
 
-const MarketplaceProfileBody = () => { 
+const MarketplaceProfileBody = () => {
   const [userAddress, setUserAddress] = useState(
     '0x0000000000000000000000000000000000000000'
   )
@@ -39,7 +40,7 @@ const MarketplaceProfileBody = () => {
     })()
   }, [])
 
-  const GET_BUYER_PURCHASES = gql`
+  const GET_BUYER_PURCHASES_COMPLETED = gql`
     query Nfts($userAddress: Bytes!) {
       saleCompleteds(where: { buyer: $userAddress }) {
         timestamp
@@ -55,24 +56,47 @@ const MarketplaceProfileBody = () => {
   const {
     loading,
     error,
-    data: sales,
-  } = useQuery(GET_BUYER_PURCHASES, {
+    data: completedSales,
+  } = useQuery(GET_BUYER_PURCHASES_COMPLETED, {
     variables: { userAddress },
   })
-  if (loading) {
+
+  const GET_BUYER_PURCHASES_PENDING = gql`
+    query Nfts($userAddress: Bytes!) {
+      saleInitiateds(where: { buyer: $userAddress }) {
+        buyer
+        tokenId
+        sizeInCC
+        donor
+        transactionHash
+        timestamp
+        escrowedPayment
+      }
+    }
+  `
+
+  const {
+    loading: loading1,
+    error: error1,
+    data: pendingSales,
+  } = useQuery(GET_BUYER_PURCHASES_PENDING, {
+    variables: { userAddress },
+  })
+
+  if (loading || loading1) {
     return (
       <div>
         <h2 className="font-satoshiRegular text-black w-1/2">Loading...</h2>
       </div>
     )
   }
-  if (error) return `Error! ${error}`
+  if (error || error1) return `Error! ${error}  ${error1}`
 
   let buyerCompletedPurchasesArray = []
   let spent = 0
-  const getData = () => {
+  const getDataCompleted = () => {
     try {
-      sales.saleCompleteds.forEach((sale, index) => {
+      completedSales.saleCompleteds.forEach((sale, index) => {
         buyerCompletedPurchasesArray.push({
           date: sale.timestamp,
           transcationHash: sale.transactionHash,
@@ -90,22 +114,47 @@ const MarketplaceProfileBody = () => {
       console.warn(e)
     }
   }
-  const organizeByTime = () => {
+  const organizeByTimeCompleted = () => {
     buyerCompletedPurchasesArray.sort((a, b) => {
       return parseInt(b.date) - parseInt(a.date)
     })
   }
-  getData()
-  organizeByTime()
+  let buyerPendingPurchasesArray = []
+  const getDataPending = () => {
+    try {
+      pendingSales.saleInitiateds.forEach((sale, index) => {
+        buyerPendingPurchasesArray.push({
+          date: sale.timestamp,
+          transcationHash: sale.transactionHash,
+          escrowedPayment: sale.escrowedPayment,
+          donor: sale.donor,
+          tokenId: sale.tokenId,
+          size: sale.sizeInCC,
+        })
+      })
+    } catch (e) {
+      console.warn(e)
+    }
+  }
+  const organizeByTimePending = () => {
+    buyerPendingPurchasesArray.sort((a, b) => {
+      return parseInt(b.date) - parseInt(a.date)
+    })
+  }
+  getDataCompleted()
+  organizeByTimeCompleted()
+  getDataPending()
+  organizeByTimePending()
 
-  const numPurchased = buyerCompletedPurchasesArray.length
+  const numPurchasedComplete = buyerCompletedPurchasesArray.length
+  const numPurchasedPending = buyerPendingPurchasesArray.length
 
   const completedTxs = buyerCompletedPurchasesArray.map((item, index) => (
-    <MarketplaceProfileTx key={index} item={item} index={index} />
+    <MarketplaceProfileTxComplete key={index} item={item} index={index} />
   ))
 
-  const pendingTxs = buyerCompletedPurchasesArray.map((item, index) => (
-    <MarketplaceProfileTx key={index} item={item} index={index} />
+  const pendingTxs = buyerPendingPurchasesArray.map((item, index) => (
+    <MarketplaceProfileTxPending key={index} item={item} index={index} />
   ))
 
   return (
@@ -132,7 +181,7 @@ const MarketplaceProfileBody = () => {
             <div className="w-full flex flex-col">
               <MarketplaceProfileStats
                 totalSpent={totalSpent}
-                numPurchased={numPurchased}
+                numPurchasedComplete={numPurchasedComplete}
               />
               <div className="w-full mt-8">
                 <p className="font-satoshiMedium text-main text-xl pl-8">
@@ -160,8 +209,49 @@ const MarketplaceProfileBody = () => {
                         Txn Hash
                       </div>
                     </div>
-                    {numPurchased > 0 ? (
-                      <div className="flex flex-col">{earningTxs}</div>
+                    {numPurchasedComplete > 0 ? (
+                      <div className="flex flex-col">{completedTxs}</div>
+                    ) : (
+                      <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
+                        <div className="font-satoshiMedium text-black text-4xl p-2">
+                          You have no purchases
+                        </div>
+                        <div className="text-black font-satoshiRegular text-xl p-2">
+                          Visit the Marketplace to buy your first order!
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="w-full mt-8">
+                <p className="font-satoshiMedium text-main text-xl pl-8">
+                  Pending Purchases
+                </p>
+                <div className="w-full flex flex-row flex-wrap">
+                  <div className="w-full flex flex-col">
+                    <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
+                      <div className="font-satoshiMedium text-main basis-[24%]">
+                        Date & Time
+                      </div>
+                      <div className="font-satoshiMedium text-main basis-[18%]">
+                        Donor Address
+                      </div>
+                      <div className=" font-satoshiMedium text-main basis-[18%]">
+                        Size
+                      </div>
+                      <div className=" font-satoshiMedium text-main basis-[18%]">
+                        Amount
+                      </div>
+                      <div className=" font-satoshiMedium text-main basis-[15%]">
+                        Tracking#
+                      </div>
+                      <div className=" font-satoshiMedium text-main whitespace-nowrap">
+                        Txn Hash
+                      </div>
+                    </div>
+                    {numPurchasedPending > 0 ? (
+                      <div className="flex flex-col">{pendingTxs}</div>
                     ) : (
                       <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">
                         <div className="font-satoshiMedium text-black text-4xl p-2">

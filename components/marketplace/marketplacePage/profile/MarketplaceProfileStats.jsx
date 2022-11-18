@@ -1,4 +1,4 @@
-const MarketplaceProfileStats = ({ totalSpent, numPurchased }) => {
+const MarketplaceProfileStats = ({ totalSpent, numPurchasedComplete }) => {
   return (
     <div className="flex">
       <div className="flex flex-col w-full px-12 py-8 border-r-[1px] border-l-[1px] border-main rounded-md ">
@@ -8,7 +8,7 @@ const MarketplaceProfileStats = ({ totalSpent, numPurchased }) => {
               Stem Cells Purchased
             </div>
             <div className=" font-satoshiBold text-primary text-[40px]">
-              {numPurchased}
+              {numPurchasedComplete}
             </div>
           </div>
           <div className="flex flex-col">
