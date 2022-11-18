@@ -74,7 +74,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
   async function postData() {
     let shipment
     try {
-      const res = await fetch('/api/single-biobank', {
+      const res = await fetch('/api/single-buyer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signerAddress),
@@ -126,7 +126,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
       }
 
       const response = await fetch(
-        `https://c184-2601-89-c601-7400-f957-5f9d-e0d2-60e2.ngrok.io/shipPackage/${nftData.tokenId}`,
+        `https://ebbc-2601-89-c601-7400-8168-aec9-15f3-b768.ngrok.io/shipPackage/${nftData.tokenId}`,
         {
           method: 'POST',
           headers: {
@@ -136,6 +136,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
         }
       )
       let ship = await response.json()
+      console.log(ship)
       return ship
     } catch (error) {
       console.warn(error)
@@ -155,8 +156,10 @@ const NftDetailsAndBuy = ({ nftData }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(purchasedNft),
       })
+      console.log(res)
       if (res.ok) {
         const body = await res.json()
+        console.log(body)
         return body
       }
     } catch (error) {
@@ -224,7 +227,7 @@ const NftDetailsAndBuy = ({ nftData }) => {
           await tx.wait(2)
           const shippingInfo = await postData()
           const trackingNumber = shippingInfo.tracking_number
-          const profileUpdated = await updateProfile(trackingNumber)
+          await updateProfile(trackingNumber)
           router.push(
             `/marketplace/nft/shipping?tokenId=${nftData.tokenId}&trackingNum=${trackingNumber}`
           )

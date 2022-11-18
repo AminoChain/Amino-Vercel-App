@@ -10,23 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model BioBank {
+model Buyer {
   id           String        @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  location     String
   address      String?       @unique
-  nft          Nft[]
+  nfts         Nft[]
   shippingInfo ShippingInfo?
 }
 
+model BioBank {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  location String
+  address  String? @unique
+}
+
 model Nft {
-  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
   tokenId        String
   trackingNumber String
-  biobank        BioBank?      @relation(fields: [biobankId], references: [id])
-  donor          Donor?        @relation(fields: [donorId], references: [id])
-  donorId        String?       @unique @db.ObjectId
-  biobankId      String?       @unique @db.ObjectId
+  buyer          Buyer?   @relation(fields: [buyerId], references: [id])
+  buyerId        String?  @unique @db.ObjectId
 }
 
 model Donor {
@@ -34,15 +38,14 @@ model Donor {
   email         String?
   walletAddress String?
   username      String?
-  nft           Nft?
 }
 
 model ShippingInfo {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  street    String
-  city      String?
-  state     String
-  zipcode   String
-  biobank   BioBank? @relation(fields: [biobankId], references: [id])
-  biobankId String?  @unique @db.ObjectId
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  street  String
+  city    String
+  state   String
+  zipcode String
+  buyer   Buyer?  @relation(fields: [buyerId], references: [id])
+  buyerId String? @unique @db.ObjectId
 }
