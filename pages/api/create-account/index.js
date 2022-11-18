@@ -1,33 +1,8 @@
 import prisma from '../../../lib/prisma'
 
 export default async function handler(req, res) {
-  const buyer = await prisma.buyer.upsert({
-    where: {
-      address: req.body.address,
-    },
-    include: {
-      shippingInfo: true,
-      nfts: true
-    },
-    update: {
-      shippingInfo: {
-        upsert: {
-          create: {
-            street: req.body.street,
-            city: req.body.city,
-            state: req.body.state,
-            zipcode: req.body.zipcode,
-          },
-          update: {
-            street: req.body.street,
-            city: req.body.city,
-            state: req.body.state,
-            zipcode: req.body.zipcode,
-          },
-        },
-      },
-    },
-    create: {
+  const buyer = await prisma.buyer.create({
+    data: {
       name: req.body.name,
       address: req.body.address,
       shippingInfo: {
@@ -38,6 +13,10 @@ export default async function handler(req, res) {
           zipcode: req.body.zipcode,
         },
       },
+    },
+    include: {
+      shippingInfo: true,
+      nfts: true,
     },
   })
 
