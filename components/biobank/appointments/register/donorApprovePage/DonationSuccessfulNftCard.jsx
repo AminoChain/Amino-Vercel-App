@@ -6,7 +6,6 @@ import { biobankNames } from '../../../../../constants/index'
 const DonationSuccessfulNftCard = ({ bioBank, donor }) => {
   const donorAddr =
     donor.slice(0, 4) + '...' + donor.slice(donor.length - 4, donor.length)
-  const biobank = bioBank.toString()
   const BioBankNames = biobankNames
 
   return (
@@ -31,7 +30,7 @@ const DonationSuccessfulNftCard = ({ bioBank, donor }) => {
               BioBank
             </div>
             <div className="font-satoshiBold text-lg text-black">
-              {BioBankNames[biobank]}
+              {BioBankNames[bioBank.toLowerCase()]}
             </div>
           </div>
           <div className="flex h-min justify-center">
