@@ -148,7 +148,7 @@ const EnterHlaBody = ({ setHla, setSequenceAndData }) => {
               <input
                 className=" p-2 border-main border-[0.5px] rounded"
                 name="Genetic Sequence"
-                placeholder="['CTAG...']"
+                placeholder="[&#8220;CTAG...&#8221;]"
               />
             </div>
             <div className="flex flex-col">

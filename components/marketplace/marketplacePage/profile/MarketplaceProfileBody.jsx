@@ -19,14 +19,16 @@ const MarketplaceProfileBody = () => {
         const signer = await provider.getSigner(0)
         const signerAddr = await signer.getAddress()
         setUserAddress(signerAddr)
-        const res = await fetch('/api/single-biobank', {
+        const res = await fetch('/api/single-buyer', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(signerAddr),
         })
         if (res.ok) {
           const body = await res.json()
-          const noNulls = Object.values(body.shippingInfo).every(element => element !== null || undefined || '');
+          const noNulls = Object.values(body.shippingInfo).every(
+            (element) => element !== null || undefined || ''
+          )
           if (noNulls) {
             setShippingAddress(true)
           }
@@ -42,6 +44,7 @@ const MarketplaceProfileBody = () => {
       saleCompleteds(where: { buyer: $userAddress }) {
         timestamp
         sizeInCC
+        tokenId
         transactionHash
         salePrice
         donor
@@ -75,6 +78,7 @@ const MarketplaceProfileBody = () => {
           transcationHash: sale.transactionHash,
           price: sale.salePrice,
           donor: sale.donor,
+          tokenId: sale.tokenId,
           size: sale.sizeInCC,
         })
         spent = spent + parseFloat(ethers.utils.formatUnits(sale.salePrice, 6))
@@ -96,9 +100,23 @@ const MarketplaceProfileBody = () => {
 
   const numPurchased = buyerPurchasesArray.length
 
-  const earningTxs = buyerPurchasesArray.map((item, index) => (
-    <MarketplaceProfileTx key={index} item={item} />
-  ))
+  buyerPurchasesArray = [1,2]
+
+  const earningTxs = buyerPurchasesArray.map(async (item, index) => {
+    const retrieveNftTrackingNumber = async () => {
+      const res = await fetch('/api/buyer-nft', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(4),
+      })
+      if (res.ok) {
+        const body = await res.json()
+        return body.trackingNumber
+      }
+    }
+    const trackingNumber = await retrieveNftTrackingNumber()
+    return (<MarketplaceProfileTx key={index} item={item} trackingNumber={trackingNumber} />)
+  })
 
   return (
     <div className="w-full flex flex-row px-20 py-5">
@@ -142,14 +160,17 @@ const MarketplaceProfileBody = () => {
                       <div className=" font-satoshiMedium text-main basis-[18%]">
                         Size
                       </div>
-                      <div className=" font-satoshiMedium text-main basis-[25%]">
+                      <div className=" font-satoshiMedium text-main basis-[18%]">
                         Amount
                       </div>
-                      <div className=" font-satoshiMedium text-main ">
+                      <div className=" font-satoshiMedium text-main basis-[15%]">
+                        Tracking#
+                      </div>
+                      <div className=" font-satoshiMedium text-main whitespace-nowrap">
                         Txn Hash
                       </div>
                     </div>
-                    {numPurchased >= 1 ? (
+                    {numPurchased == 0 ? (
                       <div className="flex flex-col">{earningTxs}</div>
                     ) : (
                       <div className="w-full flex flex-col mt-[2rem] mb-[4%] items-center">

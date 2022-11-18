@@ -1,7 +1,7 @@
 import prisma from '../../../lib/prisma'
 
 export default async function handler(req, res) {
-  const bioBank = await prisma.bioBank.upsert({
+  const buyer = await prisma.buyer.upsert({
     where: {
       address: req.body.address,
     },
@@ -29,19 +29,17 @@ export default async function handler(req, res) {
     },
     create: {
       name: req.body.name,
-      location: req.body.state,
       address: req.body.address,
       shippingInfo: {
         create: {
           street: req.body.street,
-          apartmentNum: req.body.apartmentNum,
+          city: req.body.city,
           state: req.body.state,
           zipcode: req.body.zipcode,
-          arrived: req.body.arrived,
         },
       },
     },
   })
 
-  return res.status(200).json(bioBank) //{ message: 'Shipping info submitted' }
+  return res.status(200).json(buyer) //{ message: 'Shipping info submitted' }
 }

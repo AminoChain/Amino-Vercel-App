@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dot from '../../../assets/footerDot.png'
 
-const BioBankAppointment = () => {
+const BioBankAppointment = ({time}) => {
   return (
     <div className="w-full flex items-center border-b-[1px] border-main py-8 px-8">
       <div className=" font-satoshiMedium text-black basis-3/12 flex items-center">
@@ -10,7 +10,7 @@ const BioBankAppointment = () => {
         <div className="flex items-center px-2">
           <Image src={dot} alt="dot image" draggable="false" />
         </div>
-        10:15:02 AM
+        {time}
       </div>
       <div className=" font-satoshiMedium text-black basis-7/12">
         0x27...Bbfd

@@ -1,12 +1,12 @@
 import prisma from '../../../lib/prisma'
 
 export default async function handler(req, res) {
-  const bioBank = await prisma.bioBank.update({
+  const buyer = await prisma.buyer.update({
     where: {
       address: req.body.address,
     },
     data: {
-      nft: {
+      nfts: {
         create: {
           tokenId: req.body.tokenId,
           trackingNumber: req.body.trackingNumber,
@@ -15,5 +15,7 @@ export default async function handler(req, res) {
     },
   })
 
-  return res.status(200).json(bioBank) //{ message: 'Shipping info submitted' }
+  return res.status(200).json(buyer) //{ message: 'Shipping info submitted' }
 }
+
+//1Z8927275777641843 tokenId 7

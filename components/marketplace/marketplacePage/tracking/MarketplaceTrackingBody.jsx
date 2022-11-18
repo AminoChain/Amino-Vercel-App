@@ -32,7 +32,7 @@ const MarketplaceTrackingBody = () => {
       const trackingId = e.target[0].value
      
       try {
-        const res = await fetch('/api/single-biobank', {
+        const res = await fetch('/api/single-buyer', { // this is for getting the tracking number for the tx details list
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
