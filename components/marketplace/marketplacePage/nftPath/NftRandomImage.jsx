@@ -27,13 +27,9 @@ const NftRandomImage = ({ tokenID }) => {
           )
     
           let encryptedData = await donationContract.getHlaEncoded(tokenID);
-          console.log(tokenID)
-          console.log("hash", encryptedData)
           let majorRandomSeed = parseInt(encryptedData, 16)
           let numberOfCells = majorRandomSeed % 3 + 3;
-          console.log("numberOfCells",numberOfCells)
           setNumberOfCells(numberOfCells);
-          console.log("length of subhash",parseInt(encryptedData.length/numberOfCells))
           let randomSeeds = encryptedData.match(new RegExp('.{1,' + parseInt(encryptedData.length/numberOfCells) + '}', 'g'));
           let CellSizes = [];
           let Rotations = [];
@@ -54,11 +50,6 @@ const NftRandomImage = ({ tokenID }) => {
             xRotationCenters.push(boxLocation + 39.5);
             yRotationCenters.push(boxLocation + 37.5);
           });
-          console.log("CellSizes",CellSizes)
-          console.log("Rotations",Rotations)
-          console.log("boxLocations",boxLocations)
-          console.log("xRotationCenters",xRotationCenters)
-          console.log("yRotationCenters",yRotationCenters)
           setCellSize(CellSizes);
           setRotation(Rotations);
           setTranslation(boxLocations);  
