@@ -3,46 +3,27 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 const MarketplaceTrackingBody = () => {
-  const [orderId, setOrderId] = useState('')
+  const [trackingNum, setTrackingNum] = useState('')
+  const [deliveryStatus, setDeliveryStatus] = useState('')
   const findOrder = async (e) => {
     e.preventDefault()
+    //let inTransit = "In Transit"
+    // const trackingId = e.target[0].value
 
-    const checkConnection = async () => {
-      let provider, signer
-      try {
-        provider = new ethers.providers.Web3Provider(window.ethereum)
-        signer = await provider.getSigner(0)
-      } catch (e) {
-        console.log(e)
-      }
-
-      if (signer === undefined) {
-        return false
-      } else {
-        try {
-          let address = await signer.getAddress()
-          return address
-        } catch (e) {
-          console.log(e)
-        }
-      }
-    }
-    const address = await checkConnection()
-    if (address) {
-      const trackingId = e.target[0].value
-     
-      try {
-        const res = await fetch('/api/single-buyer', { // this is for getting the tracking number for the tx details list
-          method: 'POST',
+    try {
+      const res = await fetch(
+        `http://34.170.13.163/getpackageStatus/${trackingNum}`,
+        {
+          method: 'GET',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        })
-        if (res.ok) {
-          setShippingAddress(true)
         }
-      } catch (error) {
-        console.error(error)
+      )
+      if (res.ok) {
+        let body = await res.json()
+        setDeliveryStatus(body.deliveryStatus)
       }
+    } catch (error) {
+      console.error(error)
     }
   }
   return (
@@ -61,11 +42,23 @@ const MarketplaceTrackingBody = () => {
           <input
             className="w-fit font-satoshiRegular text-base focus:outline-0 bg-white text-main border-0 py-2"
             type="text"
-            onChange={(e) => setOrderId(e.target.value)}
+            onChange={(e) => setTrackingNum(e.target.value)}
             placeholder="Enter Order ID"
           />
         </div>
       </form>
+      <div  className=" font-satoshiBold text-[40px] text-black">
+      {(() => {
+        switch (deliveryStatus) {
+          case "1":
+            return "Status: In Transit"
+          case "2":
+            return "Status: Delivered"
+          default:
+            return null
+        }
+      })()}
+      </div>
     </div>
   )
 }
