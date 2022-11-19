@@ -15,7 +15,9 @@ const MarketplaceTrackingBody = () => {
         `http://34.170.13.163/getpackageStatus/${trackingNum}`,
         {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          }
         }
       )
       if (res.ok) {
@@ -47,17 +49,17 @@ const MarketplaceTrackingBody = () => {
           />
         </div>
       </form>
-      <div  className=" font-satoshiBold text-[40px] text-black">
-      {(() => {
-        switch (deliveryStatus) {
-          case "1":
-            return "Status: In Transit"
-          case "2":
-            return "Status: Delivered"
-          default:
-            return null
-        }
-      })()}
+      <div className=" font-satoshiBold text-[40px] text-black">
+        {(() => {
+          switch (deliveryStatus) {
+            case '1':
+              return 'Status: In Transit'
+            case '2':
+              return 'Status: Delivered'
+            default:
+              return null
+          }
+        })()}
       </div>
     </div>
   )
