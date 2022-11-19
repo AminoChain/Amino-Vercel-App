@@ -5,8 +5,10 @@ import dot from '../../../../assets/footerDot.png'
 import linkIcon from '../../../../assets/share.png'
 import usdcLogo from '../../../../assets/usdcLogo.png'
 import { useState } from 'react'
+
 const MarketplaceProfileTxPending = ({ item }) => {
-  const [trackingNumber, setTrackingNumber] = useState('')
+  const [trackingId, setTrackingId] = useState()
+
   const donorShort =
     item.donor.slice(0, 4) +
     '...' +
@@ -30,14 +32,14 @@ const MarketplaceProfileTxPending = ({ item }) => {
     })
     if (res.ok) {
       const body = await res.json()
-      setTrackingNumber(body.trackingNumber)
+      setTrackingId(body.trackingNumber)
     }
   }
   retrieveNftTrackingNumber()
 
   return (
     <div className="w-full flex items-center border-b-[1px] border-main py-8 pl-8 ">
-      <div className="font-satoshiMedium text-black flex items-center basis-[24%]">
+      <div className="font-satoshiMedium text-black flex items-center basis-[20%]">
         {date.toLocaleDateString()}
         <div className="flex items-center px-2">
           <Image src={dot} alt="dot image" draggable="false" />
@@ -50,7 +52,7 @@ const MarketplaceProfileTxPending = ({ item }) => {
       <div className=" font-satoshiMedium text-black text-lg basis-[18%]">
         {item.size} cc
       </div>
-      <div className="flex flex-row font-satoshiMedium text-black text-lg items-center basis-[25%]">
+      <div className="flex flex-row font-satoshiMedium text-black text-lg items-center basis-[18%]">
         <div className="flex mr-2 self-center">
           <Image src={usdcLogo} alt="" draggable="false" />
         </div>
@@ -60,8 +62,8 @@ const MarketplaceProfileTxPending = ({ item }) => {
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')}
         </p>
       </div>
-      <div className=" font-satoshiMedium text-black text-lg basis-[18%]">
-        {trackingNumber}
+      <div className=" font-satoshiMedium text-black text-lg basis-[15%]">
+        {trackingId}
       </div>
       <Link href={`https://mumbai.polygonscan.com/tx/` + item.transcationHash}>
         <div className="flex flex-row font-satoshiMedium text-black text-lg justify-center cursor-pointer">

@@ -6,6 +6,7 @@ import MarketplaceProfileTxComplete from './MarketplaceProfileTxComplete'
 import MarketplaceCreateAccount from './MarketplaceCreateAccount'
 import MarketplaceProfileTxPending from './MarketplaceProfileTxPending'
 import { contractAddresses, abis } from '../../../../constants/index'
+import { parse } from '@ethersproject/transactions'
 
 const MarketplaceProfileBody = () => {
   const [userAddress, setUserAddress] = useState(
@@ -109,19 +110,36 @@ const MarketplaceProfileBody = () => {
   const {
     loading: loading1,
     error: error1,
-    data: pendingSales,
+    data: saleInitiated,
   } = useQuery(GET_BUYER_PURCHASES_PENDING, {
     variables: { userAddress },
   })
 
-  if (loading || loading1) {
+  const IS_COMPLETED = gql`
+    query Nfts($userAddress: Bytes!) {
+      pendingSales(where: { buyer: $userAddress }) {
+        tokenId
+        completed
+      }
+    }
+  `
+
+  const {
+    loading: loading2,
+    error: error2,
+    data: pending,
+  } = useQuery(IS_COMPLETED, {
+    variables: { userAddress },
+  })
+
+  if (loading || loading1 || loading2) {
     return (
       <div>
         <h2 className="font-satoshiRegular text-black w-1/2">Loading...</h2>
       </div>
     )
   }
-  if (error || error1) return `Error! ${error}  ${error1}`
+  if (error || error1 || error2) return `Error! ${error}  ${error1}  ${error2}`
 
   let buyerCompletedPurchasesArray = []
   let spent = 0
@@ -136,6 +154,7 @@ const MarketplaceProfileBody = () => {
           tokenId: sale.tokenId,
           size: sale.sizeInCC,
         })
+
         spent = spent + parseFloat(ethers.utils.formatUnits(sale.salePrice, 6))
       })
       if (totalSpent !== spent) {
@@ -150,10 +169,12 @@ const MarketplaceProfileBody = () => {
       return parseInt(b.date) - parseInt(a.date)
     })
   }
+
   let buyerPendingPurchasesArray = []
+  let pendings = []
   const getDataPending = () => {
     try {
-      pendingSales.saleInitiateds.forEach((sale, index) => {
+      saleInitiated.saleInitiateds.forEach((sale, index) => {
         buyerPendingPurchasesArray.push({
           date: sale.timestamp,
           transcationHash: sale.transactionHash,
@@ -163,10 +184,32 @@ const MarketplaceProfileBody = () => {
           size: sale.sizeInCC,
         })
       })
+      pending.pendingSales.forEach((p, index2) => {
+        pendings.push({
+          tokenId: p.tokenId,
+          completed: p.completed,
+        })
+      })
     } catch (e) {
       console.warn(e)
     }
   }
+  const organizeByTokenId = () => {
+    buyerPendingPurchasesArray.sort((a, b) => {
+      return parseInt(a.tokenId) - parseInt(b.tokenId)
+    })
+    pendings.sort((a, b) => {
+      return parseInt(a.tokenId) - parseInt(b.tokenId)
+    })
+
+    for (let i = 0; i < pendings.length; i++) {
+      if (pending[i].completed) {
+        buyerPendingPurchasesArray[i].splice(i, 1)
+      }
+    }
+  }
+  organizeByTokenId()
+
   const organizeByTimePending = () => {
     buyerPendingPurchasesArray.sort((a, b) => {
       return parseInt(b.date) - parseInt(a.date)
@@ -221,7 +264,7 @@ const MarketplaceProfileBody = () => {
                 <div className="w-full flex flex-row flex-wrap">
                   <div className="w-full flex flex-col">
                     <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
-                      <div className="font-satoshiMedium text-main basis-[24%]">
+                      <div className="font-satoshiMedium text-main basis-[20%]">
                         Date & Time
                       </div>
                       <div className="font-satoshiMedium text-main basis-[18%]">
@@ -241,7 +284,7 @@ const MarketplaceProfileBody = () => {
                       </div>
                     </div>
                     {numPurchasedPending > 0 ? (
-                      <div className="flex flex-col">{pendingTxs}</div>
+                      <div className="flex flex-col">{completedTxs}</div>
                     ) : (
                       <></>
                     )}
@@ -255,7 +298,7 @@ const MarketplaceProfileBody = () => {
                 <div className="w-full flex flex-row flex-wrap">
                   <div className="w-full flex flex-col">
                     <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
-                      <div className="font-satoshiMedium text-main basis-[24%]">
+                      <div className="font-satoshiMedium text-main basis-[20%]">
                         Date & Time
                       </div>
                       <div className="font-satoshiMedium text-main basis-[18%]">
@@ -275,7 +318,7 @@ const MarketplaceProfileBody = () => {
                       </div>
                     </div>
                     {numPurchasedComplete > 0 ? (
-                      <div className="flex flex-col">{completedTxs}</div>
+                      <div className="flex flex-col">{pendingTxs}</div>
                     ) : (
                       <div>
                         {isApproved ? (
