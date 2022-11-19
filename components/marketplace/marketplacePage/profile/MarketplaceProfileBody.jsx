@@ -142,7 +142,6 @@ const MarketplaceProfileBody = () => {
   if (error || error1 || error2) return `Error! ${error}  ${error1}  ${error2}`
 
   let buyerCompletedPurchasesArray = []
-  let spent = 0
   const getDataCompleted = () => {
     try {
       completedSales.saleCompleteds.forEach((sale, index) => {
@@ -154,12 +153,7 @@ const MarketplaceProfileBody = () => {
           tokenId: sale.tokenId,
           size: sale.sizeInCC,
         })
-
-        spent = spent + parseFloat(ethers.utils.formatUnits(sale.salePrice, 6))
       })
-      if (totalSpent !== spent) {
-        setTotalSpent(spent)
-      }
     } catch (e) {
       console.warn(e)
     }
@@ -172,6 +166,7 @@ const MarketplaceProfileBody = () => {
 
   let buyerPendingPurchasesArray = []
   let pendings = []
+  let spent = 0
   const getDataPending = () => {
     try {
       saleInitiated.saleInitiateds.forEach((sale, index) => {
@@ -183,13 +178,19 @@ const MarketplaceProfileBody = () => {
           tokenId: sale.tokenId,
           size: sale.sizeInCC,
         })
+        spent =
+          spent + parseFloat(ethers.utils.formatUnits(sale.escrowedPayment, 6))
       })
+
       pending.pendingSales.forEach((pending, index2) => {
         pendings.push({
           tokenId: pending.tokenId,
           completed: pending.completed,
         })
       })
+      if (totalSpent !== spent) {
+        setTotalSpent(spent)
+      }
     } catch (e) {
       console.warn(e)
     }
@@ -222,7 +223,8 @@ const MarketplaceProfileBody = () => {
   organizeByTimePending()
 
   const numPurchasedComplete = buyerCompletedPurchasesArray.length
-  const numPurchasedPending = buyerPendingPurchasesArray.length
+  const numPurchasedPending = pendingArray.length
+  const numOfTotalPurchases = buyerPendingPurchasesArray.length
 
   const completedTxs = buyerCompletedPurchasesArray.map((item, index) => (
     <MarketplaceProfileTxComplete key={index} item={item} index={index} />
@@ -256,7 +258,7 @@ const MarketplaceProfileBody = () => {
             <div className="w-full flex flex-col">
               <MarketplaceProfileStats
                 totalSpent={totalSpent}
-                numPurchasedComplete={numPurchasedComplete}
+                numPurchasedComplete={numOfTotalPurchases}
               />
               <div className="w-full mt-8">
                 <p className="font-satoshiMedium text-main text-xl pl-8">
@@ -281,7 +283,7 @@ const MarketplaceProfileBody = () => {
                         Txn Hash
                       </div>
                     </div>
-                    {numPurchasedPending > 0 ? (
+                    {numPurchasedComplete > 0 ? (
                       <div className="flex flex-col">{completedTxs}</div>
                     ) : (
                       <></>
@@ -315,7 +317,7 @@ const MarketplaceProfileBody = () => {
                         Txn Hash
                       </div>
                     </div>
-                    {numPurchasedComplete > 0 ? (
+                    {numPurchasedPending > 0 ? (
                       <div className="flex flex-col">{pendingTxs}</div>
                     ) : (
                       <div>
