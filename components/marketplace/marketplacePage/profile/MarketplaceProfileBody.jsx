@@ -184,16 +184,18 @@ const MarketplaceProfileBody = () => {
           size: sale.sizeInCC,
         })
       })
-      pending.pendingSales.forEach((p, index2) => {
+      pending.pendingSales.forEach((pending, index2) => {
         pendings.push({
-          tokenId: p.tokenId,
-          completed: p.completed,
+          tokenId: pending.tokenId,
+          completed: pending.completed,
         })
       })
     } catch (e) {
       console.warn(e)
     }
   }
+
+  let pendingArray = []
   const organizeByTokenId = () => {
     buyerPendingPurchasesArray.sort((a, b) => {
       return parseInt(a.tokenId) - parseInt(b.tokenId)
@@ -201,23 +203,22 @@ const MarketplaceProfileBody = () => {
     pendings.sort((a, b) => {
       return parseInt(a.tokenId) - parseInt(b.tokenId)
     })
-
     for (let i = 0; i < pendings.length; i++) {
-      if (pending[i].completed) {
-        buyerPendingPurchasesArray[i].splice(i, 1)
+      if (!pendings[i].completed) {
+        pendingArray.push(buyerPendingPurchasesArray[i])
       }
     }
   }
-  organizeByTokenId()
 
   const organizeByTimePending = () => {
-    buyerPendingPurchasesArray.sort((a, b) => {
+    pendingArray.sort((a, b) => {
       return parseInt(b.date) - parseInt(a.date)
     })
   }
   getDataCompleted()
   organizeByTimeCompleted()
   getDataPending()
+  organizeByTokenId()
   organizeByTimePending()
 
   const numPurchasedComplete = buyerCompletedPurchasesArray.length
@@ -227,7 +228,7 @@ const MarketplaceProfileBody = () => {
     <MarketplaceProfileTxComplete key={index} item={item} index={index} />
   ))
 
-  const pendingTxs = buyerPendingPurchasesArray.map((item, index) => (
+  const pendingTxs = pendingArray.map((item, index) => (
     <MarketplaceProfileTxPending key={index} item={item} index={index} />
   ))
 
@@ -264,7 +265,7 @@ const MarketplaceProfileBody = () => {
                 <div className="w-full flex flex-row flex-wrap">
                   <div className="w-full flex flex-col">
                     <div className="w-full flex rounded-[200px] border-t-[1px] border-b-[1px] border-main py-2 pl-8 mt-4">
-                      <div className="font-satoshiMedium text-main basis-[20%]">
+                      <div className="font-satoshiMedium text-main basis-[25%]">
                         Date & Time
                       </div>
                       <div className="font-satoshiMedium text-main basis-[18%]">
@@ -273,11 +274,8 @@ const MarketplaceProfileBody = () => {
                       <div className=" font-satoshiMedium text-main basis-[18%]">
                         Size
                       </div>
-                      <div className=" font-satoshiMedium text-main basis-[18%]">
+                      <div className=" font-satoshiMedium text-main basis-[25%]">
                         Amount
-                      </div>
-                      <div className=" font-satoshiMedium text-main basis-[15%]">
-                        Tracking#
                       </div>
                       <div className=" font-satoshiMedium text-main whitespace-nowrap">
                         Txn Hash
